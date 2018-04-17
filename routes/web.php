@@ -25,14 +25,12 @@ Route::group(['middleware'=>['web'],'namespace'=>'Admin'],function(){
 Route::group(['namespace'=>'Admin','middleware'=>['web'],'prefix'=>
 'ad'],function (){
 //首页
-    Route::get('index','IndexController@index');
-    Route::get('welcome','IndexController@welcome');
-    Route::get('articleList','ArticleController@list');
-    Route::get('articleAdd','ArticleController@add');
-    Route::post('articleToAdd','ArticleController@articleAdd');
-    Route::any('userlist','UserController@userList');
-    Route::any('useradd','UserController@userAdd');
-    Route::any('userlist','UserController@userList');
-    Route::any('useradd','UserController@userAdd');
+    Route::get('index','IndexController@index');                        //首页
+    Route::get('welcome','IndexController@welcome');                    //首页
+    Route::get('articleList','ArticleController@articleList');                 //文章列表
+    Route::get('articleAdd','ArticleController@add');                   //文章添加页展示
+    Route::post('articleToAdd','ArticleController@articleAdd');         //文章添加保存
+    Route::any('userlist','UserController@userList');                   //用户列表
+    Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
 });
 
