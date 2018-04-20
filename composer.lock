@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "96098e473b028cdb2529580554a1ae3e",
+    "content-hash": "1ac72f8b07bdb3ea14868685c93928a8",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -987,6 +987,39 @@
                 "uuid"
             ],
             "time": "2018-01-20T00:28:24+00:00"
+        },
+        {
+            "name": "sjzlai/code",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sjzlai/laravel-code.git",
+                "reference": "ed7769d4c64031e4f554137fc8732ecaf69aadd4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sjzlai/laravel-code/zipball/ed7769d4c64031e4f554137fc8732ecaf69aadd4",
+                "reference": "ed7769d4c64031e4f554137fc8732ecaf69aadd4",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laravist\\Code\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "sjzlai",
+                    "email": "sjzlai520@163.com"
+                }
+            ],
+            "description": "code support in laravel",
+            "time": "2018-04-19T08:27:15+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

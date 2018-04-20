@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 Route::group(['middleware'=>['web'],'namespace'=>'Admin'],function(){
     Route::get('ad/login', 'LoginController@login');
+    Route::get('ad/imgCode', 'LoginController@imgCode');
+
 //后台登陆操作
     Route::post('ad/check', 'LoginController@check');
 });
