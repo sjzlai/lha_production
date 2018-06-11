@@ -13,7 +13,7 @@ class ArticleController extends Controller
     }
 
     public function add(){
-        return view('sjzlai.article.add');
+        return view('sjzlai.article.article-add');
     }
 
     public function articleAdd(Request $request){
