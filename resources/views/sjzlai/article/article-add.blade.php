@@ -1,87 +1,143 @@
-@extends('sjzlai.common.base')
-@include('vendor.ueditor.assets')
-  <body>
-    <div class="x-body">
-        <form class="layui-form">
-          <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
-                  <span class="x-red">*</span>文章标题
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="username" name="title" required="" lay-verify="required"
-                  autocomplete="off" class="layui-input">
-              </div>
+@extends("sjzlai.common.base")
+	<form class="layui-form column-content-detail">
+					<div class="layui-tab">
+						<ul class="layui-tab-title">
+							<li class="layui-this">文章内容</li>
+							<li>SEO优化</li>
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item layui-show">
+								<div class="layui-form-item">
+									<label class="layui-form-label">文章标题：</label>
+									<div class="layui-input-block">
+										<input type="text" name="name" required lay-verify="required" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">分类栏目：</label>
+									<div class="layui-input-block">
+										<select name="category" lay-verify="required">
+											<option value="">请选择分类栏目</option>
+												<option value="1">公司新闻</option>
+												<option value="2">行业新闻</option>
+										</select>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">图像上传：</label>
+									<div class="layui-input-block">
+										<input type="file" name="file（可随便定义）" class="layui-upload-file">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">标签：</label>
+									<div class="layui-input-block">
+										<input type="checkbox" name="label[tj]" title="推荐" checked>
+										<input type="checkbox" name="label[zd]" title="置顶">
+										<input type="checkbox" name="label[hot]" title="热门">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">是否单页：</label>
+									<div class="layui-input-block">
+										<input type="checkbox" name="switch" lay-skin="switch">
+									</div>
+								</div>
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label">文章内容：</label>
+									<div class="layui-input-block">
+										<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+									</div>
+								</div>
 
-          </div>
-          <div class="layui-form-item">
-              <label for="phone" class="layui-form-label">
-                  <span class="x-red">*</span>关键字
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="phone" name="keywords" required="" lay-verify=""
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="" class="layui-form-label">
-                  <span class="x-red">*</span>内容
-              </label>
-          </div>
-            <div class="layui-input-inline">
-                <!-- 编辑器容器 -->
-                <script id="container" name="content" type="text/plain"></script>
-            </div>
-          <div class="layui-form-item">
-              <button  class="layui-btn" lay-filter="add" lay-submit="">
-                  增加
-              </button>
-          </div>
-      </form>
-    </div>
-    <script>
-        layui.use(['form','layer'], function(){
-            $ = layui.jquery;
-          var form = layui.form
-          ,layer = layui.layer;
-        
-          //自定义验证规则
-          form.verify({
-            nikename: function(value){
-              if(value.length < 5){
-                return '标题至少得5个字符啊';
-              }
-            }
-          });
+								<div class="layui-form-item">
+									<label class="layui-form-label">文章来源：</label>
+									<div class="layui-input-block">
+										<input type="text" name="laiyuan" required lay-verify="required" placeholder="请输入文章来源" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">文章排序：</label>
+									<div class="layui-input-block">
+										<input type="text" name="listorder" required lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input" value="100">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">点击数：</label>
+									<div class="layui-input-block">
+										<input type="text" name="count" required lay-verify="required" placeholder="请输入文章点击数" autocomplete="off" class="layui-input" value="100">
+									</div>
+								</div>
+							</div>
+							<div class="layui-tab-item">
+								<div class="layui-form-item">
+									<label class="layui-form-label">关键字：</label>
+									<div class="layui-input-block">
+										<input type="text" name="laiyuan" placeholder="请输入关键字" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label">描述：</label>
+									<div class="layui-input-block">
+										<textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item" style="padding-left: 10px;">
+						<div class="layui-input-block">
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+<script>
+		layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'common', 'tool', 'element', 'upload', 'layedit'], function() {
+				var form = layui.form(),
+					layer = layui.layer,
+					$ = layui.jquery,
+					laypage = layui.laypage,
+					laydate = layui.laydate,
+					layedit = layui.layedit,
+					common = layui.common,
+					tool = layui.tool,
+					element = layui.element(),
+					dialog = layui.dialog;
 
-          //监听提交
-          form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-          });
-          
-          
-        });
-    </script>
-    <script>var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();</script>
-    <!-- 实例化编辑器 -->
-    <script type="text/javascript">
-        var ue = UE.getEditor('container');
-        ue.ready(function() {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
-        });
-    </script>
-  </body>
+				//获取当前iframe的name值
+				var iframeObj = $(window.frameElement).attr('name');
+				//创建一个编辑器
+				var editIndex = layedit.build('LAY_demo_editor', {
+					tool: ['strong' //加粗
+						, 'italic' //斜体
+						, 'underline' //下划线
+						, 'del' //删除线
+						, '|' //分割线
+						, 'left' //左对齐
+						, 'center' //居中对齐
+						, 'right' //右对齐
+						, 'link' //超链接
+						, 'unlink' //清除链接
+						, 'image' //插入图片
+					],
+					height: 100
+				})
+				//全选
+				form.on('checkbox(allChoose)', function(data) {
+					var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+					child.each(function(index, item) {
+						item.checked = data.elem.checked;
+					});
+					form.render('checkbox');
+				});
+				form.render();
 
-</html>
+				layui.upload({
+					url: '上传接口url',
+					success: function(res) {
+						console.log(res); //上传成功返回值，必须为json格式
+					}
+				});
+			});
+	</script>
