@@ -16,5 +16,4 @@
 </body>
 <script src="{{asset('admin/layui/layui.js')}}" type="text/javascript" charset="utf-8"></script>
 <script src="{{asset('admin/js/common.js')}}" type="text/javascript" charset="utf-8"></script>
-
 </html>

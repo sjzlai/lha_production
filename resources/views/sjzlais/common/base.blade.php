@@ -1,24 +1,20 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>后台登录-X-admin2.0</title>
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="{{asset('/css/font.css')}}">
-    <link rel="stylesheet" href="{{asset('/css/xadmin.css')}}">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="{{asset('/lib/layui/layui.js')}}" charset="utf-8"></script>
-    <script type="text/javascript" src="{{asset('/js/xadmin.js')}}"></script>
-
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/layui/css/layui.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/css/admin.css')}}"/>
 </head>
 <body>
 
-@yield('base')
+@yield('content')
 
 </body>
+<script src="{{asset('admin/layui/layui.js')}}" type="text/javascript" charset="utf-8"></script>
+<script src="{{asset('admin/js/common.js')}}" type="text/javascript" charset="utf-8"></script>
+
 </html>

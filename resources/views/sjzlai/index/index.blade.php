@@ -1,93 +1,125 @@
-@extends("sjzlai.common.base")
-		<div class="main-layout" id='main-layout'>
-			<!--侧边栏-->
-			<div class="main-layout-side">
-				<div class="m-logo">
-				</div>
-				<ul class="layui-nav layui-nav-tree" lay-filter="leftNav">
-				  <li class="layui-nav-item layui-nav-itemed">
-				    <a href="javascript:;"><i class="iconfont">&#xe607;</i>菜单管理</a>
-				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;" data-url="menu1.html" data-id='1' data-text="后台菜单"><span class="l-line"></span>后台菜单</a></dd>
-				      <dd><a href="javascript:;" data-url="menu2.html" data-id='2' data-text="前台菜单"><span class="l-line"></span>前台菜单</a></dd>
-				    </dl>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="iconfont">&#xe608;</i>内容管理</a>
-				    <dl class="layui-nav-child">
-				      <dd><a href="javascript:;" data-url="{{url('ad/article-list')}}article-list.html" data-id='3' data-text="文章管理"><span class="l-line"></span>文章管理</a></dd>
-				      <dd><a href="javascript:;" data-url="danye-list.html" data-id='9' data-text="单页管理"><span class="l-line"></span>单页管理</a></dd>
-				    </dl>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="iconfont">&#xe604;</i>推荐位管理</a>
-				  </li>
-				   <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="iconfont">&#xe60c;</i>友情链接</a>
-				  </li>
-				   <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="iconfont">&#xe60a;</i>RBAC</a>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i class="iconfont">&#xe603;</i>邮件系统</a>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="iconfont">&#xe60d;</i>生成静态</a>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="iconfont">&#xe600;</i>备份管理</a>
-				  </li>
-				  <li class="layui-nav-item">
-				    <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息"><i class="iconfont">&#xe606;</i>个人信息</a>
-				  </li>
-				  <li class="layui-nav-item">
-				  	<a href="javascript:;" data-url="system.html" data-id='6' data-text="系统设置"><i class="iconfont">&#xe60b;</i>系统设置</a>
-				  </li>
-				</ul>
-			</div>
-			<!--右侧内容-->
-			<div class="main-layout-container">
-				<!--头部-->
-				<div class="main-layout-header">
-					<div class="menu-btn" id="hideBtn">
-						<a href="javascript:;">
-							<span class="iconfont">&#xe60e;</span>
-						</a>
-					</div>
-					<ul class="layui-nav" lay-filter="rightNav">
-					  <li class="layui-nav-item"><a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i class="iconfont">&#xe603;</i></a></li>
-					  <li class="layui-nav-item">
-					    <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">超级管理员</a>
-					  </li>
-					  <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
-					</ul>
-				</div>
-				<!--主体内容-->
-				<div class="main-layout-body">
-					<!--tab 切换-->
-					<div class="layui-tab layui-tab-brief main-layout-tab" lay-filter="tab" lay-allowClose="true">
-					  <ul class="layui-tab-title">
-					    <li class="layui-this welcome">后台主页</li>
-					  </ul>
-					  <div class="layui-tab-content">
-					    <div class="layui-tab-item layui-show" style="background: #f5f5f5;">
-					    	<!--1-->
-					    	<iframe src="{{url('ad/welcome')}}" width="100%" height="100%" name="iframe" scrolling="auto" class="iframe" framborder="0"></iframe>
-					    	<!--1end-->
-					    </div>
-					  </div>
-					</div>
-				</div>
-			</div>
-			<!--遮罩-->
-			<div class="main-mask">
-				
-			</div>
-		</div>
-		<script type="text/javascript">
-			var scope={
-				link:'./welcome.html'
-			}
-		</script>
-		<script src="{{asset('admin/js/main.js')}}" type="text/javascript" charset="utf-8"></script>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <title>后台管理系统</title>
+    <link rel='Shortcut Icon' type='image/x-icon' href='{{asset('img/windows.ico')}}'>
+    <script type="text/javascript" src="{{asset('js/jquery-2.2.4.min.js')}}"></script>
+    <link href="{{asset('css/animate.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{asset('component/layer-v3.0.3/layer/layer.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('component/font-awesome-4.7.0/css/font-awesome.min.css')}}">
+    <link href="{{asset('css/default.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{asset('js/win10.js')}}"></script>
+    <style>
+        * {
+            font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu
+        }
 
+        /*磁贴自定义样式*/
+         .win10-block-content-text {
+             line-height: 44px;
+             text-align: center;
+             font-size: 16px;
+         }
+    </style>
+    <script>
+        Win10.onReady(function () {
+
+            //设置壁纸
+            Win10.setBgUrl({
+                main: '{{asset("img/wallpapers/main.jpg")}}',
+                mobile: '{{asset("img/wallpapers/mobile.jpg")}}',
+            });
+
+            Win10.setAnimated([
+                'animated flip',
+                'animated bounceIn',
+            ], 0.01);
+
+          /*  setTimeout(function () {
+                Win10.newMsg('官方交流一群', '欢迎各位大侠加入讨论：<a target="_blank" href="https://jq.qq.com/?_wv=1027&k=4Er0u8i">[点击加入]205546163</a>')
+            }, 2500);
+
+            setTimeout(function () {
+                Win10.openUrl('//win10ui.yuri2.cn/src/broadcast.html','<i class="fa fa-newspaper-o icon red"></i>最新资讯',[['300px', '380px'],'rt'])
+            },2000);*/
+            //典型用法(桌面菜单)
+        });
+        Win10.setContextMenu('#win10>.desktop',[
+            '菜单标题', //单字符串，不带回调
+            ['进入全屏',function () {Win10.enableFullScreen()}], //菜单项+点击回调
+            ['退出全屏',function () {Win10.disableFullScreen()}],
+            '|', //分隔符
+            ['关于',function () {Win10.aboutUs()}],
+        ]);
+
+        //设置menu为true会起到禁用系统默认菜单的作用
+        Win10.setContextMenu('#win10',true);
+
+    </script>
+</head>
+<body>
+<div id="win10">
+    <div id="win10-shortcuts">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>文章管理')">
+            <div class="icon">文</div>
+            <div class="title">文章管理</div>
+        </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
+            <div class="icon">仓</div>
+            <div class="title">仓库管理</div>
+        </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
+            <i class="icon fa fa-fw fa-area-chart black" ></i>
+            <div class="title">图表</div>
+        </div>
+    </div>
+    <div id="win10-menu" class="hidden">
+        <div class="list win10-menu-hidden animated animated-slideOutLeft">
+            <div class="item" ><i class="blue icon fa fa-gavel fa-fw"></i>辅助工具</div>
+            <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-shortcut.html','图标代码生成器')">桌面图标代码生成器</div>
+            <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-tile.html','磁贴代码生成器')">磁贴代码生成器</div>
+            <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-menu.html','菜单代码生成器')">菜单代码生成器</div>
+            <div class="item"
+                 onclick="Win10.exit()">
+                <i class="black icon fa fa-power-off fa-fw"></i><span class="title">关闭</span>
+            </div>
+        </div>
+        <div class="blocks">
+            <div class="menu_group">
+                <div class="title">Welcome</div>
+                <div class="block" loc="1,1" size="6,4">
+                    <div class="content">
+                        <div style="font-size:100px;line-height: 132px;margin: 0 auto ;display: block"
+                             class="fa fa-fw fa-windows win10-block-content-text"></div>
+                        <div class="win10-block-content-text" style="font-size: 22px">欢迎使用 Win10-UI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="win10-menu-switcher"></div>
+    </div>
+    <div id="win10_command_center" class="hidden_right">
+        <div class="title">
+            <h4 style="float: left">消息中心 </h4>
+            <span id="win10_btn_command_center_clean_all">全部清除</span>
+        </div>
+        <div class="msgs"></div>
+    </div>
+    <div id="win10_task_bar">
+        <div id="win10_btn_group_left" class="btn_group">
+            <div id="win10_btn_win" class="btn"><span class="fa fa-windows"></span></div>
+            <div class="btn" id="win10-btn-browser"><span class="fa fa-internet-explorer"></span></div>
+        </div>
+        <div id="win10_btn_group_middle" class="btn_group"></div>
+        <div id="win10_btn_group_right" class="btn_group">
+            <div class="btn" id="win10_btn_time"></div>
+            <div class="btn" id="win10_btn_command"><span id="win10-msg-nof" class="fa fa-comment-o"></span></div>
+            <div class="btn" id="win10_btn_show_desktop"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

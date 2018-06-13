@@ -1,50 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>示例登陆页</title>
+    <style>
+        #win10-login {
+            background: url('{{asset('img/wallpapers/login.jpg')}}') no-repeat fixed;
+            width: 100%;
+            height: 100%;
+            background-size: 100% 100%;
+            position: fixed;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>后台登录</title>
-		<link rel="stylesheet" type="text/css" href="{{asset('admin/layui/css/layui.css')}}" />
-		<link rel="stylesheet" type="text/css" href="{{asset('admin/css/login.css')}}"/>
-	</head>
+        #win10-login-box {
+            width: 300px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
 
-	<body>
-		<div class="m-login-bg">
-			<div class="m-login">
-				<h3>后台系统登录</h3>
-				<div class="m-login-warp">
-					<form class="layui-form" method="post" action="{{url('ad/check')}}">
-						{{csrf_field()}}
-						<div class="layui-form-item">
-							<input type="text" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
-						</div>
-						<div class="layui-form-item">
-							<input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
-						</div>
-						{{--<div class="layui-form-item">
-							<div class="layui-inline">
-								<input type="text" name="verity" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-inline">
-								<img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="{{url('ad/imgCode')}}" />
-							</div>
-						</div>--}}
-						<div class="layui-form-item m-login-btn">
-							<div class="layui-inline">
-								<button name="submit" class="layui-btn layui-btn-normal" lay-submit lay-filter="*">登录</button>
-							</div>
-							<div class="layui-inline">
-								<button type="reset" class="layui-btn layui-btn-primary">取消</button>
-							</div>
-						</div>
-					</form>
-				</div>
-				<p class="copyright">Copyright 2015-2016 by XIAODU</p>
-			</div>
-		</div>
-		<script src="{{asset('admin/layui/layui.js')}}" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-	</body>
+        .win10-login-box-square {
+            width: 105px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: darkgray;
+            position: relative;
+            overflow: hidden;
+        }
 
+        .win10-login-box-square::after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
+        .win10-login-box-square .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        input {
+            width: 90%;
+            display: block;
+            border: 0;
+            margin: 0 auto;
+            line-height: 36px;
+            font-size: 20px;
+            padding: 0 1em;
+            border-radius: 5px;
+            margin-bottom: 11px;
+        }
+
+        .login-username, .login-password {
+            width: 91%;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .login-password {
+            width: calc(91% - 54px);
+            -webkit-border-radius: 2px 0 0 2px;
+            -moz-border-radius: 2px 0 0 2px;
+            border-radius: 5px 0 0 5px;
+            margin: 0px;
+            float: left;
+        }
+
+        .login-submit {
+            margin: 0px;
+            float: left;
+            -webkit-border-radius: 0 5px 5px 0;
+            -moz-border-radius: 0 5px 5px 0;
+            border-radius: 0 5px 5px 0;
+            background-color: #009688;
+            width: 54px;
+            display: inline-block;
+            height: 36px;
+            line-height: 36px;
+            padding: 0 auto;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            opacity: .9;
+            filter: alpha(opacity=90);
+
+        }
+    </style>
+</head>
+<body>
+<div id="win10-login">
+    <div style="height: 10%;min-height: 120px"></div>
+    <div id="win10-login-box">
+        <div class="win10-login-box-square">
+            <img src="{{asset('img/avatar.jpg')}}" class="content"/>
+        </div>
+        <p style="font-size: 24px;color: white;text-align: center">游客</p>
+        <form target="_self" method="post" action="{{url('ad/check')}}">
+            <!--用户名-->
+            {{csrf_field()}}
+            <input type="text" name="username" placeholder="请输入登录名" class="login-username">
+            <!--密码-->
+            <input type="password" name="password" placeholder="请输入密码" class="login-password">
+            <!--登陆按钮-->
+            <input type="submit"  value="登录" id="btn-login" class="login-submit"/>
+        </form>
+    </div>
+</div>
+</body>
 </html>
