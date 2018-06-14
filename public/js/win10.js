@@ -459,7 +459,7 @@ window.Win10 = {
             e.stopPropagation();
         });
         //设置默认右键菜单
-        Win10.setContextMenu('#win10',true);
+        Win10.setContextMenu('#win10',false);
         Win10.setContextMenu('#win10>.desktop',[
             ['<i class="fa fa-fw fa-star"></i> 收藏本页',function () {
                 var url = window.location;
@@ -838,15 +838,15 @@ window.Win10 = {
         this._animated_liveness=animated_liveness;
     },
     exit:function () {
-        layer.confirm(Win10.lang('确认要关闭本页吗?','Are you sure you want to close this page?'), {icon: 3, title:Win10.lang('提示','Prompt')}, function(index){
+        layer.confirm(Win10.lang('确认要退出登录吗?','Are you sure you want to close this page?'), {icon: 3, title:Win10.lang('提示','Prompt')}, function(index){
             document.body.onbeforeunload = function(){};
-            window.location.href="about:blank";
+            window.location.href="loginOut";
             window.close();
             layer.close(index);
-            layer.alert(Win10.lang('哎呀,好像失败了呢。','Ops...There seems to be a little problem.'), {
+            /*layer.alert(Win10.lang('即将退出登录','Ops...There seems to be a little problem.'), {
                 skin: 'layui-layer-lan'
                 ,closeBtn: 0
-            });
+            });*/
         });
 
     },
@@ -864,9 +864,9 @@ window.Win10 = {
             shadeClose: true, //开启遮罩关闭
             area: ['320px', '200px'], //宽高
             content: '<div style="padding: 10px;font-size: 12px">' +
-            '<p>支持组件:layer、jquery、animated.css、font-awesome</p>' +
-            '<p>尤里2号©版权所有</p>' +
-            '<p>作者邮箱:yuri2peter@qq.com</p>' +
+            '<p>感谢您的使用</p>' +
+            '<p>sjzlai©版权所有</p>' +
+            '<p>作者邮箱:sjzlai520@163.com</p>' +
             '</div>'
         });
     },

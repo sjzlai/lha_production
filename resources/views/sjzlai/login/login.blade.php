@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>示例登陆页</title>
+    <title>系统登陆</title>
     <style>
         #win10-login {
             background: url('{{asset('img/wallpapers/login.jpg')}}') no-repeat fixed;

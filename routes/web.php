@@ -14,19 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//后台登陆页
 
 Route::group(['middleware'=>['web'],'namespace'=>'Admin'],function(){
+    //后台登录
     Route::get('ad/login', 'LoginController@login');
     Route::get('ad/imgCode', 'LoginController@imgCode');
-
+    Route::get('ad/loginOut','LoginController@outLogin');
 //后台登陆操作
     Route::post('ad/check', 'LoginController@check');
 });
 
-Route::group(['namespace'=>'Admin','middleware'=>['web'],'prefix'=>
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
 'ad'],function (){
-    Route::get('loginOut','LoginController@outLogin');
 //首页
     Route::get('index','IndexController@index');                        //首页
     Route::get('welcome','IndexController@welcome');                    //首页
