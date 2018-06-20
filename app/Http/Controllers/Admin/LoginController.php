@@ -14,7 +14,7 @@ class LoginController extends Controller
     //
     public function login()
     {
-        return view('sjzlai.login.login');
+        return view('lha.login.login');
     }
 
     public function check(Request $request)

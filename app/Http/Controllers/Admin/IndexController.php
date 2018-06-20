@@ -10,7 +10,7 @@ class IndexController extends Controller
     //
     public function index()
     {
-        return view('sjzlai.index.index');
+        return view('lha.index.index');
     }
 
     public function welcome()
@@ -25,6 +25,6 @@ class IndexController extends Controller
             ['name' => '服务器时间', 'value' =>date("Y-m-d G:i:s")],
             ['name' => '服务器端口', 'value' =>$_SERVER['SERVER_PORT']],
         ];
-        return view('sjzlai.index.welcome',['serverInfo'=>$serverInfo]);
+        return view('lha.index.welcome',['serverInfo'=>$serverInfo]);
     }
 }

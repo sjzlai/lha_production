@@ -8,23 +8,24 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    /*
-     * 用户列表
+    /**
+     * Notes:
+     * Author:sjzlai
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userList()
     {
 
         $user = DB::table('user')
             ->get();
-        return view('sjzlai.user.memberlist',['user' => $user]);
+        return view('lha.user.memberlist',['user' => $user]);
     }
     /*
      * 用户添加页面展示
      */
     public function userAdd()
     {
-
-        return view('sjzlai.user.member-add');
+        return view('lha.user.member-add');
     }
 
     /*
