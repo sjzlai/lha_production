@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class login
@@ -17,11 +18,11 @@ class login
     public function handle($request, Closure $next)
     {
 
-        $adminId = Session::get('admin.id');
+        $adminId = Session::get('user.id');
         if($adminId){
             //已登录，继续判断权限
-            $id = $request->route('id');
-            $roleId = Session::get('admin.roleId');
+           /* $id = $request->route('id');
+            $roleId = Session::get('user.roleId');
             $routeName = $request->path();
             $routeName = trim($routeName, $id);
             //去掉都拥有的权限
@@ -42,7 +43,7 @@ class login
                 }
             }
             //没有权限
-            die('无权访问！');
+            die('无权访问！');*/
         }else{
             echo '<script>window.top.location.href="/ad/login"</script>';
             #return redirect('admin');

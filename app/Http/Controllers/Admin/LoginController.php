@@ -23,9 +23,9 @@ class LoginController extends Controller
         if ($username['username']== '' || $username['password'] ==''):
             return back()->with('账号或密码不能为空');
         endif;
-        $userinfo = DB::table('admin')
+        $userinfo = DB::table('user')
             ->where([
-                ['username', '=', $username['username']],
+                ['user_name', '=', $username['username']],
                 ['password', '=', md5($username['password'])]
             ])
             ->first();
@@ -33,9 +33,10 @@ class LoginController extends Controller
         if (!$userinfo):
             return back()->with('账号或密码错误!');
         else:
-            Session::put('admin.id', $userinfo->id);
-            Session::put('admin.name', $userinfo->username);
-            //dd(Session('admin'));
+            Session::put('user.id', $userinfo->id);
+            Session::put('user.name', $userinfo->user_name);
+           //dd(Session('user'));
+
             return Redirect::to('ad/index');
         endif;
     }
