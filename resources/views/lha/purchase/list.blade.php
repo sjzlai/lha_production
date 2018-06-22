@@ -48,22 +48,21 @@
                     <tr>
                         <th class="tc" width="5%"><input type="checkbox" name=""></th>
                         <th class="tc">订单编号</th>
-                        <th>零部件信息</th>
                         <th>采购申请人</th>
                         <th>申请时间</th>
+                        <th>到货时间</th>
                         <th>操作</th>
                     </tr>
                     <tr>
                         <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
                         <td class="tc">1001</td>
-                        <td>
-                            
-                        </td>
                         <td>admin</td>
                         <td>2018/6/22</td>
+                        <td>2018/6/30</td>
                         <td>
                             <a href="#">修改</a>
                             <a href="#">删除</a>
+                            <a href="#">查看</a>
                         </td>
                     </tr>
 
