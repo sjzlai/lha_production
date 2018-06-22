@@ -126,7 +126,7 @@
                     <th><i class="require">*</i>申请人：</th>
                     <td>
                         <select name="user_id" id="">
-                            <option value="{{session('user.id')}}">{{session('user.username')}}</option>
+                            <option value="{{session('user.id')}}">{{session('user.name')}}</option>
                         </select>
                     </td>
                 </tr>

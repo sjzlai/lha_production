@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +37,6 @@ class LoginController extends Controller
             return back()->with('账号或密码错误!');
         else:
             Session::put('user.id', $userinfo->id);
-
             Session::put('user.name', $userinfo->user_name);
             Auth::login(User::userinfo(1));
             return Redirect::to('ad/index');
