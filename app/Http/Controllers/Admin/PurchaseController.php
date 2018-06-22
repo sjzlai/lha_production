@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Purchase;
+use App\Model\Purchase_lists;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -32,14 +33,15 @@ class PurchaseController extends Controller
     public function PurToAdd(Request $request)
     {
         $date = $request->except(['_token','order_number','user_id']);
-        $number=$request->input('order_number');
+        $data['order_number']=$request->input('order_number');
+        $data['user_id'] = $request->input('user_id');
         foreach ($date as $value):
-            $value['purchase_order_no'] = $number;
-        dump($value);
-           $res = Purchase::create($value);
+            $value['purchase_order_no'] = $data['order_number'];
+           $res = Purchase_lists::create($value);
         endforeach;
-        if ($res):
-            return "采购成功";
+        $re = Purchase::create($data);
+        if ( $re):
+            return redirect('ad/pur');
         else:
             return "采购失败";
         endif;
