@@ -24,17 +24,14 @@ Route::group(['middleware'=>['web'],'namespace'=>'Admin'],function(){
     Route::post('ad/check', 'LoginController@check');
 });
 
-Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
+Route::group(['namespace'=>'Admin','middleware'=>['web','role:admin'],'prefix'=>
 'ad'],function (){
 //首页
     Route::get('index','IndexController@index');                        //首页
     Route::get('welcome','IndexController@welcome');                    //首页
-    Route::get('articleList','ArticleController@articleList');          //文章列表
-    Route::get('articleAdd','ArticleController@add');                   //文章添加页展示
-    Route::post('articleToAdd','ArticleController@articleAdd');         //文章添加保存
+    Route::get('test','IndexController@test');                    //首页
     Route::any('userlist','UserController@userList');                   //用户列表
     Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
-    Route::any('categoryList','CategoryController@list');                     //后台自定义添加用户
-    Route::any('categoryAdd','CategoryController@add');                     //后台自定义添加用户
+
 });
 

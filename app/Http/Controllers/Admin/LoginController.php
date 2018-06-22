@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 
 class LoginController extends Controller
@@ -35,8 +37,7 @@ class LoginController extends Controller
         else:
             Session::put('user.id', $userinfo->id);
             Session::put('user.name', $userinfo->user_name);
-           //dd(Session('user'));
-
+            Auth::login(User::userinfo(1));
             return Redirect::to('ad/index');
         endif;
     }
