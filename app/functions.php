@@ -27,3 +27,13 @@ function withInfoErr($msg){
 function withInfoMsg($msg){
     return back()->with('message',$msg);
 }
+
+function jsonReturn($status=1, $message, $data=null){
+    $res = [
+        'status' =>$status,
+        'message' =>$message,
+        'data' =>$data
+    ];
+    return \response()
+        ->json($res);
+}

@@ -6,6 +6,7 @@ use App\Roles;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 
@@ -28,6 +29,21 @@ class RoleController extends Controller
        $roles =  Roles::roleAll();
        return view('lha.auth.role-list',['roles'=>$roles]);
 
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @name:模糊搜索
+     * @author: weikai
+     * @date: 2018/6/22 16:15
+     */
+    public function fuzzySearch(Request $request)
+    {
+        $keyword = $request->Input('keyword');//获取搜索值
+        $roles = Roles::roleFuzzySearch('name',$keyword,5);//如果有搜索值就模糊查询分页
+        if (!$keyword) $roles =  Roles::roleAll();
+        return view('lha.auth.role-list',['roles'=>$roles]);
     }
 
     /**
@@ -100,7 +116,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        if(!Roles::deleted($id)) return withInfoErr('删除失败');
-        return withInfoMsg('删除成功');
+        if(!Roles::destroy($id)){
+            return jsonReturn('0','删除失败',null);
+        } else{
+            return jsonReturn('1','删除成功',null);
+        }
+
     }
 }

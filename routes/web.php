@@ -40,6 +40,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'p
          Route::any('userlist','UserController@userList');                   //用户列表
          Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
          Route::resource('role','RoleController');                     //权限管理-角色管理
+         Route::post('role/fuzzySearch','RoleController@fuzzySearch');                     //权限管理-角色管理-模糊搜索
     });
 
 
