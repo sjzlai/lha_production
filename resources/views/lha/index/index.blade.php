@@ -77,7 +77,7 @@
             <i class="icon fa fa-fw fa-area-chart black" ></i>
             <div class="title">图表</div>
         </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限管理')">
             <div class="icon">权</div>
             <div class="title">权限管理</div>
         </div>

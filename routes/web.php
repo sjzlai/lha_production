@@ -14,24 +14,30 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::group(['middleware'=>['web'],'namespace'=>'Admin'],function(){
-    //后台登录
-    Route::get('ad/login', 'LoginController@login');
-    Route::get('ad/imgCode', 'LoginController@imgCode');
-    Route::get('ad/loginOut','LoginController@outLogin');
-//后台登陆操作
-    Route::post('ad/check', 'LoginController@check');
+//不判断登陆的路由组
+Route::group(['middleware'=>['web'],'namespace'=>'Admin','prefix'=>
+    'ad'],function(){
+    Route::get('login', 'LoginController@login');       //后台登录
+    Route::get('imgCode', 'LoginController@imgCode');   //验证码
+    Route::get('loginOut','LoginController@outLogin');  //退出登录
+    Route::post('check', 'LoginController@check');       //后台登陆操作
 });
 
-Route::group(['namespace'=>'Admin','middleware'=>['web','role:admin'],'prefix'=>
+//不验证权限的通用路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
 'ad'],function (){
-//首页
+
     Route::get('index','IndexController@index');                        //首页
     Route::get('welcome','IndexController@welcome');                    //首页
-    Route::get('test','IndexController@test');                    //首页
-    Route::any('userlist','UserController@userList');                   //用户列表
-    Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
+    Route::get('test','IndexController@test');                          //测试
+
 
 });
+//权限角色为admin才能访问的路由组
+Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'prefix'=>
+    'ad'],function (){
+         Route::any('userlist','UserController@userList');                   //用户列表
+         Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
+         Route::resource('role','RoleController');                     //权限管理-角色管理
+    });
 

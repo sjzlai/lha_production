@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasRoles;
 
     protected $table = 'user';
-    protected $hidden = [];
+    protected $guarded = [];
     protected $guard_name = 'web'; // 使用任何你想要的守卫
 
     public static function userinfo($id)
