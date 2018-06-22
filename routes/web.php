@@ -23,15 +23,16 @@ Route::group(['middleware'=>['web'],'namespace'=>'Admin','prefix'=>
     Route::post('check', 'LoginController@check');       //后台登陆操作
 });
 
+
 //不验证权限的通用路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
-'ad'],function (){
-
-    Route::get('index','IndexController@index');                        //首页
-    Route::get('welcome','IndexController@welcome');                    //首页
-    Route::get('test','IndexController@test');                          //测试
-
-
+'ad'],function () {
+    Route::get('index', 'IndexController@index');                        //首页
+    Route::get('welcome', 'IndexController@welcome');                    //首页
+    Route::get('test', 'IndexController@test');                          //测试
+    Route::get('pur', 'PurchaseController@PurList');                        //采购列表
+    Route::any('purAdd', 'PurchaseController@PurAdd');                        //采购申请表页
+    Route::any('purtoadd', 'PurchaseController@PurToAdd');                        //采购申请表页
 });
 //权限角色为admin才能访问的路由组
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'prefix'=>
@@ -40,4 +41,5 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'p
          Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
          Route::resource('role','RoleController');                     //权限管理-角色管理
     });
+
 

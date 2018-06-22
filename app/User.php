@@ -19,4 +19,5 @@ class User extends Authenticatable
     {
         return self::find($id);
     }
+
 }

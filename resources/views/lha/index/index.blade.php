@@ -53,13 +53,9 @@
 <body>
 <div id="win10">
     <div id="win10-shortcuts">
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>文章管理')">
-            <div class="icon">检</div>
-            <div class="title">质检记录</div>
-        </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
-            <div class="icon">仓</div>
-            <div class="title">成品仓库</div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/pur')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>采购申请')">
+            <div class="icon">采</div>
+            <div class="title">采购申请</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
             <div class="icon">零</div>

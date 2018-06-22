@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,6 +33,7 @@ class IndexController extends Controller
         return view('lha.index.welcome',['serverInfo'=>$serverInfo]);
     }
 
+
     public function test()
     {
 
@@ -51,4 +53,5 @@ class IndexController extends Controller
 //        dd($users);
 
     }
+
 }
