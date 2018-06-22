@@ -15,9 +15,9 @@ class Roles extends Model
      * @author: weikai
      * @date: 2018/6/22 10:10
      */
-    public static function roleAll()
+    public static function roleAll($page=5)
     {
-        return self::orderBy('created_at','desc')->paginate(5);
+        return self::orderBy('created_at','desc')->paginate($page);
     }
 
     /**
@@ -28,5 +28,10 @@ class Roles extends Model
     public static function roleNameIsRepeat($roleName)
     {
         return self::where('name',$roleName)->first();
+    }
+
+    public static function roleFuzzySearch($key,$keyword,$page=5)
+    {
+       return Roles::where($key,'like',"%$keyword%")->paginate($page);
     }
 }
