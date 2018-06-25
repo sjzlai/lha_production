@@ -38,7 +38,7 @@ class LoginController extends Controller
         else:
             Session::put('user.id', $userinfo->id);
             Session::put('user.name', $userinfo->user_name);
-            Auth::login(User::userinfo(1));
+            Auth::login(User::userinfo($userinfo->id));
             return Redirect::to('ad/index');
         endif;
     }
