@@ -7,8 +7,8 @@
     </div>
     <!--面包屑导航 结束-->
 
-	<!--结果页快捷搜索框 开始-->
-	<div class="search_wrap">
+    <!--结果页快捷搜索框 开始-->
+    <div class="search_wrap">
         <form action="" method="post">
             <table class="search_tab">
                 <tr>
@@ -53,49 +53,70 @@
                         <th>到货时间</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
-                        <td class="tc">1001</td>
-                        <td>admin</td>
-                        <td>2018/6/22</td>
-                        <td>2018/6/30</td>
-                        <td>
-                            <a href="#">修改</a>
-                            <a href="#">删除</a>
-                            <a href="#">查看</a>
-                        </td>
-                    </tr>
-
+                    @foreach($data as $v)
+                        <tr>
+                            <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
+                            <td class="tc">{{$v->order_number}}</td>
+                            <td>{{$v->user_id}}</td>
+                            <td>{{$v->created_at}}</td>
+                            <td>{{$v->updated_at}}</td>
+                            <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
+                            <td>
+                                <a href="#">修改</a>
+                                <a href="#">删除</a>
+                                <a  id="product_id" onclick="info()">查看零件</a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
 
-
-<div class="page_nav">
-<div>
-<a class="first" href="/wysls/index.php/Admin/Tag/index/p/1.html">第一页</a> 
-<a class="prev" href="/wysls/index.php/Admin/Tag/index/p/7.html">上一页</a> 
-<a class="num" href="/wysls/index.php/Admin/Tag/index/p/6.html">6</a>
-<a class="num" href="/wysls/index.php/Admin/Tag/index/p/7.html">7</a>
-<span class="current">8</span>
-<a class="num" href="/wysls/index.php/Admin/Tag/index/p/9.html">9</a>
-<a class="num" href="/wysls/index.php/Admin/Tag/index/p/10.html">10</a> 
-<a class="next" href="/wysls/index.php/Admin/Tag/index/p/9.html">下一页</a> 
-<a class="end" href="/wysls/index.php/Admin/Tag/index/p/11.html">最后一页</a> 
-<span class="rows">11 条记录</span>
-</div>
-</div>
-                <div class="page_list">
-                    <ul>
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
+                <div class="page_nav">
+                    <div class="page_list">
+                        <ul>
+                            {!! $data->links() !!}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
     </form>
     <!--搜索结果页面 列表 结束-->
+    <script>
+        function info() {
+            var id = document.getElementById("order_number").value;
+           $.post("{{url('ad/info')}}",{
+               'id':id,
+               '_token':'{{csrf_token()}}'
+           },function (data) {
+               var da =data.data;
+               var tr = '';
+               da.forEach(function (value) {
+                   if(value.part_id=='1')
+                       value.part_id="吹嘴";
+                   if(value.part_id=='2')
+                       value.part_id="笛管";
+                   if(value.part_id=='3')
+                       value.part_id="哨片";
+                   if(value.part_id=='4')
+                       value.part_id="垫片";
+                   if(value.part_id=='5')
+                       value.part_id="肺笛袋";
+                   if(value.part_id=='6')
+                       value.part_id="哨片袋";
+                   if(value.part_id=='7')
+                       value.part_id="皮筋";
+                   if(value.product=='1')
+                       value.product="美国医学声学公司";
+                   tr += '<tr><td>' + value.part_id + '</td><td>'+value.part_number+'</td><td>'+value.product+'</td></tr>';
+
+               })
+               var content = "<table class='list_tab'><thead><th>零部件名称</th><th>数量</th><th>生产厂商</th></thead><tbody>" + tr + "</tbody> </table>"
+               layer.open({
+                   title: '零部件信息',
+                    maxmin:true,
+                   area:['800px,500px'],
+                   content
+               });
+           })
+        }
+    </script>
 @endsection

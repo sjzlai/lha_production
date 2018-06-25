@@ -33,6 +33,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
     Route::get('pur', 'PurchaseController@PurList');                        //采购列表
     Route::any('purAdd', 'PurchaseController@PurAdd');                        //采购申请表页
     Route::any('purtoadd', 'PurchaseController@PurToAdd');                        //采购申请表页
+    Route::any('info', 'PurchaseController@info');                         //查看订单中零件详情
 });
 //权限角色为admin才能访问的路由组
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'prefix'=>
