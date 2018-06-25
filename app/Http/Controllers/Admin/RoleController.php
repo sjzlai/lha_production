@@ -85,26 +85,34 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @name:返回编辑视图
+     * @author: weikai
+     * @date: 2018/6/25 9:56
      */
     public function edit($id)
     {
-        //
+        $role = Roles::find($id);
+        return view('lha.auth.role-edit',['role'=>$role]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @name:执行修改操作
+     * @author: weikai
+     * @date: 2018/6/25 9:57
      */
     public function update(Request $request, $id)
     {
-        //
+        if (!$request->input('name')) return jsonReturn('0','没有角色名称');
+        if (!$id) return jsonReturn('0','没有角色id');
+        $role = Roles::find($id);
+        $role->name = $request->input('name');
+        $res = $role->save();
+        if (!$res) return jsonReturn('0','修改失败');
+        return jsonReturn('1','修改成功');
     }
 
     /**

@@ -73,9 +73,13 @@
             <i class="icon fa fa-fw fa-area-chart black" ></i>
             <div class="title">图表</div>
         </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限管理')">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限角色管理')">
             <div class="icon">权</div>
-            <div class="title">权限管理</div>
+            <div class="title">权限角色管理</div>
+        </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/user')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>用户管理')">
+            <div class="icon">用</div>
+            <div class="title">用户管理</div>
         </div>
     </div>
     <div id="win10-menu" class="hidden">

@@ -41,6 +41,12 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'p
          Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
          Route::resource('role','RoleController');                     //权限管理-角色管理
          Route::post('role/fuzzySearch','RoleController@fuzzySearch');                     //权限管理-角色管理-模糊搜索
+         Route::resource('user','UserController');
+         Route::post('user/fuzzySearch','UserController@fuzzySearch');//模糊搜素
+         Route::get('user/userRole/{id}','UserController@userRole');//用户的所有角色列表
+         Route::get('addRole/{id}','UserController@addRole');//分配角色视图
+         Route::post('allotRole','UserController@allotRole');//分配角色操作
+         Route::get('removeRole/{id}/{roleName}','UserController@removeRole');//分配角色操作
     });
 
 
