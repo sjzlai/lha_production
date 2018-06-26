@@ -51,6 +51,14 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'p
          Route::get('addRole/{id}','UserController@addRole');//分配角色视图
          Route::post('allotRole','UserController@allotRole');//分配角色操作
          Route::get('removeRole/{id}/{roleName}','UserController@removeRole');//分配角色操作
+         Route::get('roleListInAddView/{id}','UserController@roleListInAddView');//从角色列表中为用户添加角色
+         Route::get('roleListInAdd/{roleid}/{id}','UserController@roleListInAdd');//从角色列表中为用户添加角色
     });
+//权限角色为库管才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
+    Route::resource('storageRoom','StorageRoomController');//库房资源控制器
+    Route::post('storageRoom/fuzzySearch','StorageRoomController@fuzzySearch');//模糊搜素
+    Route::resource('goodsShelve','GoodsShelveController');//货架资源控制器
+});
 
 

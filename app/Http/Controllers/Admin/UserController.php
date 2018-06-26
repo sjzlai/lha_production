@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Roles;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -127,7 +128,7 @@ class UserController extends Controller
      */
     public function userRole($id)
     {
-        $user  =User::userinfo($id);
+        $user  = User::userinfo($id);
         $roles = $user->getRoleNames()->toArray();//获取所有已定以的角色集合
         return view('lha.user.userrole-list',['roles'=>$roles,'userid'=>$user->id]);
     }
@@ -155,6 +156,8 @@ class UserController extends Controller
     {
         $inputs = $request->except('_token');
         $user = User::find($inputs['userid']);
+        if(Roles::roleNameIsRepeat($inputs['roleName'])) return withInfoErr('角色名已存在请在“给此用户分配已有角色”添加');
+        if ($user->hasRole($inputs['roleName'])) return withInfoErr('用户已存在此角色');
         $roleRes = Role::create(['name' => $inputs['roleName']]);//创建角色
         if (!$roleRes) return withInfoErr('添加失败');
         $res = $user->assignRole($inputs['roleName']);//为用户分配角色
@@ -173,5 +176,33 @@ class UserController extends Controller
         $user = User::find($id);
         $user->removeRole($roleName);
         return withInfoMsg('删除成功');
+    }
+
+    /**
+     * @name:从角色列表中为用户添加角色
+     * @author: weikai
+     * @date: 2018/6/26 10:12
+     */
+    public function roleListInAddView($id)
+    {
+        $roles = Roles::roleAll();
+        return view('lha.user.role-list-in-add',['userid'=>$id,'roles'=>$roles]);
+    }
+
+    /**
+     * @param $roleId
+     * @param $id
+     * @name:从角色列表中为用户添加角色
+     * @author: weikai
+     * @date: 2018/6/26 10:23
+     */
+    public function roleListInAdd($roleId,$id)
+    {
+        $role = Roles::find($roleId);
+        $user = User::find($id);
+        if($user->hasRole($role->name)) return withInfoErr('用户已有此角色');
+        $user->assignRole($role->name);
+        return withInfoMsg('角色分配成功');
+
     }
 }
