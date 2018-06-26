@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class login
@@ -19,8 +20,13 @@ class login
     public function handle($request, Closure $next)
     {
         $adminId = Session::get('user.id');
-        if (!$adminId || !Auth::check()) redirect::to('/ad/login');
+        if (empty($adminId) || empty(Auth::check()) ){
+            return redirect('/ad/login');
+        }else{
             return $next($request);
+        }
+
+
 
     }
 }

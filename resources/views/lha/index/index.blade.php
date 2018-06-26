@@ -51,6 +51,7 @@
     </script>
 </head>
 <body>
+
 <div id="win10">
     <div id="win10-shortcuts">
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/pur')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>采购申请')">
@@ -80,6 +81,10 @@
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/user')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>用户管理')">
             <div class="icon">用</div>
             <div class="title">用户管理</div>
+        </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/storageRoom')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>用户管理')">
+            <div class="icon">库</div>
+            <div class="title">库房管理</div>
         </div>
     </div>
     <div id="win10-menu" class="hidden">
