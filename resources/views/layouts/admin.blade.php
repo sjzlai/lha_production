@@ -5,9 +5,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{asset('style/css/ch-ui.admin.css')}}">
     <link rel="stylesheet" href="{{asset('style/font/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('layer/mobile/need/layui.css')}}" media="all">
     <script type="text/javascript" src="{{asset('style/js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('style/js/ch-ui.admin.js')}}"></script>
     <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
+    <script src="{{asset('laydate/laydate.js')}}"></script>
 </head>
 <body>
 

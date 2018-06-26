@@ -7,23 +7,23 @@
     </div>
     <!--面包屑导航 结束-->
 
-	<!--结果集标题与导航组件 开始-->
-{{--	<div class="result_wrap">
-        <div class="result_title">
-            <h3>快捷操作</h3>
-        </div>
-        <div class="result_content">
-            <div class="short_wrap">
-                <a href="#"><i class="fa fa-plus"></i>新增文章</a>
-                <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
-                <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
+    <!--结果集标题与导航组件 开始-->
+    {{--	<div class="result_wrap">
+            <div class="result_title">
+                <h3>快捷操作</h3>
             </div>
-        </div>
-    </div>--}}
+            <div class="result_content">
+                <div class="short_wrap">
+                    <a href="#"><i class="fa fa-plus"></i>新增文章</a>
+                    <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
+                    <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
+                </div>
+            </div>
+        </div>--}}
     <!--结果集标题与导航组件 结束-->
-    
+
     <div class="result_wrap">
-        <form action="{{url('ad/purtoadd')}}" method="post">
+        <form action="{{url('ad/update')}}" method="post">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
@@ -36,36 +36,37 @@
                 <tr>
                     <th><i class="require">*</i>订单号：</th>
                     <td>
-                        <input type="text" class="" name="order_number">
+                        <input readonly="value" name="order_number" value="{{$data[0]->purchase_order_no}}">
                     </td>
                 </tr>
-                    <tr>
-                        <th><i class="require">*</i>吹嘴：</th>
-                        <td>
-                            <input type="hidden" name="1[part_id]" value="1">
-                            <input type="text" class="" name="1[part_number]">个&nbsp;&nbsp;&nbsp;
-                            生产商:
-                            <select name="1[product]" id="">
-                                <option value="1">美国医学声学公司</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require">*</i>笛管：</th>
-                        <td>
-                            <input type="hidden" name="2[part_id]" value="2">
-                            <input type="text" class="" name="2[part_number]">个&nbsp;&nbsp;&nbsp;
-                            生产商:
-                            <select name="2[product]" id="">
-                                <option value="1">美国医学声学公司</option>
-                            </select>
-                        </td>
-                    </tr>
+                <tr>
+                    <th><i class="require">*</i>吹嘴：</th>
+                    <td>
+                        <input type="hidden" name="1[part_id]" value="1">
+
+                        <input type="text" class="" name="1[part_number]"value="{{$data[0]->part_number}}">个&nbsp;&nbsp;&nbsp;
+                        生产商:
+                        <select name="1[product]" id="">
+                            <option value="1">美国医学声学公司</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="require">*</i>笛管：</th>
+                    <td>
+                        <input type="hidden" name="2[part_id]" value="2">
+                        <input type="text" class="" name="2[part_number]" value="{{$data[1]->part_number}}">个&nbsp;&nbsp;&nbsp;
+                        生产商:
+                        <select name="2[product]" id="">
+                            <option value="1">美国医学声学公司</option>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <th><i class="require">*</i>哨片：</th>
                     <td>
                         <input type="hidden" name="3[part_id]" value="3">
-                        <input type="text" class="" name="3[part_number]">片&nbsp;&nbsp;&nbsp;
+                        <input type="text" class="" name="3[part_number]" value="{{$data[2]->part_number}}">片&nbsp;&nbsp;&nbsp;
                         生产商:
                         <select name="3[product]" id="">
                             <option value="1">美国医学声学公司</option>
@@ -76,7 +77,7 @@
                     <th><i class="require">*</i>垫片：</th>
                     <td>
                         <input type="hidden" name="4[part_id]" value="4">
-                        <input type="text" class="" name="4[part_number]">片&nbsp;&nbsp;&nbsp;
+                        <input type="text" class="" name="4[part_number]" value="{{$data[3]->part_number}}">片&nbsp;&nbsp;&nbsp;
                         生产商:
                         <select name="4[product]" id="">
                             <option value="1">美国医学声学公司</option>
@@ -87,7 +88,7 @@
                     <th><i class="require">*</i>肺笛袋：</th>
                     <td>
                         <input type="hidden" name="5[part_id]" value="5">
-                        <input type="text" class="" name="5[part_number]">个&nbsp;&nbsp;&nbsp;
+                        <input type="text" class="" name="5[part_number]" value="{{$data[4]->part_number}}">个&nbsp;&nbsp;&nbsp;
                         生产商:
                         <select name="5[product]" id="">
                             <option value="1">美国医学声学公司</option>
@@ -98,7 +99,7 @@
                     <th><i class="require">*</i>哨片袋：</th>
                     <td>
                         <input type="hidden" name="6[part_id]" value="6">
-                        <input type="text" class="" name="6[part_number]">个&nbsp;&nbsp;&nbsp;
+                        <input type="text" class="" name="6[part_number]" value="{{$data[5]->part_number}}">个&nbsp;&nbsp;&nbsp;
                         生产商:
                         <select name="6[product]" id="">
                             <option value="1">美国医学声学公司</option>
@@ -109,7 +110,7 @@
                     <th><i class="require">*</i>皮筋：</th>
                     <td>
                         <input type="hidden" name="7[part_id]" value="7">
-                        <input type="text" class="" name="7[part_number]">个&nbsp;&nbsp;&nbsp;
+                        <input type="text" class="" name="7[part_number]" value="{{$data[6]->part_number}}">个&nbsp;&nbsp;&nbsp;
                         生产商:
                         <select name="7[product]" id="">
                             <option value="1">美国医学声学公司</option>
@@ -119,7 +120,7 @@
                 <tr>
                     <th><i class="require">*</i>预期到货时间：</th>
                     <td>
-                        <input type="text" name="delivery_time" class="demo-input" placeholder="请选择日期" id="test1">
+                        <input type="text" name="delivery_time" value="{{$data[0]->delivery_time}}" class="demo-input" placeholder="请选择日期" id="test1">
                     </td>
                 </tr>
                 <tr>
@@ -130,13 +131,13 @@
                         </select>
                     </td>
                 </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input type="submit" value="提交">
-                            <input type="button" class="back" onclick="history.go(-1)" value="返回">
-                        </td>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input type="submit" value="提交">
+                        <input type="button" class="back" onclick="history.go(-1)" value="返回">
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </form>
