@@ -47,7 +47,7 @@
                             <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
                             <td>
                                 <a href="{{asset('ad/edit/'.$v->order_number)}}">修改</a>
-                                <a href="#">删除</a>
+                                <a href="{{asset('ad/delete/'.$v->order_number)}}">删除</a>
                                 <a  id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
                             </td>
                         </tr>
@@ -73,23 +73,7 @@
                var da =data.data;
                var tr = '';
                da.forEach(function (value) {
-                   if(value.part_id=='1')
-                       value.part_id="吹嘴";
-                   if(value.part_id=='2')
-                       value.part_id="笛管";
-                   if(value.part_id=='3')
-                       value.part_id="哨片";
-                   if(value.part_id=='4')
-                       value.part_id="垫片";
-                   if(value.part_id=='5')
-                       value.part_id="肺笛袋";
-                   if(value.part_id=='6')
-                       value.part_id="哨片袋";
-                   if(value.part_id=='7')
-                       value.part_id="皮筋";
-                   if(value.product=='1')
-                       value.product="美国医学声学公司";
-                   tr += '<tr><td>' + value.part_id + '</td><td>'+value.part_number+'</td><td>'+value.product+'</td></tr>';
+                   tr += '<tr><td>' + value.part_name + '</td><td>'+value.part_number+'</td><td>'+value.manufacturer+'</td></tr>';
 
                })
                var content = "<table class='list_tab'><thead><th>零部件名称</th><th>数量</th><th>生产厂商</th></thead><tbody>" + tr + "</tbody> </table>"

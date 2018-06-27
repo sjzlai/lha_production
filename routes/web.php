@@ -36,7 +36,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
     Route::any('info', 'PurchaseController@info');                         //查看订单中零件详情
     Route::get('edit/{id}','PurchaseController@edit');                          //修改采购页面
     Route::post('update','PurchaseController@store');                          //提交修改采购页面
-
+    Route::get('delete/{no}','PurchaseController@delete');                     //删除采购订单
 });
 //权限角色为admin才能访问的路由组
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'prefix'=>

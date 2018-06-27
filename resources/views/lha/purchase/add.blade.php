@@ -42,78 +42,78 @@
                     <tr>
                         <th><i class="require">*</i>吹嘴：</th>
                         <td>
-                            <input type="hidden" name="1[part_id]" value="1">
                             <input type="text" class="" name="1[part_number]">个&nbsp;&nbsp;&nbsp;
                             生产商:
-                            <select name="1[product]" id="">
+                            <select name="1[manufacturer]" id="">
                                 <option value="1">美国医学声学公司</option>
                             </select>
+                            <input type="hidden" name="1[part_name]" value="吹嘴">
                         </td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>笛管：</th>
                         <td>
-                            <input type="hidden" name="2[part_id]" value="2">
                             <input type="text" class="" name="2[part_number]">个&nbsp;&nbsp;&nbsp;
                             生产商:
-                            <select name="2[product]" id="">
+                            <select name="2[manufacturer]" id="">
                                 <option value="1">美国医学声学公司</option>
                             </select>
+                            <input type="hidden" name="2[part_name]" value="笛管">
                         </td>
                     </tr>
                 <tr>
                     <th><i class="require">*</i>哨片：</th>
                     <td>
-                        <input type="hidden" name="3[part_id]" value="3">
                         <input type="text" class="" name="3[part_number]">片&nbsp;&nbsp;&nbsp;
                         生产商:
-                        <select name="3[product]" id="">
+                        <select name="3[manufacturer]" id="">
                             <option value="1">美国医学声学公司</option>
                         </select>
+                        <input type="hidden" name="3[part_name]" value="哨片">
                     </td>
                 </tr>
                 <tr>
                     <th><i class="require">*</i>垫片：</th>
                     <td>
-                        <input type="hidden" name="4[part_id]" value="4">
                         <input type="text" class="" name="4[part_number]">片&nbsp;&nbsp;&nbsp;
                         生产商:
-                        <select name="4[product]" id="">
+                        <select name="4[manufacturer]" id="">
                             <option value="1">美国医学声学公司</option>
                         </select>
+                        <input type="hidden" name="4[part_name]" value="垫片">
                     </td>
                 </tr>
                 <tr>
                     <th><i class="require">*</i>肺笛袋：</th>
                     <td>
-                        <input type="hidden" name="5[part_id]" value="5">
                         <input type="text" class="" name="5[part_number]">个&nbsp;&nbsp;&nbsp;
                         生产商:
-                        <select name="5[product]" id="">
+                        <select name="5[manufacturer]" id="">
                             <option value="1">美国医学声学公司</option>
                         </select>
+                        <input type="hidden" name="5[part_name]" value="肺笛袋">
                     </td>
                 </tr>
                 <tr>
                     <th><i class="require">*</i>哨片袋：</th>
                     <td>
-                        <input type="hidden" name="6[part_id]" value="6">
                         <input type="text" class="" name="6[part_number]">个&nbsp;&nbsp;&nbsp;
                         生产商:
-                        <select name="6[product]" id="">
+                        <select name="6[manufacturer]" id="">
                             <option value="1">美国医学声学公司</option>
                         </select>
+                        <input type="hidden" name="6[part_name]" value="哨片袋">
                     </td>
                 </tr>
                 <tr>
                     <th><i class="require">*</i>皮筋：</th>
                     <td>
-                        <input type="hidden" name="7[part_id]" value="7">
                         <input type="text" class="" name="7[part_number]">个&nbsp;&nbsp;&nbsp;
                         生产商:
-                        <select name="7[product]" id="">
+                        <select name="7[manufacturer]" id="">
                             <option value="1">美国医学声学公司</option>
                         </select>
+                        <input type="hidden" name="7[part_name]" value="皮筋">
                     </td>
                 </tr>
                 <tr>
