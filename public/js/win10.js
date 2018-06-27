@@ -444,9 +444,10 @@ window.Win10 = {
                 $(this).parent().parent().find('.layui-layer-btn0').click();
             }
         });
+
         //打广告
         setTimeout(function () {
-            console.log(Win10.lang('本页由Win10-UI强力驱动\n更多信息：http://win10ui.yuri2.cn \nWin10-UI,轻松打造别具一格的后台界面 ','The page is strongly driven by Win10-UI.\nFor more info: http://win10ui.yuri2.cn.\n Win10-UI, easy to create a unique background interface.'))
+            console.log(Win10.lang('朗恒安生产管理'))
         },2000);
         //点击清空右键菜单
         $(document).click(function (event) {
@@ -765,7 +766,7 @@ window.Win10 = {
         var layero_opened=Win10.getLayeroByIndex(index);
         layero_opened.css('z-index',Win10._countTask+813);
         Win10._settop(layero_opened);
-        layero_opened.find('.layui-layer-setwin').prepend('<a class="win10-btn-change-url" index="' + index + '" title="'+Win10.lang('修改地址','Change URL')+'" href="javascript:void(0)"><span class="fa fa-chain"></span></a><a class="win10-btn-refresh" index="' + index + '" title="'+Win10.lang('刷新','Refresh')+'" href="javascript:void(0)"><span class="fa fa-refresh"></span></a>');
+        layero_opened.find('.layui-layer-setwin').prepend('<a class="win10-btn-back" index="' + index + '" title="'+Win10.lang('后退','back')+'" href="javascript:void(0)" onclick="window.history.back()"><span class="fa fa-arrow-left"></span></a> <a class="win10-btn-change-url" index="' + index + '" title="'+Win10.lang('修改地址','Change URL')+'" href="javascript:void(0)"><span class="fa fa-chain"></span></a><a class="win10-btn-refresh" index="' + index + '" title="'+Win10.lang('刷新','Refresh')+'" href="javascript:void(0)" ><span class="fa fa-refresh"></span></a>');
         layero_opened.find('.layui-layer-setwin .layui-layer-max').click(function () {
             setTimeout(function () {
                 var height=layero_opened.css('height');

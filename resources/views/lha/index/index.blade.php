@@ -37,6 +37,7 @@
                 'animated bounceIn',
             ], 0.01);
 
+
            /* setTimeout(function () {
                 Win10.newMsg('官方交流一群', '欢迎各位大侠加入讨论：<a target="_blank" href="https://jq.qq.com/?_wv=1027&k=4Er0u8i">[点击加入]205546163</a>')
             }, 2500);
@@ -82,7 +83,7 @@
             <div class="icon">用</div>
             <div class="title">用户管理</div>
         </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/storageRoom')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>用户管理')">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/storageRoom')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>库房管理')">
             <div class="icon">库</div>
             <div class="title">库房管理</div>
         </div>
@@ -98,7 +99,8 @@
             <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-tile.html','磁贴代码生成器')">磁贴代码生成器</div>
             <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-menu.html','菜单代码生成器')">菜单代码生成器</div>
             <div class="item" onclick="Win10.aboutUs()"><i class="purple icon fa fa-info-circle fa-fw"></i>关于</div>
-            <div class="item" onclick=" Win10.exit();"><i class="black icon fa fa-power-off fa-fw"></i>关闭</div>
+            <div class="item" onclick="#"><i class="black icon fa fa-power-off fa-fw"></i>{{session('user.name')}}</div>
+            <div class="sub-item" onclick=" Win10.exit();">退出登录</div>
         </div>
         <div class="blocks">
             <div class="menu_group">
