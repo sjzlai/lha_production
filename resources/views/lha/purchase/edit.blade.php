@@ -21,7 +21,6 @@
             </div>
         </div>--}}
     <!--结果集标题与导航组件 结束-->
-
     <div class="result_wrap">
         <form action="{{url('ad/update')}}" method="post">
             {{csrf_field()}}
@@ -33,94 +32,30 @@
                         <p>填写采购数量</p>
                     </td>
                 </tr>
+
                 <tr>
                     <th><i class="require">*</i>订单号：</th>
                     <td>
-                        <input readonly="value" name="order_number" value="{{$data[0]->purchase_order_no}}">
+                        <input readonly="value" class="" name="order_number" value="{{$data[0]->order_number}}">
                     </td>
                 </tr>
+                @foreach($data as $v)
                 <tr>
-                    <th><i class="require">*</i>吹嘴：</th>
+                    <th><i class="require">*</i>{{$v->part_name}}：</th>
                     <td>
-                        <input type="hidden" name="1[part_id]" value="1">
-
-                        <input type="text" class="" name="1[part_number]"value="{{$data[0]->part_number}}">个&nbsp;&nbsp;&nbsp;
+                        <input type="text" class="" name="{{$v->id}}[part_number]" value="{{$v->part_number}}">个&nbsp;&nbsp;&nbsp;
                         生产商:
-                        <select name="1[product]" id="">
-                            <option value="1">美国医学声学公司</option>
+                        <select name="{{$v->id}}[manufacturer]" id="" >
+                            <option value="{{$v->manufacturer}}">{{$v->manufacturer}}</option>
                         </select>
+                        <input type="hidden" name="{{$v->id}}[part_id]" value="{{$v->id}}">
                     </td>
                 </tr>
-                <tr>
-                    <th><i class="require">*</i>笛管：</th>
-                    <td>
-                        <input type="hidden" name="2[part_id]" value="2">
-                        <input type="text" class="" name="2[part_number]" value="{{$data[1]->part_number}}">个&nbsp;&nbsp;&nbsp;
-                        生产商:
-                        <select name="2[product]" id="">
-                            <option value="1">美国医学声学公司</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class="require">*</i>哨片：</th>
-                    <td>
-                        <input type="hidden" name="3[part_id]" value="3">
-                        <input type="text" class="" name="3[part_number]" value="{{$data[2]->part_number}}">片&nbsp;&nbsp;&nbsp;
-                        生产商:
-                        <select name="3[product]" id="">
-                            <option value="1">美国医学声学公司</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class="require">*</i>垫片：</th>
-                    <td>
-                        <input type="hidden" name="4[part_id]" value="4">
-                        <input type="text" class="" name="4[part_number]" value="{{$data[3]->part_number}}">片&nbsp;&nbsp;&nbsp;
-                        生产商:
-                        <select name="4[product]" id="">
-                            <option value="1">美国医学声学公司</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class="require">*</i>肺笛袋：</th>
-                    <td>
-                        <input type="hidden" name="5[part_id]" value="5">
-                        <input type="text" class="" name="5[part_number]" value="{{$data[4]->part_number}}">个&nbsp;&nbsp;&nbsp;
-                        生产商:
-                        <select name="5[product]" id="">
-                            <option value="1">美国医学声学公司</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class="require">*</i>哨片袋：</th>
-                    <td>
-                        <input type="hidden" name="6[part_id]" value="6">
-                        <input type="text" class="" name="6[part_number]" value="{{$data[5]->part_number}}">个&nbsp;&nbsp;&nbsp;
-                        生产商:
-                        <select name="6[product]" id="">
-                            <option value="1">美国医学声学公司</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class="require">*</i>皮筋：</th>
-                    <td>
-                        <input type="hidden" name="7[part_id]" value="7">
-                        <input type="text" class="" name="7[part_number]" value="{{$data[6]->part_number}}">个&nbsp;&nbsp;&nbsp;
-                        生产商:
-                        <select name="7[product]" id="">
-                            <option value="1">美国医学声学公司</option>
-                        </select>
-                    </td>
-                </tr>
+                @endforeach
                 <tr>
                     <th><i class="require">*</i>预期到货时间：</th>
                     <td>
-                        <input type="text" name="delivery_time" value="{{$data[0]->delivery_time}}" class="demo-input" placeholder="请选择日期" id="test1">
+                        <input type="text" value="{{$data[0]->delivery_time}}" name="delivery_time" class="demo-input" placeholder="请选择日期" id="test1">
                     </td>
                 </tr>
                 <tr>
