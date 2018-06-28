@@ -25,9 +25,22 @@ class GoodsShelve extends Model
      * @author: weikai
      * @date: 2018/6/26 16:07
      */
-    public function goodsShelveAll($storageRoomId,$page=5)
+    public static function goodsShelveAll($storageRoomId,$page=5)
     {
        return self::where('storageroom_id',$storageRoomId)->orderBy('created_at','desc')->paginate($page);
+    }
+
+    /**
+     * @name:货架模糊搜索
+     * @author: weikai
+     * @date: 2018/6/28 9:30
+     */
+    public static function goodsShelveFuzzySearch($storageRoomId,$key,$keyword,$page=5)
+    {
+       return self::where('storageroom_id',$storageRoomId)
+           ->where($key,'like','%'.$keyword.'%')
+           ->orderBy('created_at','desc')
+           ->paginate($page);
     }
 
     /**
@@ -39,12 +52,12 @@ class GoodsShelve extends Model
      */
     public static function goodsList($goodsShelve)
     {
-        return self::from('shelf_has_part as sp')
-            ->where('sp.shelf_id',$goodsShelve)
-            ->select('sp.*','p.part_name')
-            ->leftJoin('part_info as p','sp.part_id','=','p.id')
-            ->orderBy('sp.created_at','desc')
-            ->paginate(5);
+        return self::from('shelf_has_part')
+        ->where('shelf_id',$goodsShelve)
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+
+
     }
 
     /**

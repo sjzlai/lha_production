@@ -10,7 +10,7 @@
 
 <!--结果页快捷搜索框 开始-->
 <div class="search_wrap">
-    <form action="/ad/goodsList/fuzzySearch" method="post">
+    <form action="/ad/goodsList/goodsFuzzySearch" method="post">
         {{csrf_field()}}
         <input type="hidden" name="goodsShelveId" value="{{$goodsShelveName->id}}">
         <table class="search_tab">
@@ -44,8 +44,8 @@
                     <th class="tc" width="5%"><input type="checkbox" name="" ></th>
                     {{--<th class="tc">排序</th>--}}
                     <th class="tc">ID</th>
-                    <th>货物名称</th>
-                    <th>货物库存量</th>
+                    <th>零部件名称</th>
+                    <th>零部件数量</th>
                     <th>创建时间</th>
                     <th>更新时间</th>
                     {{--<th>操作</th>--}}
@@ -57,15 +57,24 @@
                         {{--<input type="text" name="ord[]" value="0">--}}
                     {{--</td>--}}
                     <td class="tc" id="did">{{$goodsList->id}}</td>
-                    <td>{{$goodsList->part_name}}</td>
+                    <td>
+                        {{--{{$goodsList->part_name}}--}}
+                        @if($goodsList->part_name == 1)
+                            成品
+                        @elseif($goodsList->part_name == 2)
+                            笛管
+                        @elseif($goodsList->part_name == 3)
+                            哨片
+                        @endif
+                    </td>
                     <td>{{$goodsList->part_number}}</td>
                     <td>{{$goodsList->created_at}}</td>
                     <td>{{$goodsList->updated_at}}</td>
-                    <td>
+                    {{--<td>--}}
                         {{--<a href="/ad/goodsShelve/{{$goodsList->id}}/edit">货物列表</a>--}}
                         {{--<a href="/ad/goodsShelve/{{$goodsList->id}}/edit">修改</a>--}}
                         {{--<a href="#" id="del">删除</a>--}}
-                    </td>
+                    {{--</td>--}}
                 </tr>
             @endforeach
             </table>

@@ -103,7 +103,7 @@ class GoodsShelveController extends Controller
     public function destroy($id)
     {
         $goodsShelve = DB::table('shelf_has_part')->where('shelf_id',$id)->first();
-        if ($goodsShelve) return jsonReturn('0','此货架内还有物品不能删除',$id);
+        if (!empty($goodsShelve->part_id)) return jsonReturn('0','此货架内还有物品不能删除',$id);
         $res = GoodsShelve::destroy($id);
         if (!$res) return jsonReturn('0','删除失败');
         return jsonReturn('1','删除成功');
@@ -128,13 +128,28 @@ class GoodsShelveController extends Controller
      * @author: weikai
      * @date: 2018/6/27 15:13
      */
-    public function fuzzySearch(Request $request)
+    public function goodsFuzzySearch(Request $request)
     {
         $goodsShelveId = $request->input('goodsShelveId');
         $keyword = $request->input('keyword');
         $goodsLists = $this->goodsShelve->goodsFuzzySearch($goodsShelveId,$keyword);
         $goodsShelveName = $this->goodsShelve->find($goodsShelveId);//货架名称
         return view('lha.goodsShelve.goodsShelve-goods-list',['goodsLists'=>$goodsLists,'goodsShelveName'=>$goodsShelveName]);
+    }
+
+    /**
+     * @param Request $request
+     * @name:货架模糊搜索
+     * @author: weikai
+     * @date: 2018/6/28 9:28
+     */
+    public function fuzzySearch(Request $request)
+    {
+        $storageRoomId  = $request->input('storageRoomId');
+        $shelfName = 'shelf_name';
+        $keyword = $request->input('keyword');
+        $goodsShelves =$this->goodsShelve->goodsShelveFuzzySearch($storageRoomId,$shelfName,$keyword);
+        return view('lha.goodsShelve.goodsShelve-list',['goodsShelves'=>$goodsShelves,'id'=>$storageRoomId]);
     }
 
     /**

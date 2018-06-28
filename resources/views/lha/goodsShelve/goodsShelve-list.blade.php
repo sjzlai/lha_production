@@ -10,10 +10,11 @@
 
 <!--结果页快捷搜索框 开始-->
 <div class="search_wrap">
-    <form action="/ad/goodsShelves/fuzzySearch" method="post">
+    <form action="/ad/goodsShelve/fuzzySearch" method="post">
         {{csrf_field()}}
         <table class="search_tab">
                 <th width="70">关键字:</th>
+            <input type="hidden" name="storageRoomId" id="" value="{{$id}}">
                 <td><input type="text" name="keyword" placeholder="输入货架名称查询"></td>
                 <td><input type="submit" name="sub" value="查询"></td>
             </tr>
@@ -53,14 +54,14 @@
                     {{--<td class="tc">--}}
                         {{--<input type="text" name="ord[]" value="0">--}}
                     {{--</td>--}}
-                    <td class="tc" id="did{{$goodsShelve->id}}">{{$goodsShelve->id}}</td>
+                    <td class="tc delId[]" >{{$goodsShelve->id}}</td>
                     <td>{{$goodsShelve->shelf_name}}</td>
                     <td>{{$goodsShelve->created_at}}</td>
                     <td>{{$goodsShelve->updated_at}}</td>
                     <td>
                         <a href="/ad/goodsList/{{$goodsShelve->id}}">货物列表</a>
                         <a href="/ad/goodsShelve/{{$goodsShelve->id}}/edit">修改</a>
-                        <a href="javascript:void(0)" class="one">删除</a>
+                        <a href="javascript:void(0)" name="{{$goodsShelve->id}}" class="one">删除</a>
                     </td>
                 </tr>
             @endforeach
@@ -80,9 +81,10 @@
 
     var url = '/ad/goodsShelve/';
     var token = "{{csrf_token()}}";
-    var did =1;
     $('.one').click(function () {
         //询问框
+    var did = $(this).attr('name');
+    alert(did);
         layer.confirm('您确认要删除此货架吗？', {
             btn: ['确认', '算了'] //按钮
         }, function () {

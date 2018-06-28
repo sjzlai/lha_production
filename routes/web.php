@@ -57,10 +57,11 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'p
 //权限角色为库管才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
     Route::resource('storageRoom','StorageRoomController');//库房资源控制器
-    Route::post('storageRoom/fuzzySearch','StorageRoomController@fuzzySearch');//模糊搜素
+    Route::post('storageRoom/fuzzySearch','StorageRoomController@fuzzySearch');//库房模糊搜素
     Route::resource('goodsShelve','GoodsShelveController');//货架资源控制器
     Route::get('goodsList/{goodsShelveId}','GoodsShelveController@goodsList');//货架内货物列表  货架id
-    Route::post('goodsList/fuzzySearch','GoodsShelveController@fuzzySearch');//模糊搜索
+    Route::post('goodsList/fuzzySearch','GoodsShelveController@goodsFuzzySearch');//物品模糊搜索
+    Route::post('goodsShelve/fuzzySearch','GoodsShelveController@fuzzySearch');//货架模糊搜索
     Route::get('goodsShelveAdd/{id}','GoodsShelveController@goodsShelveAdd');//返回添加货架视图
 });
 
