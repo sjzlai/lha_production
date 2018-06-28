@@ -99,7 +99,7 @@
             <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-tile.html','磁贴代码生成器')">磁贴代码生成器</div>
             <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-menu.html','菜单代码生成器')">菜单代码生成器</div>
             <div class="item" onclick="Win10.aboutUs()"><i class="purple icon fa fa-info-circle fa-fw"></i>关于</div>
-            <div class="item" onclick="#"><i class="black icon fa fa-power-off fa-fw"></i>{{session('user.name' or '未登录')}}</div>
+            <div class="item" onclick="#"><i class="black icon fa fa-power-off fa-fw"></i>{{session('user.name')}}</div>
             <div class="sub-item" onclick=" Win10.exit();">退出登录</div>
         </div>
         <div class="blocks">
