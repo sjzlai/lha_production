@@ -21,7 +21,7 @@ class login
     {
         $adminId = Session::get('user.id');
         if (empty($adminId) || empty(Auth::check()) ){
-            return redirect('/ad/login');
+            return redirect('ad/login');
         }else{
             return $next($request);
         }

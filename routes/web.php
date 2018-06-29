@@ -26,7 +26,13 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
     Route::get('index', 'IndexController@index');                        //首页
     Route::get('welcome', 'IndexController@welcome');                    //首页
     Route::get('test', 'IndexController@test');                          //测试
-    //采购申请
+    //零部件仓库
+    Route::get('spare','SparePartsController@index');                          //零部件仓库列表
+    Route::get('spare/add','SparePartsController@addparts');                            //零部件入库页
+
+});
+//权限角色为采购才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function () {
     Route::get('pur', 'PurchaseController@PurList');                        //采购列表
     Route::any('purAdd', 'PurchaseController@PurAdd');                        //采购申请表页
     Route::any('purtoadd', 'PurchaseController@PurToAdd');                        //采购申请表页
@@ -34,34 +40,17 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
     Route::get('edit/{id}','PurchaseController@edit');                          //修改采购页面
     Route::post('update','PurchaseController@store');                          //提交修改采购页面
     Route::get('delete/{no}','PurchaseController@delete');                     //删除采购订单
-    //零部件仓库
-    Route::get('spare','SparePartsController@index');                          //零部件仓库列表
-    Route::get('spare/add','SparePartsController@addparts');                            //零部件入库页
-    //零部件质检
-    Route::get('quality','QualityController@index');                            //质检列表
-    Route::get('quality/show/{order_number}','QualityController@show');                            //质检详情
-    Route::post('quality/store','QualityController@store');                            //提交
-    Route::get('quality/img/{order_number}','QualityController@img');                            //查看质检结果
+});
+//权限角色为零部件质检的才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function () {
+    Route::get('quality','QualityController@index');                                        //质检列表
+    Route::get('quality/show/{order_number}','QualityController@show');                     //质检详情
+    Route::post('quality/store','QualityController@store');                                 //提交
+    Route::get('quality/img/{order_number}','QualityController@img');                       //查看质检结果
 });
 //权限角色为admin才能访问的路由组
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'prefix'=>
     'ad'],function (){
-<<<<<<< HEAD
-         Route::any('userlist','UserController@userList');                   //用户列表
-         Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
-         Route::resource('role','RoleController');                     //权限管理-角色管理
-         Route::post('role/fuzzySearch','RoleController@fuzzySearch');                     //权限管理-角色管理-模糊搜索
-         Route::resource('user','UserController');
-         Route::post('user/fuzzySearch','UserController@fuzzySearch');//模糊搜素
-         Route::get('user/userRole/{id}','UserController@userRole');//用户的所有角色列表
-         Route::get('addRole/{id}','UserController@addRole');//分配角色视图
-         Route::post('allotRole','UserController@allotRole');//分配角色操作
-         Route::get('removeRole/{id}/{roleName}','UserController@removeRole');//分配角色操作
-         Route::get('roleListInAddView/{id}','UserController@roleListInAddView');//从角色列表中为用户添加角色
-         Route::get('roleListInAdd/{roleid}/{id}','UserController@roleListInAdd');//从角色列表中为用户添加角色
-
-    });
-=======
     Route::any('userlist','UserController@userList');                   //用户列表
     Route::any('useradd','UserController@userAdd');                     //后台自定义添加用户
     Route::resource('role','RoleController');                     //权限管理-角色管理
@@ -75,7 +64,6 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'p
     Route::get('roleListInAddView/{id}','UserController@roleListInAddView');//从角色列表中为用户添加角色
     Route::get('roleListInAdd/{roleid}/{id}','UserController@roleListInAdd');//从角色列表中为用户添加角色
 });
->>>>>>> 6cb7c49138c580a44b1b5bf031777567dac29b45
 //权限角色为库管才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
     Route::resource('storageRoom','StorageRoomController');//库房资源控制器
