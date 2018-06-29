@@ -16,7 +16,7 @@
 
     <!--搜索结果页面 列表 开始-->
     <form action="#" method="post">
-        <div class="result_wrap">
+      {{--  <div class="result_wrap">
             <!--快捷导航 开始-->
             <div class="result_content">
                 <div class="short_wrap">
@@ -24,23 +24,22 @@
                 </div>
             </div>
             <!--快捷导航 结束-->
-        </div>
+        </div>--}}
 
         <div class="result_wrap">
             <div class="result_content">
                 <table class="list_tab">
                     <tr>
-                        <th class="tc" width="5%"><input type="checkbox" name=""></th>
                         <th class="tc">订单编号</th>
                         <th>采购申请人</th>
                         <th>申请时间</th>
                         <th>到货时间</th>
                         <th>仓库状态</th>
-                        <th>操作</th>
+                        <th>订单详情查看</th>
+                        <th>质检结果</th>
                     </tr>
                     @foreach($data as $v)
                         <tr>
-                            <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
                             <td class="tc">{{$v->order_number}}</td>
                             <td>{{$v->name}}</td>
                             <td>{{$v->created_at}}</td>
@@ -50,14 +49,25 @@
                             @elseif($v->warehousing ==1)
                                 <td>已入库</td>
                             @endif
-                            <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
                             <td>
-                                <a href="{{asset('ad/edit/'.$v->order_number)}}">修改</a>
-                                <a href="{{asset('ad/delete/'.$v->order_number)}}">删除</a>
                                 <a  id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
                             </td>
+                                    @if($v->status==1)
+                                        <td>
+                                            <a href="{{url('ad/quality/img/'.$v->order_number)}}" style="color: green" >质检合格</a>
+                                        </td>
+                                    @elseif($v->status==2)
+                                        <td>
+                                            <a href="{{url('ad/quality/img/'.$v->order_number)}}" style="color: red">质检不合格</a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <a href="{{url('ad/quality/show/'.$v->order_number)}}">上传质检结果</a>
+                                        </td>
+                                    @endif
+                            <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
                         </tr>
-                    @endforeach
+                        @endforeach
                 </table>
 
                 <div class="page_nav">

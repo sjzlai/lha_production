@@ -30,7 +30,7 @@ class PurchaseController extends Controller
     {
         $data = DB::table('part_purchase')
             ->leftjoin('user', 'part_purchase.user_id', '=', 'user.id')
-            ->where('status', '=', '0')
+            ->where('part_purchase.status', '=', '0')
             ->paginate('5');
         return view('lha.purchase.list', ['data' => $data]);
     }
@@ -41,7 +41,7 @@ class PurchaseController extends Controller
         $data = DB::table('part_purchase')
             ->join('part_purchase_lists', 'part_purchase.order_number', '=', 'part_purchase_lists.purchase_order_no')
             ->join('part_info','part_purchase_lists.part_id','=','part_info.id')
-            ->where('part_purchase.order_number', '=', $id)
+            ->where(['part_purchase.order_number'=>$id,'part_purchase_lists.status'=>0])
             ->get();
         return jsonReturn(1, '成功', $data);
     }
@@ -60,12 +60,14 @@ class PurchaseController extends Controller
         $data['user_id'] = $request->input('user_id');
         $data['delivery_time'] = $request->input('delivery_time');
         $data['status'] = 0;
+        $data['warehousing']=0;
         //part_info 将采购信息存表
         foreach ($date as $value):
             $va = array_slice($value, 1, 2);
             if ($va['manufacturer']==1):
                 $va['manufacturer'] ='美国医学声学公司';
             endif;
+            $va['status'] = 0;
             $re =PartInfo::create($va);
             $v = array_slice($value, 0, 1);
             $v['part_id'] =$re->id;

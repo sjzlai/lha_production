@@ -45,9 +45,14 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/uploads'),
         ],
 
+        //定义零部件质检结果图片路径
+        'parts_img'=>[
+            'driver' => 'local',
+            'root'  => storage_path('app/parts'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

@@ -58,7 +58,11 @@
             <div class="icon">采</div>
             <div class="title">采购申请</div>
         </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/quality')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>质检管理')">
+            <div class="icon">质</div>
+            <div class="title">零部件质检</div>
+        </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
             <div class="icon">零</div>
             <div class="title">零件仓库</div>
         </div>
