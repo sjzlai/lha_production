@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class StorageRoom extends Model
 {
     protected $table = 'storageroom_info';
+    public $timestamps = true;
     protected $guarded = [];
 
     /**

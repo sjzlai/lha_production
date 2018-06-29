@@ -60,7 +60,7 @@
                     <td>{{$storageroom->created_at}}</td>
                     <td>{{$storageroom->updated_at}}</td>
                     <td>
-                        <a href="/ad/goodsShelve/{{$storageroom->id}}">货架列表</a>
+                        <a id="one" href="/ad/goodsShelve/{{$storageroom->id}}">货架列表</a>
                         <a href="/ad/storageRoom/{{$storageroom->id}}/edit">修改</a>
                         <a href="#" id="del">删除</a>
                     </td>

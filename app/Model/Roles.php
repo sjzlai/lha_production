@@ -8,6 +8,7 @@ class Roles extends Model
 {
     protected $table = 'roles';
     protected $guarded = [];
+    public $timestamps = true;
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
