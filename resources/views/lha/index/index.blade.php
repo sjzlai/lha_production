@@ -55,7 +55,7 @@
 
 <div id="win10">
     <div id="win10-shortcuts">
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/pur')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>采购申请')">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/purchase/pur')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>采购申请')">
             <div class="icon">采</div>
             <div class="title">采购申请</div>
         </div>
@@ -66,14 +66,6 @@
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
             <div class="icon">零</div>
             <div class="title">零件仓库</div>
-        </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
-            <div class="icon">计</div>
-            <div class="title">生产计划</div>
-        </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
-            <div class="icon">录</div>
-            <div class="title">生产记录</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
             <i class="icon fa fa-fw fa-area-chart black" ></i>

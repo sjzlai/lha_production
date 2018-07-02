@@ -2,8 +2,9 @@
 @section('content')
     <!--结果页快捷搜索框 开始-->
     <div class="search_wrap">
-        <form action="" method="post">
+        <form action="{{url('ad/purchase/search')}}" method="post">
             <table class="search_tab">
+                {{csrf_field()}}
                 <tr>
                     <th width="70">关键字:</th>
                     <td><input type="text" name="keywords" placeholder="关键字"></td>
@@ -20,7 +21,7 @@
             <!--快捷导航 开始-->
             <div class="result_content">
                 <div class="short_wrap">
-                    <a href="{{asset('ad/purAdd')}}"><i class="fa fa-plus"></i>新增采购</a>
+                    <a href="{{asset('ad/purchase/purAdd')}}"><i class="fa fa-plus"></i>新增采购</a>
                 </div>
             </div>
             <!--快捷导航 结束-->
@@ -52,8 +53,8 @@
                             @endif
                             <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
                             <td>
-                                <a href="{{asset('ad/edit/'.$v->order_number)}}">修改</a>
-                                <a href="{{asset('ad/delete/'.$v->order_number)}}">删除</a>
+                                <a href="{{asset('ad/purchase/edit/'.$v->order_number)}}">修改</a>
+                                <a href="{{asset('ad/purchase/delete/'.$v->order_number)}}">删除</a>
                                 <a  id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
                             </td>
                         </tr>
@@ -72,10 +73,11 @@
     <!--搜索结果页面 列表 结束-->
     <script>
         function info(id) {
-           $.post("{{url('ad/info')}}",{
+           $.post("{{url('ad/purchase/info')}}",{
                'id':id,
                '_token':'{{csrf_token()}}'
            },function (data) {
+
                var da =data.data;
                var tr = '';
                da.forEach(function (value) {

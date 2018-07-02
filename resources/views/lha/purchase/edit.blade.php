@@ -22,7 +22,7 @@
         </div>--}}
     <!--结果集标题与导航组件 结束-->
     <div class="result_wrap">
-        <form action="{{url('ad/update')}}" method="post">
+        <form action="{{url('ad/purchase/update')}}" method="post">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>

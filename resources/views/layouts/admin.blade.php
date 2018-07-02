@@ -17,7 +17,6 @@
 
 {{--提示消息--}}
 @if(session('error'))
-
     <script>
         var session = "{{session('error')}}";
         layer.msg(session);
@@ -28,7 +27,6 @@
         var session = "{{session('message')}}";
         layer.msg(session);
     </script>
-
 @endif
 @yield('content')
 </body>

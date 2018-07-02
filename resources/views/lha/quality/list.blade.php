@@ -2,8 +2,9 @@
 @section('content')
     <!--结果页快捷搜索框 开始-->
     <div class="search_wrap">
-        <form action="" method="post">
+        <form action="{{url('ad/quality/search')}}" method="post">
             <table class="search_tab">
+                {{csrf_field()}}
                 <tr>
                     <th width="70">关键字:</th>
                     <td><input type="text" name="keywords" placeholder="关键字"></td>

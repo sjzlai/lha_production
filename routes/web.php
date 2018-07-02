@@ -33,13 +33,14 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
 });
 //权限角色为采购才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function () {
-    Route::get('pur', 'PurchaseController@PurList');                        //采购列表
-    Route::any('purAdd', 'PurchaseController@PurAdd');                        //采购申请表页
-    Route::any('purtoadd', 'PurchaseController@PurToAdd');                        //采购申请表页
-    Route::any('info', 'PurchaseController@info');                         //查看订单中零件详情
-    Route::get('edit/{id}','PurchaseController@edit');                          //修改采购页面
-    Route::post('update','PurchaseController@store');                          //提交修改采购页面
-    Route::get('delete/{no}','PurchaseController@delete');                     //删除采购订单
+    Route::get('purchase/pur', 'PurchaseController@PurList');                        //采购列表
+    Route::any('purchase/purAdd', 'PurchaseController@PurAdd');                        //采购申请表页
+    Route::any('purchase/purtoadd', 'PurchaseController@PurToAdd');                        //采购申请表页
+    Route::any('purchase/info', 'PurchaseController@info');                         //查看订单中零件详情
+    Route::get('purchase/edit/{id}','PurchaseController@edit');                          //修改采购页面
+    Route::post('purchase/update','PurchaseController@store');                          //提交修改采购页面
+    Route::get('purchase/delete/{no}','PurchaseController@delete');                     //删除采购订单
+    Route::post('purchase/search','PurchaseController@search');                     //模糊搜索采购订单
 });
 //权限角色为零部件质检的才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function () {
@@ -47,6 +48,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::get('quality/show/{order_number}','QualityController@show');                     //质检详情
     Route::post('quality/store','QualityController@store');                                 //提交
     Route::get('quality/img/{order_number}','QualityController@img');                       //查看质检结果
+    Route::post('quality/search','QualityController@search');                               //模糊搜索质检结果
 });
 //权限角色为admin才能访问的路由组
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'prefix'=>

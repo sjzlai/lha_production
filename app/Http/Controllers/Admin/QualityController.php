@@ -17,14 +17,15 @@ class QualityController extends Controller
      */
     public function index()
     {
+        $data = Pruchase_quality::QualityList();
+        return view('lha.quality.list', ['data' => $data]);
+    }
 
-        $data = DB::table('part_purchase as part')
-            ->select('part.*','user.id','user.name','test.purchase_order_no','test.status')
-            ->leftjoin('user', 'part.user_id', '=', 'user.id')
-            ->leftjoin('purchase_quality_test as test','part.order_number','=','test.purchase_order_no')
-            ->where(['part.status' => '0', 'part.warehousing' => '0'])
-            ->paginate('5');
-        return view('lha.quality.index', ['data' => $data]);
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keywords');
+        $data = Pruchase_quality::QualitySearch($keyword);
+        return view('lha.quality.list', ['data' => $data]);
     }
 
     /**

@@ -23,7 +23,7 @@
     <!--结果集标题与导航组件 结束-->
     
     <div class="result_wrap">
-        <form action="{{url('ad/purtoadd')}}" method="post">
+        <form action="{{url('ad/purchase/purtoadd')}}" method="post">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
@@ -143,7 +143,6 @@
     </div>
     <script>
         lay('#version').html('-v'+ laydate.v);
-
         //执行一个laydate实例
         laydate.render({
             elem: '#test1' //指定元素
