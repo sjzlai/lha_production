@@ -41,4 +41,18 @@ class StorageRoom extends Model
     {
         return self::where($key,'like',"%$keyword%")->paginate($page);
     }
+
+    /**
+     * Notes:查询所有的库房及其关联的货架
+     * Author:sjzlai
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * Date:2018/07/03 11:15
+     */
+    public static function RoomAndShelves()
+    {
+        return self::from('storageroom_info as room')
+            ->select('room.*','room.id as room_id','info.*')
+            ->join('shelf_info as info','room.id','=','info.storageroom_id')
+            ->get();
+    }
 }

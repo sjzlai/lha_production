@@ -7,7 +7,7 @@
                 {{csrf_field()}}
                 <tr>
                     <th width="70">关键字:</th>
-                    <td><input type="text" name="keywords" placeholder="关键字"></td>
+                    <td><input type="text" name="keywords" placeholder="请输入订单编号查询"></td>
                     <td><input type="submit" name="sub" value="查询"></td>
                 </tr>
             </table>
@@ -35,7 +35,7 @@
                         <th class="tc">订单编号</th>
                         <th>采购申请人</th>
                         <th>申请时间</th>
-                        <th>到货时间</th>
+                        <th>预期到货时间</th>
                         <th>仓库状态</th>
                         <th>操作</th>
                     </tr>
@@ -45,7 +45,7 @@
                             <td class="tc">{{$v->order_number}}</td>
                             <td>{{$v->name}}</td>
                             <td>{{$v->created_at}}</td>
-                            <td style="color:red">{{$v->delivery_time}}</td>
+                            <td style="color:#fea502">{{$v->delivery_time}}</td>
                             @if($v->warehousing == 0)
                             <td>未入库</td>
                             @elseif($v->warehousing ==1)

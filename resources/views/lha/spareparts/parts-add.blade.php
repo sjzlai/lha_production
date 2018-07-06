@@ -13,11 +13,15 @@
             <table class="add_tab">
                 <tbody>
                     <tr>
-                        <th width="120"><i class="require">*</i>采购订单号：</th>
-
+                        <th width="120"><i class="require">*</i>入库编号：</th>
+                        <td>
+                            <input type="text" placeholder="请输入入库编号">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>采购订单号：</th>
                         <td>
                             <select name="purchase_order_no">
-                                <option value="">==请选择==</option>
                                 @foreach($info as $v)
                                 <option value="19">{{$v->order_number}}</option>
                                 @endforeach
@@ -28,29 +32,99 @@
                     <tr>
                         <th><i class="require">*</i>库房：</th>
                         <td>
-                            <input type="text" class="lg" name="">
-                            <p>标题可以写30个字</p>
+
+                            <select name="stroe-room" id="one" onchange="info(this.value)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require">*</i>货架：</th>
+                        <th><i class="require">*</i>货架:</th>
                         <td>
-                            <input type="text" name="">
-                            <span><i class="fa fa-exclamation-circle yellow"></i>这里是默认长度</span>
+                            <select name="shelve" id="two">
+                                <option value="">请选择货架</option>
+                            </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th><i class="require">*</i>价格：</th>
-                        <td>
-                            <input type="text" class="sm" name="">元
-                            <span><i class="fa fa-exclamation-circle yellow"></i>这里是短文本长度</span>
+                    <tr style="background: #6dbfff">
+                        <th><i class="require">*</i>吹嘴：</th>
+                        <td style="display: block;" >
+                            <input type="text" class="" name="1[part_number]" placeholder="请输入吹嘴数量">
+                            <input type="text" name="1[batch_number]" placeholder="请输入批号">
+                            <input type="text" name="1[model]" placeholder="请输入型号">
+                            <input type="button" onclick="addRemove('add', this,1)" name="" value="+">
+                            <input type="button" onclick="addRemove('remove', this,1)" name="" value="-">
+                            <input type="hidden" name="1[part_name]" value="吹嘴">
                         </td>
                     </tr>
-                    <tr>
-                        <th>复选框：</th>
-                        <td>
-                            <label for=""><input type="checkbox" name="">复选框一</label>
-                            <label for=""><input type="checkbox" name="">复选框二</label>
+                    <tr style="background: #e4b9b9">
+                        <th><i class="require">*</i>笛管：</th>
+                        <td style="display: block;" >
+                            <input type="text" class="" name="2[part_number]" placeholder="请输入笛管数量">
+                            <input type="text" name="2[batch_number]" placeholder="请输入批号">
+                            <input type="text" placeholder="请输入型号">
+                            <input type="button" onclick="addRemove('add', this,2)" name="" value="+">
+                            <input type="button" onclick="addRemove('remove', this,2)" name="" value="-">
+                            <input type="hidden" name="2[part_name]" value="笛管">
+                        </td>
+                    </tr>
+                    <tr style="background: #5bc0de">
+                        <th><i class="require">*</i>哨片：</th>
+                        <td style="display: block;" >
+                            <input type="text" class="" name="3[part_number]" placeholder="请输入哨片数量">
+                            <input type="text" placeholder="请输入批号">
+                            <input type="text" placeholder="请输入型号">
+                            <input type="button" onclick="addRemove('add', this,3)" name="" value="+">
+                            <input type="button" onclick="addRemove('remove', this,3)" name="" value="-">
+                            <input type="hidden" name="3[part_name]" value="哨片">
+                        </td>
+                    </tr>
+                    <tr style="background: #FFF0F5">
+                        <th><i class="require">*</i>垫片：</th>
+                        <td style="display: block;" >
+                            <input type="text" class="" name="4[part_number]" placeholder="请输入垫片数量">
+                            <input type="text" name="4[batch_number]" placeholder="请输入批号">
+                            <input type="text" placeholder="请输入型号">
+                            <input type="button" onclick="addRemove('add', this,4)" name="" value="+">
+                            <input type="button" onclick="addRemove('remove', this,4)" name="" value="-">
+                            <input type="hidden" name="4[part_name]" value="垫片">
+                        </td>
+                    </tr>
+                    <tr style="background: #E6E6FA">
+                        <th><i class="require">*</i>肺笛袋：</th>
+                        <td style="display: block;" >
+                            <input type="text" class="" name="5[part_number]" placeholder="请输入肺笛袋数量">
+                            <input type="text" placeholder="请输入批号">
+                            <input type="text" placeholder="请输入型号">
+                            <input type="button" onclick="addRemove('add', this,5)" name="" value="+">
+                            <input type="button" onclick="addRemove('remove', this,5)" name="" value="-">
+                            <input type="hidden" name="5[part_name]" value="肺笛袋">
+                        </td>
+                    </tr>
+                    <tr style="background: #FFFFF0">
+                        <th><i class="require">*</i>哨片袋：</th>
+                        <td style="display: block;" >
+                            <input type="text" class="" name="6[part_number]" placeholder="请输入哨片袋数量">
+                            <input type="text" placeholder="请输入批号">
+                            <input type="text" placeholder="请输入型号">
+                            <input type="button" onclick="addRemove('add', this,6)" name="" value="+">
+                            <input type="button" onclick="addRemove('remove', this,6)" name="" value="-">
+                            <input type="hidden" name="6[part_name]" value="哨片袋">
+                        </td>
+                    </tr>
+                    <tr style="background: #BAC498">
+                        <th><i class="require">*</i>皮筋：</th>
+                        <td style="display: block;" >
+                            <input type="text" class="" name="7[part_number]" placeholder="请输入皮筋数量">
+                            <input type="text" placeholder="请输入批号">
+                            <input type="text" placeholder="请输入型号">
+                            <input type="button" onclick="addRemove('add', this,7)" name="" value="+">
+                            <input type="button" onclick="addRemove('remove', this,7)" name="" value="-">
+                            <input type="hidden" name="7[part_name]" value="皮筋">
                         </td>
                     </tr>
                     <tr>
@@ -64,4 +138,41 @@
             </table>
         </form>
     </div>
+    <script>
+        //增加零部件信息填写内容
+        var addRemove = function (params, ele,number) {
+            if (params == 'add') {
+                    $(ele).parent().parent().append('<td style="display: block;" >\n' +
+                        '                            <input type="text" class="" name="'+number+'[part_number]" placeholder="请输入吹嘴数量">\n' +
+                        '                            <input type="text" name="'+number+'[batch_number]" placeholder="请输入批号">\n' +
+                        '                            <input type="text" name="'+number+'[model]" placeholder="请输入型号">\n' +
+                        '                        </td>')
+            } else if (params == 'remove') {
+                var len = $(ele).parent().parent().children().length;
+                if (len <= 2) return;
+                $(ele).parent().parent().children('td:last-child').remove();
+            }else {
+                return;
+            }
+        }
+
+        //减少零部件信息填写内容
+        $('.chuiButtonno').on('click',function () {
+
+        });
+        function info(id) {
+            $.get("{{url('ad/spare/shelve/info')}}",{
+                'id':id,
+                '_token':'{{csrf_token()}}'
+            },function (data) {
+                $('#two').children('[value!=""]').remove();
+                var info =data.data;
+                info.forEach(function (item) {
+                    if (item.id)
+                    $('#two').append(`<option  value=${item.id}>  ${item.shelf_name} </option>`);
+                })
+
+            });
+        }
+    </script>
 @endsection

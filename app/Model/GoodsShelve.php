@@ -80,4 +80,9 @@ class GoodsShelve extends Model
             ->orderBy('sp.created_at','desc')
             ->paginate($page);
     }
+
+    public static function RoomShelveList($id)
+    {
+        return self::where('storageroom_id','=',$id)->get();
+    }
 }

@@ -7,8 +7,8 @@
                 {{csrf_field()}}
                 <tr>
                     <th width="70">关键字:</th>
-                    <td><input type="text" name="keywords" placeholder="关键字"></td>
-                    <td><input type="submit" name="sub" value="查询"></td>
+                    <td><input type="text" name="keywords" placeholder="请输入订单编号查询"></td>
+                    <td><input type="submit" name="sub" value="查询" ></td>
                 </tr>
             </table>
         </form>
@@ -53,14 +53,14 @@
                             <td>
                                 <a  id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
                             </td>
-                                    @if($v->status==1)
+                                    @if($v->status==1 ||$v->status==2)
                                         <td>
-                                            <a href="{{url('ad/quality/img/'.$v->order_number)}}" style="color: green" >质检合格</a>
+                                            <a href="{{url('ad/quality/img/'.$v->order_number)}}" style="color: green" >查看质检结果</a>
                                         </td>
-                                    @elseif($v->status==2)
+                                    {{--@elseif($v->status==2)
                                         <td>
                                             <a href="{{url('ad/quality/img/'.$v->order_number)}}" style="color: red">质检不合格</a>
-                                        </td>
+                                        </td>--}}
                                     @else
                                         <td>
                                             <a href="{{url('ad/quality/show/'.$v->order_number)}}">上传质检结果</a>
@@ -83,7 +83,7 @@
     <!--搜索结果页面 列表 结束-->
     <script>
         function info(id) {
-           $.post("{{url('ad/info')}}",{
+           $.post("{{url('ad/purchase/info')}}",{
                'id':id,
                '_token':'{{csrf_token()}}'
            },function (data) {
@@ -91,7 +91,6 @@
                var tr = '';
                da.forEach(function (value) {
                    tr += '<tr><td>' + value.part_name + '</td><td>'+value.part_number+'</td><td>'+value.manufacturer+'</td></tr>';
-
                })
                var content = "<table class='list_tab'><thead><th>零部件名称</th><th>数量</th><th>生产厂商</th></thead><tbody>" + tr + "</tbody> </table>"
                layer.open({

@@ -1,21 +1,20 @@
 @extends('layouts.admin')
 @section('content')
-
     <!--面包屑导航 开始-->
     <div class="crumb_warp">
         <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="#">首页</a> &raquo; <a href="#">商品管理</a> &raquo; 添加商品
+        <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="/ad/storageRoom">零部件仓管理</a> &raquo;零部件订单列表
     </div>
     <!--面包屑导航 结束-->
-
-	<!--结果页快捷搜索框 开始-->
-	<div class="search_wrap">
-        <form action="" method="post">
+    <!--结果页快捷搜索框 开始-->
+    <div class="search_wrap">
+        <form action="{{url('ad/quality/search')}}" method="post">
             <table class="search_tab">
+                {{csrf_field()}}
                 <tr>
                     <th width="70">关键字:</th>
-                    <td><input type="text" name="keywords" placeholder="关键字"></td>
-                    <td><input type="submit" name="sub" value="查询"></td>
+                    <td><input type="text" name="keywords" placeholder="请输入订单编号查询"></td>
+                    <td><input type="submit" name="sub" value="查询" ></td>
                 </tr>
             </table>
         </form>
@@ -24,70 +23,90 @@
 
     <!--搜索结果页面 列表 开始-->
     <form action="#" method="post">
-        <div class="result_wrap">
-            <!--快捷导航 开始-->
-            <div class="result_content">
-                <div class="short_wrap">
-                    <a href="{{asset('ad/spare/add')}}"><i class="fa fa-plus"></i>新增入库</a>
-                    {{--<a href="#"><i class="fa fa-recycle"></i>批量删除</a>--}}
-                    {{--<a href="#"><i class="fa fa-refresh"></i>更新排序</a>--}}
-                </div>
-            </div>
-            <!--快捷导航 结束-->
-        </div>
+        {{--  <div class="result_wrap">
+              <!--快捷导航 开始-->
+              <div class="result_content">
+                  <div class="short_wrap">
+                      <a href="{{asset('ad/purAdd')}}"><i class="fa fa-plus"></i>新增采购</a>
+                  </div>
+              </div>
+              <!--快捷导航 结束-->
+          </div>--}}
 
         <div class="result_wrap">
             <div class="result_content">
                 <table class="list_tab">
                     <tr>
-                        <th class="tc" width="5%"><input type="checkbox" name=""></th>
-                        <th class="tc">排序</th>
-                        <th class="tc">ID</th>
-                        <th>标题</th>
-                        <th>审核状态</th>
-                        <th>点击</th>
-                        <th>发布人</th>
-                        <th>更新时间</th>
-                        <th>评论</th>
+                        <th class="tc">订单编号</th>
+                        <th>采购申请人</th>
+                        <th>申请时间</th>
+                        <th>到货时间</th>
+                        <th>仓库状态</th>
+                        <th>订单详情查看</th>
+                        <th>质检结果</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
-                        <td class="tc">
-                            <input type="text" name="ord[]" value="0">
-                        </td>
-                        <td class="tc">59</td>
-                        <td>
-                            <a href="#">Apple iPhone 6 Plus (A1524) 16GB 金色 移动联通电信4G手机</a>
-                        </td>
-                        <td>0</td>
-                        <td>2</td>
-                        <td>admin</td>
-                        <td>2014-03-15 21:11:01</td>
-                        <td></td>
-                        <td>
-                            <a href="#">修改</a>
-                            <a href="#">删除</a>
-                        </td>
-                    </tr>
+                    @foreach($data as $v)
+                        <tr>
+                            <td class="tc">{{$v->order_number}}</td>
+                            <td>{{$v->name}}</td>
+                            <td>{{$v->created_at}}</td>
+                            <td style="color:red">{{$v->delivery_time}}</td>
+                            @if($v->warehousing == 0)
+                                <td>未入库</td>
+                            @elseif($v->warehousing ==1)
+                                <td>已入库</td>
+                            @endif
+                            <td>
+                                <a  id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
+                            </td>
+                            @if($v->status==1 || $v->status==2)
+                                <td>
+                                    <a href="{{url('ad/quality/img/'.$v->order_number)}}" style="color: green" >查看质检结果</a>
+                                </td>
+                            @else
+                                <td>
+                                    <a href="{{url('ad/quality/show/'.$v->order_number)}}">上传质检结果</a>
+                                </td>
+                            @endif
+                            <td>
+                                <a href="{{url('ad/spare/add/'.$v->order_number)}}">入库</a>
+                            </td>
+                            <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
+                        </tr>
+                    @endforeach
                 </table>
 
-<div class="page_nav">
-</div>
-                <div class="page_list">
-                    <ul>
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
+                <div class="page_nav">
+                    <div class="page_list">
+                        <ul>
+                            {!! $data->links() !!}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
     </form>
     <!--搜索结果页面 列表 结束-->
+    <script>
+        function info(id) {
+            $.post("{{url('ad/purchase/info')}}",{
+                'id':id,
+                '_token':'{{csrf_token()}}'
+            },function (data) {
+                var da =data.data;
+                var tr = '';
+                da.forEach(function (value) {
+                    tr += '<tr><td>' + value.part_name + '</td><td>'+value.part_number+'</td><td>'+value.manufacturer+'</td></tr>';
 
+                })
+                var content = "<table class='list_tab'><thead><th>零部件名称</th><th>数量</th><th>生产厂商</th></thead><tbody>" + tr + "</tbody> </table>"
+                layer.open({
+                    title: '零部件信息',
+                    maxmin:true,
+                    area:['800px,500px'],
+                    content
+                });
+            })
+        }
+    </script>
 @endsection

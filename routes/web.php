@@ -26,10 +26,6 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
     Route::get('index', 'IndexController@index');                        //首页
     Route::get('welcome', 'IndexController@welcome');                    //首页
     Route::get('test', 'IndexController@test');                          //测试
-    //零部件仓库
-    Route::get('spare','SparePartsController@index');                          //零部件仓库列表
-    Route::get('spare/add','SparePartsController@addparts');                            //零部件入库页
-
 });
 //权限角色为采购才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function () {
@@ -49,6 +45,16 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::post('quality/store','QualityController@store');                                 //提交
     Route::get('quality/img/{order_number}','QualityController@img');                       //查看质检结果
     Route::post('quality/search','QualityController@search');                               //模糊搜索质检结果
+});
+
+//权限角色为仓库库管才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
+    //零部件仓库
+    Route::get('spare','SparePartsController@index');                                       //零部件仓库列表
+    Route::get('spare/add/{order_number}','SparePartsController@addparts');                            //零部件入库页
+    Route::get('spare/shelve/info','SparePartsController@shelveinfo');                          //货架信息
+
+
 });
 //权限角色为admin才能访问的路由组
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:admin'],'prefix'=>

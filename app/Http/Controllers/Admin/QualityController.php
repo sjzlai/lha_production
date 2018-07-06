@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Pruchase_quality;
+use App\Model\Purchase_quality;
+use App\Model\Purchase_lists;
+use App\Model\Unqualified;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +19,21 @@ class QualityController extends Controller
      */
     public function index()
     {
-        $data = Pruchase_quality::QualityList();
+        $data = Purchase_quality::QualityList($page=10);
         return view('lha.quality.list', ['data' => $data]);
     }
 
+    /**
+     * Notes:关键词搜索
+     * Author:sjzlai
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Date:2018/07/06 10:04
+     */
     public function search(Request $request)
     {
         $keyword = $request->input('keywords');
-        $data = Pruchase_quality::QualitySearch($keyword);
+        $data = Purchase_quality::QualitySearch($keyword);
         return view('lha.quality.list', ['data' => $data]);
     }
 
@@ -44,7 +53,11 @@ class QualityController extends Controller
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
-            $info = $request->except('_token', 'picture');
+            $data = $request->except('_token', 'picture','purchase_order_no','status','user_id');
+            $info['purchase_order_no'] = $request->input('purchase_order_no');
+            $info['status'] = $request->input('status');
+            $info['user_id'] = $request->input('user_id');
+            //dd($info);
             $file = $request->file('picture');
             // 文件是否上传成功
             if ($file->isValid()) {
@@ -61,11 +74,25 @@ class QualityController extends Controller
                 $file->move($filedir, $filename);
             }
             $info['img_path'] = $filedir . $filename;
-            $res = Pruchase_quality::create($info);
-            if ($res):
-                return redirect('ad/quality');
+            //判断订单是否已经上传过质检结果
+            $result = Purchase_quality::where(['purchase_order_no'=>$info['purchase_order_no']])->get();
+            if (!$result->isEmpty()):
+                return withInfoErr('订单号已存在!请重新输入');
             else:
-                return "采购失败";
+            $res = Purchase_quality::create($info);
+            if ($res):
+                //将不合格零部件数量及批号存入到表part_info_unqualified
+                foreach($data as $key=>$v):
+                    $v['purchase_order_no'] = $info['purchase_order_no'];
+                    $v['part_name'] = $key;
+                    $re = Unqualified::create($v);
+                endforeach;
+                if ($re):
+                        return redirect('ad/quality');
+                    else:
+                        return "采购失败";
+                    endif;
+            endif;
             endif;
         }
     }
@@ -76,7 +103,7 @@ class QualityController extends Controller
      */
     public function img($order_number)
     {
-        $img = Pruchase_quality::where(['purchase_order_no'=>$order_number])->get();
+        $img = Purchase_quality::where(['purchase_order_no'=>$order_number])->get();
         return view('lha.quality.img',['img'=>$img]);
     }
 }

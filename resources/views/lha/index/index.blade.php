@@ -63,9 +63,9 @@
             <div class="icon">质</div>
             <div class="title">零部件质检</div>
         </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>零部件仓库')">
             <div class="icon">零</div>
-            <div class="title">零件仓库</div>
+            <div class="title">零部件仓库</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
             <i class="icon fa fa-fw fa-area-chart black" ></i>
