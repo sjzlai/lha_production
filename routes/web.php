@@ -92,3 +92,11 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::get('productionPlanList/{orderId}','ProductionController@productionPlanList');//生产计划列表
     Route::get('productionPlanFinish/{orderId}','ProductionController@productionPlanFinish');//生产计划完成
 });
+
+//成品质检 角色才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
+    Route::get('qualityProductionOrder','ProductQualityController@orderList');//生产订单查看
+    Route::get('qualityAddView/{orderId}','ProductQualityController@qualityAddView');//质检添加
+    Route::post('qualityAdd','ProductQualityController@qualityAdd');//质检添加
+
+});
