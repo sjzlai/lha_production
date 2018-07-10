@@ -87,6 +87,10 @@
             <div class="icon">生</div>
             <div class="title">生产订单</div>
         </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/qualityProductionOrder')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>成品质检')">
+            <div class="icon">质</div>
+            <div class="title">成品质检</div>
+        </div>
     </div>
     <div id="win10-menu" class="hidden">
         <div class="list win10-menu-hidden animated animated-slideOutLeft">
