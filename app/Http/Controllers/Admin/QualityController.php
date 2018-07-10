@@ -57,7 +57,6 @@ class QualityController extends Controller
             $info['purchase_order_no'] = $request->input('purchase_order_no');
             $info['status'] = $request->input('status');
             $info['user_id'] = $request->input('user_id');
-            //dd($info);
             $file = $request->file('picture');
             // 文件是否上传成功
             if ($file->isValid()) {
@@ -82,11 +81,16 @@ class QualityController extends Controller
             $res = Purchase_quality::create($info);
             if ($res):
                 //将不合格零部件数量及批号存入到表part_info_unqualified
-                foreach($data as $key=>$v):
-                    $v['purchase_order_no'] = $info['purchase_order_no'];
-                    $v['part_name'] = $key;
-                    $re = Unqualified::create($v);
-                endforeach;
+//              dump($data);
+                for($j=1; $j<=count($data);$j++):
+                    for ($i=0; $i<count($data[$j]['part_number']);$i++):
+                        $a['purchase_order_no'] = $info['purchase_order_no'];
+                        $a['part_id']= "$j";
+                        $a['part_number'] = $data[$j]['part_number'][$i];
+                        $a['batch_number'] =$data[$j]['batch_number'][$i];
+                        $re = Unqualified::create($a);
+                    endfor;
+                endfor;
                 if ($re):
                         return redirect('ad/quality');
                     else:

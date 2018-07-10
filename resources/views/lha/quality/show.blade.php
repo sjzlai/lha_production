@@ -31,8 +31,10 @@
                 <tr id="info">
                     <th><i class="require">*</i>检验结果：</th>
                     <td>
-                        <label for=""><input type="radio" checked="checked" name="status" value="1" onchange="qualified(this)">全部合格</label>
-                        <label for=""><input type="radio" name="status" value="2" onchange="unqualified(this)">部分不合格</label>
+                        <label for=""><input type="radio" checked="checked" name="status" value="1"
+                                             onchange="qualified(this)">全部合格</label>
+                        <label for=""><input type="radio" name="status" value="2"
+                                             onchange="unqualified(this)">部分不合格</label>
                     </td>
                 </tr>
 
@@ -56,38 +58,69 @@
         </form>
     </div>
     <script>
-        function unqualified(){
-        $("#info").after('<tr class="hidden">'+
-            '<th><i class="require">*</i>吹嘴：</th>'+
-            '<td><input type="text" name="1[part_number]" placeholder="请输入数量"><input type="text" name="1[batch_number]" placeholder="请输入批号"></td>'+
-                '</tr>'+
-                '<tr class="hidden">'+
-                '<th><i class="require">*</i>笛管：</th>'+
-            '<td><input type="text" name="2[part_number]"  placeholder="请输入数量"><input type="text" name="2[batch_number]" placeholder="请输入批号"></td>'+
-                '</tr>'+
-                '<tr class="hidden">'+
-                '<th><i class="require">*</i>哨片：</th>'+
-            '<td><input type="text" name="3[part_number]" placeholder="请输入数量"><input type="text" name="3[batch_number]" placeholder="请输入批号"></td>'+
-                '</tr>'+
-                '<tr class="hidden">'+
-                '<th><i class="require">*</i>垫片：</th>'+
-            '<td><input type="text" name="4[part_number]" placeholder="请输入数量"><input type="text" name="4[batch_number]" placeholder="请输入批号"></td>'+
-                '</tr>'+
-                '<tr class="hidden">'+
-                '<th><i class="require">*</i>肺笛袋：</th>'+
-            '<td><input type="text" name="5[part_number]" placeholder="请输入数量"><input type="text" name="5[batch_number]" placeholder="请输入批号"></td>'+
-                '</tr>'+
-                '<tr class="hidden">'+
-                '<th><i class="require">*</i>哨片袋：</th>'+
-            '<td><input type="text" name="6[part_number]" placeholder="请输入数量"><input type="text" name="6[batch_number]" placeholder="请输入批号"></td>'+
-                '</tr>'+
-                '<tr class="hidden">'+
+        function unqualified() {
+            $("#info").after('<tr class="hidden">' +
+                '<th><i class="require">*</i>吹嘴：</th>' +
+                '<td style="display: block;" ><input type="text" name="1[part_number][]" placeholder="请输入数量"><input type="text" name="1[batch_number][]" placeholder="请输入批号">\n' +
+                '<input type="button" onclick=addRemove("add",this,1) name="" value="+">\n'+
+                '<input type="button" onclick=addRemove("remove",this,1) name="" value="-">\n'+
+                '</td></tr>' +
+                '<tr class="hidden">' +
+                '<th><i class="require">*</i>笛管：</th>' +
+                '<td  style="display: block;"><input type="text" name="2[part_number][]"  placeholder="请输入数量"><input type="text" name="2[batch_number][]" placeholder="请输入批号">' +
+                '<input type="button" onclick=addRemove("add",this,2) name="" value="+">\n'+
+                '<input type="button" onclick=addRemove("remove",this,2) name="" value="-">\n'+
+                '</td></tr>' +
+                '<tr class="hidden">' +
+                '<th><i class="require">*</i>哨片：</th>' +
+                '<td><input type="text" name="3[part_number][]" placeholder="请输入数量"><input type="text" name="3[batch_number][]" placeholder="请输入批号">' +
+                '<input type="button" onclick=addRemove("add",this,3) name="" value="+">\n'+
+                '<input type="button" onclick=addRemove("remove",this,3) name="" value="-">\n'+
+                '</td></tr>' +
+                '<tr class="hidden">' +
+                '<th><i class="require">*</i>垫片：</th>' +
+                '<td><input type="text" name="4[part_number][]" placeholder="请输入数量"><input type="text" name="4[batch_number][]" placeholder="请输入批号">' +
+                '<input type="button" onclick=addRemove("add",this,4) name="" value="+">\n'+
+                '<input type="button" onclick=addRemove("remove",this,4) name="" value="-">\n'+
+                '</td></tr>' +
+                '<tr class="hidden">' +
+                '<th><i class="require">*</i>肺笛袋：</th>' +
+                '<td><input type="text" name="5[part_number][]" placeholder="请输入数量"><input type="text" name="5[batch_number][]" placeholder="请输入批号">' +
+                '<input type="button" onclick=addRemove("add",this,5) name="" value="+">\n'+
+                '<input type="button" onclick=addRemove("remove",this,5) name="" value="-">\n'+
+                '</td></tr>' +
+                '<tr class="hidden">' +
+                '<th><i class="require">*</i>哨片袋：</th>' +
+                '<td><input type="text" name="6[part_number][]" placeholder="请输入数量"><input type="text" name="6[batch_number][]" placeholder="请输入批号">' +
+                '<input type="button" onclick=addRemove("add",this,6) name="" value="+">\n'+
+                '<input type="button" onclick=addRemove("remove",this,6) name="" value="-">\n'+
+                '</td></tr>' +
+                '<tr class="hidden">' +
                 '<th><i class="require">*</i>皮筋：</th>'+
-            '<td><input type="text" name="7[part_number]" placeholder="请输入数量"><input type="text" name="7[batch_number]" placeholder="请输入批号"></td>'+
-                '</tr>');
-        }
+                '<td><input type="text" name="7[part_number][]" placeholder="请输入数量"><input type="text" name="7[batch_number][]" placeholder="请输入批号">' +
+                '<input type="button" onclick=addRemove("add",this,7) name="" value="+">\n'+
+                '<input type="button" onclick=addRemove("remove",this,7) name="" value="-">\n'+
+                '</td></tr>');
+        };
+
         function qualified() {
             $(".hidden").hide();
         }
+
+        //增加与减少零部件信息填写内容
+        var addRemove = function (params, ele,number) {
+            if (params == 'add') {
+                $(ele).parent().parent().append('<td style="display: block;" >\n' +
+                    '<input type="text" class="" name="'+number+'[part_number][]" placeholder="请输入吹嘴数量">\n' +
+                    '<input type="text" name="'+number+'[batch_number][]" placeholder="请输入批号">\n' +
+                    '</td>');
+            } else if (params == 'remove') {
+                var len = $(ele).parent().parent().children().length;
+                if (len <= 2) return;
+                $(ele).parent().parent().children('td:last-child').remove();
+            }else {
+                return;
+            }
+        };
     </script>
 @endsection
