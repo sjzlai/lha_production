@@ -82,15 +82,17 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::post('goodsShelve/fuzzySearch','GoodsShelveController@fuzzySearch');//货架模糊搜索
     Route::get('goodsShelveAdd/{id}','GoodsShelveController@goodsShelveAdd');//返回添加货架视图
 });
-//权限角色为生产订单查看才能访问的路由
-Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
-    Route::get('productionOrder','ProductionController@orderList');//生产订单查看
-    Route::get('productionHandle/{orderId}','ProductionController@productionHandle');//生产订单处理
-    Route::post('productionFuzzySearch','ProductionController@fuzzySearch');//生产订单处理
-    Route::post('productionPlan','ProductionController@productionPlan');//生产计划添加
-    Route::get('productionPlanAddView/{orderId}','ProductionController@productionPlanAddView');//生产计划添加视图
-    Route::get('productionPlanList/{orderId}','ProductionController@productionPlanList');//生产计划列表
-    Route::get('productionPlanFinish/{orderId}','ProductionController@productionPlanFinish');//生产计划完成
+//权限角色为生产查看才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function () {
+    Route::get('productionOrder', 'ProductionController@orderList');//生产订单查看
+    Route::get('productionHandle/{orderId}', 'ProductionController@productionHandle');//生产订单处理
+    Route::post('productionFuzzySearch', 'ProductionController@fuzzySearch');//生产订单处理
+    Route::post('productionPlan', 'ProductionController@productionPlan');//生产计划添加
+    Route::get('productionPlanAddView/{orderId}', 'ProductionController@productionPlanAddView');//生产计划添加视图
+    Route::get('productionPlanList/{orderId}', 'ProductionController@productionPlanList');//生产计划列表
+    Route::get('productionPlanFinish/{orderId}', 'ProductionController@productionPlanFinish');//生产计划完成
+    Route::get('productionRecordView/{orderId}', 'ProductionController@productionRecordView');//生产记录登记视图
+    Route::post('productionMakeRecord', 'ProductionController@productionMakeRecord');//生产记录登记视图
 });
 
 //成品质检 角色才能访问的路由
@@ -98,5 +100,4 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::get('qualityProductionOrder','ProductQualityController@orderList');//生产订单查看
     Route::get('qualityAddView/{orderId}','ProductQualityController@qualityAddView');//质检添加
     Route::post('qualityAdd','ProductQualityController@qualityAdd');//质检添加
-
 });

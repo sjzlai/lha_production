@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\PartInfo;
+use App\Model\PartProductionLists;
 use App\Model\ProductionPlan;
 use App\Model\PurchasingOrder;
 use Illuminate\Http\Request;
@@ -111,4 +113,56 @@ class ProductionController extends Controller
         if(!$res) return withInfoErr('执行失败');
         return withInfoMsg('执行成功');
     }
+
+    /**
+     * @name:生产记录登记视图
+     * @author: weikai
+     * @date: 2018/7/10 9:03
+     */
+    public function productionRecordView($orderId)
+    {
+        $partInfosCZ = PartInfo::fuzzySearch('吹嘴');
+        $partInfosDG = PartInfo::fuzzySearch('笛管');
+        $partInfosSP = PartInfo::fuzzySearch('哨片');
+        $partInfosDP = PartInfo::fuzzySearch('垫片');
+        $partInfosD = PartInfo::fuzzySearch('袋');
+        $partInfosPJ = PartInfo::fuzzySearch('皮筋');
+        $partInfos = PartInfo::all();
+        return view('lha.production.production-record-add',
+            [
+                'orderId'=>$orderId,
+                'partInfosCZ'=>$partInfosCZ,
+                'partInfosDG'=>$partInfosDG,
+                'partInfosSP'=>$partInfosSP,
+                'partInfosDP'=>$partInfosDP,
+                'partInfosD'=>$partInfosD,
+                'partInfosPJ'=>$partInfosPJ,
+                'partInfos'=>$partInfos
+            ]
+        );
+    }
+
+    /**
+     * @name:生产记录登记
+     * @author: weikai
+     * @date: 2018/7/10 9:35
+     */
+    public function productionMakeRecord(Request $request)
+    {
+        $data['order_no'] = $request->input('order_no');
+        $data['number'] = $request->input('number');
+        $data['part_id'] = $request->input('part_id');
+        $data['part_number'] = $request->input('part_number');
+        //零部件清单表写入
+        for ($i = 0; $i < count($data['part_id']); $i++) {
+           $model =  new PartProductionLists();
+           $model->order_no = $data['order_no'];
+//           $model->number = $data['number'];
+           $model->part_id = $data['part_id'][$i];
+           $model->part_number = $data['part_number'][$i];
+           $model->save();
+        }
+    }
+
+
 }

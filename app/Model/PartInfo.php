@@ -15,4 +15,16 @@ class PartInfo extends Model
 {
     protected $table = "part_info";
     protected $guarded = [];
+    public $timestamps = true;
+
+    /**
+     * @name:模糊搜索
+     * @author: weikai
+     * @date: 2018/7/10 10:01
+     */
+    public static function fuzzySearch($value,$key = 'part_name')
+    {
+        return PartInfo::where($key,'like','%'.$value.'%')->get();
+
+    }
 }
