@@ -89,10 +89,12 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::post('productionFuzzySearch', 'ProductionController@fuzzySearch');//生产订单处理
     Route::post('productionPlan', 'ProductionController@productionPlan');//生产计划添加
     Route::get('productionPlanAddView/{orderId}', 'ProductionController@productionPlanAddView');//生产计划添加视图
-    Route::get('productionPlanList/{orderId}', 'ProductionController@productionPlanList');//生产计划列表
+    Route::get('productionPlanInfo/{orderId}', 'ProductionController@productionPlanInfo');//生产计划详情
     Route::get('productionPlanFinish/{orderId}', 'ProductionController@productionPlanFinish');//生产计划完成
     Route::get('productionRecordView/{orderId}', 'ProductionController@productionRecordView');//生产记录登记视图
     Route::post('productionMakeRecord', 'ProductionController@productionMakeRecord');//生产记录登记视图
+    Route::get('productExcelDown/{orderId}', 'ProductionController@productExcelDown');//成品记录excel导出
+    Route::get('partExcelDown/{orderId}', 'ProductionController@partExcelDown');//零部件清单excel导出
 });
 
 //成品质检 角色才能访问的路由

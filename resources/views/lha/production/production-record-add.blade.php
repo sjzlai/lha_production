@@ -112,6 +112,27 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>成品信息</th>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>成品名称</th>
+                        <td>
+                            <input type="text" name="product_name" placeholder="请输入成品名称">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>成品批号</th>
+                        <td>
+                            <input type="text" name="product_batch_number" placeholder="请输入成品批号">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>成品规格</th>
+                        <td>
+                            <input type="text" name="product_spec" placeholder="请输入成品规格">
+                        </td>
+                    </tr>
+                    <tr>
                         <th></th>
                         <td>
                             <input type="submit" value="提交">
