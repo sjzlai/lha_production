@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\OrdereNoLinkFactoryNo;
+use App\Model\PartInfo;
+use App\Model\PartProductionLists;
+use App\Model\ProductInfo;
 use App\Model\ProductionPlan;
+use App\Model\ProductionRecord;
 use App\Model\PurchasingOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,9 +15,28 @@ use App\Http\Controllers\Controller;
 class ProductionController extends Controller
 {
     public $model ;
-    public function __construct(PurchasingOrder $purchasingOrder)
+    public $prModel ;
+    public $pplModel;
+    public $olfModel;
+    public $excel;
+    public function __construct
+    (
+        PurchasingOrder $purchasingOrder,
+        ProductionRecord $productionRecord,
+        PartProductionLists $partProductionLists,
+        ProductInfo $productInfo,
+        ProductionPlan $productionPlan,
+        ExcelController $excelController,
+        OrdereNoLinkFactoryNo $ordereNoLinkFactoryNo
+    )
     {
         $this->model = $purchasingOrder;
+        $this->prModel = $productionRecord;
+        $this->pplModel = $partProductionLists;
+        $this->piModel = $productInfo;
+        $this->ppModel = $productionPlan;
+        $this->olfModel = $ordereNoLinkFactoryNo;
+        $this->excel = $excelController;
     }
 
     //生产订单查看
@@ -64,7 +88,24 @@ class ProductionController extends Controller
      */
     public function productionPlanAddView($orderId)
     {
-        return view('lha.production.production-add',['orderId'=>$orderId]);
+        $partInfosCZ = PartInfo::fuzzySearch('吹嘴');
+        $partInfosDG = PartInfo::fuzzySearch('笛管');
+        $partInfosSP = PartInfo::fuzzySearch('哨片');
+        $partInfosDP = PartInfo::fuzzySearch('垫片');
+        $partInfosD = PartInfo::fuzzySearch('袋');
+        $partInfosPJ = PartInfo::fuzzySearch('皮筋');
+        $partInfos = PartInfo::all();
+        return view('lha.production.production-add',[
+            'orderId'=>$orderId,
+            'orderId'=>$orderId,
+            'partInfosCZ'=>$partInfosCZ,
+            'partInfosDG'=>$partInfosDG,
+            'partInfosSP'=>$partInfosSP,
+            'partInfosDP'=>$partInfosDP,
+            'partInfosD'=>$partInfosD,
+            'partInfosPJ'=>$partInfosPJ,
+            'partInfos'=>$partInfos
+        ]);
     }
 
     /**
@@ -76,39 +117,121 @@ class ProductionController extends Controller
     public function productionPlan(Request $request)
     {
         $data = $request->except('_token');
-        $data['user_id'] = session('user.id');
-        $time = strtotime($data['production_plan_date']);
-        $data['production_plan_date'] = date('Y-m-d H:i:s',$time);
-        $res = ProductionPlan::create($data);
-        if (!$res) return withInfoErr('添加失败');
+        if (count($data)<8) return withInfoErr('请填写完整');
+        $data['order_no'] = $request->input('order_no');//生产订单号
+        $data['output'] = $request->input('output');//生产量
+        $data['remark'] = $request->input('remark');//备注
+        $data['production_plan_date'] = $request->input('production_plan_date');//预计完工日期
+
+        $data['part_id'] = $request->input('part_id');//零部件id
+        $data['part_number'] = $request->input('part_number');//零部件数量
+
+        $data['product_name'] = $request->input('product_name');//成品名称
+        $data['product_batch_number'] = $request->input('product_batch_number');//成品批号
+        $data['product_spec'] = $request->input('product_spec');//成品规格
+        $data['factory_no'] = $request->input('factory_no');//工厂订单号
+
+        //生产计划表写入
+        $this->ppModel->production_plan_date = date('Y-m-d H:i:s',strtotime($data['production_plan_date']));//完工时间写入
+        $this->ppModel->output =$data['output'];//生产量写入
+        $this->ppModel->remark =$data['remark'];//备注写入
+        $this->ppModel->user_id =session('user.id');//用户id写入
+        $ppRes = $this->ppModel->save();
+
+        //零部件清单表写入
+        for ($i = 0; $i < count($data['part_id']); $i++) {
+            $this->pplModel->order_no = $data['order_no'];
+            $this->pplModel->part_id = $data['part_id'][$i];
+            $this->pplModel->part_number = $data['part_number'][$i];
+            $pplRes =  $this->pplModel->save();
+        }
+
+        //成品信息表写入
+        $this->piModel->product_name = $data['product_name'];
+        $this->piModel->product_batch_number = $data['product_batch_number'];
+        $this->piModel->product_spec = $data['product_spec'];
+        $this->piModel->order_no = $data['order_no'];
+//        $this->piModel->product_code = ;//产品标识码
+        $piRes = $this->piModel->save();
+
+        //工厂单号与生产订单号关联表写入
+        $this->olfModel->order_no =  $data['order_no'];
+        $this->olfModel->factory_no =  $data['factory_no'];
+        $olfRes = $this->olfModel->save();
+
+
+        if (!$ppRes || !$pplRes || !$piRes || !$olfRes) return withInfoErr('添加失败');
         return withInfoMsg('添加成功');
     }
 
     /**
      * @param $orderId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @name:生产计划列表
+     * @name:生产计划详情
      * @author: weikai
      * @date: 2018/6/29 16:26
      */
-    public function productionPlanList($orderId)
+    public function productionPlanInfo($orderId)
     {
-        $productionPlans = ProductionPlan::productionPlanList($orderId);
-        return view('lha.production.productionPlan-list',['productionPlans'=>$productionPlans]);
+        $data = ProductionPlan::productionPlanInfo($orderId);
+        return view('lha.production.productionPlan-info',['productionPlanInfo'=>$data]);
     }
 
     /**
-     * @name:生产计划完成
+     * @param $orderId
+     * @name:成品信息excel导出
      * @author: weikai
-     * @date: 2018/6/29 16:27
+     * @date: 2018/7/11 15:38
      */
-    public function productionPlanFinish($orderId)
+    public function productExcelDown($orderId)
     {
-        $productionPlan = ProductionPlan::where('order_no',$orderId)->first();
-        if (empty($productionPlan)) return withInfoErr('没有此订单');
-        $productionPlan->is_finish = 1;
-        $res = $productionPlan->save();
-        if(!$res) return withInfoErr('执行失败');
-        return withInfoMsg('执行成功');
+        $data = ProductionPlan::productionPlanInfo($orderId);
+        $a = [];
+       $title = array('工厂订单号','成品名称','成品标识码','成品批号','成品规格','记录人姓名','记录人手机号','生产计划ID','生产订单号','预计完工日期','生产数量','备注信息','用户id','创建时间','修改时间');
+        array_unshift($a,$title);
+        array_push($a,array_values($data['product']));
+        $this->excel->export('成品记录',$a);
+
     }
+
+    /**
+     * @param $orderId
+     * @name:零部件清单Excel导出
+     * @author: weikai
+     * @date: 2018/7/11 16:41
+     */
+    public function partExcelDown($orderId)
+    {
+        $data = ProductionPlan::productionPlanInfo($orderId);
+        $b = [];
+        for ($i=0;$i<count($data['part']);$i++){
+            array_push($b,array_values($data['part'][$i]));
+        }
+        $title1 = array('零部件ID','零部件数量','零部件名称','零部件生产商','零部件批号','零部件型号');
+        array_unshift($b,$title1);
+        $this->excel->export('零部件清单',$b);
+    }
+
+    /**
+     * @name:生产记录登记视图
+     * @author: weikai
+     * @date: 2018/7/10 9:03
+     */
+    public function productionRecordView($orderId)
+    {
+
+
+    }
+
+    /**
+     * @name:生产记录登记
+     * @author: weikai
+     * @date: 2018/7/10 9:35
+     */
+    public function productionMakeRecord(Request $request)
+    {
+
+    }
+
+
 }

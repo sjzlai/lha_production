@@ -4,13 +4,13 @@
     <!--面包屑导航 开始-->
     <div class="crumb_warp">
         <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo; <a href="/ad/productionOrder">生产订单</a> &raquo;生产计划添加
+        <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo; <a href="/ad/productionOrder">生产订单</a> &raquo;生产记录登记
     </div>
     <!--面包屑导航 结束-->
 
     
     <div class="result_wrap">
-        <form action="/ad/productionPlan" method="post">
+        <form action="/ad/productionMakeRecord" method="post">
             {{csrf_field()}}
             <input type="hidden" name="order_no" value="{{$orderId}}">
             <table class="add_tab">
@@ -20,17 +20,13 @@
                         <td>{{$orderId}}</td>
                     </tr>
                     <tr>
-                        <th><i class="require">*</i>生产量：</th>
-                        <td><input type="number" class="lg" name="output"></td>
+                        <th><i class="require">*</i>完成生产量：</th>
+                        <td><input type="number" class="lg" name="number"></td>
                     </tr>
                     <tr>
-                        <th><i class="require">*</i>该生产量预计完工时间</th>
-                        <td><input type="date" name="production_plan_date"></td>
+                        <th><i class="require">*</i>交货日期</th>
+                        <td><input type="date" name="delivery_date"></td>
                     </tr>
-                   <tr>
-                       <th><i class="require">*</i>备注：</th>
-                       <td><textarea name="remark" id="" cols="30" rows="10"></textarea></td>
-                   </tr>
                     <tr>
                         <th>零部件信息</th>
                     </tr>
@@ -127,19 +123,13 @@
                     <tr>
                         <th><i class="require">*</i>成品批号</th>
                         <td>
-                            <input type="text" name="product_batch_number"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入成品批号">
+                            <input type="text" name="product_batch_number" placeholder="请输入成品批号">
                         </td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>成品规格</th>
                         <td>
-                            <input type="text" name="product_spec"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入成品规格">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require">*</i>工厂订单号</th>
-                        <td>
-                            <input type="number" name="factory_no"   placeholder="请输入工厂单号">
+                            <input type="text" name="product_spec" placeholder="请输入成品规格">
                         </td>
                     </tr>
                     <tr>
