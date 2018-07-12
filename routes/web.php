@@ -83,7 +83,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::post('goodsShelve/fuzzySearch','GoodsShelveController@fuzzySearch');//货架模糊搜索
     Route::get('goodsShelveAdd/{id}','GoodsShelveController@goodsShelveAdd');//返回添加货架视图
 });
-//权限角色为生产查看才能访问的路由
+// 权限角色为生产查看才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function () {
     Route::get('productionOrder', 'ProductionController@orderList');//生产订单查看
     Route::get('productionHandle/{orderId}', 'ProductionController@productionHandle');//生产订单处理
@@ -93,9 +93,12 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::get('productionPlanInfo/{orderId}', 'ProductionController@productionPlanInfo');//生产计划详情
     Route::get('productionPlanFinish/{orderId}', 'ProductionController@productionPlanFinish');//生产计划完成
     Route::get('productionRecordView/{orderId}', 'ProductionController@productionRecordView');//生产记录登记视图
-    Route::post('productionMakeRecord', 'ProductionController@productionMakeRecord');//生产记录登记视图
+    Route::post('productionMakeRecord', 'ProductionController@productionMakeRecord');//生产记录登记
+    Route::get('productionRecordList/{orderId}', 'ProductionController@productionRecordList');//生产记录列表
     Route::get('productExcelDown/{orderId}', 'ProductionController@productExcelDown');//成品记录excel导出
     Route::get('partExcelDown/{orderId}', 'ProductionController@partExcelDown');//零部件清单excel导出
+    Route::get('codeMake/{orderId}', 'ProductionController@codeMake');//零部件清单excel导出
+    Route::get('test', 'ProductionController@test');//零部件清单excel导出
 });
 
 //成品质检 角色才能访问的路由

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\NumberRecord;
 use App\Model\OrdereNoLinkFactoryNo;
 use App\Model\PartInfo;
 use App\Model\PartProductionLists;
@@ -133,6 +134,7 @@ class ProductionController extends Controller
 
         //生产计划表写入
         $this->ppModel->production_plan_date = date('Y-m-d H:i:s',strtotime($data['production_plan_date']));//完工时间写入
+        $this->ppModel->order_no =$data['order_no'];//订单号写入
         $this->ppModel->output =$data['output'];//生产量写入
         $this->ppModel->remark =$data['remark'];//备注写入
         $this->ppModel->user_id =session('user.id');//用户id写入
@@ -140,19 +142,22 @@ class ProductionController extends Controller
 
         //零部件清单表写入
         for ($i = 0; $i < count($data['part_id']); $i++) {
-            $this->pplModel->order_no = $data['order_no'];
-            $this->pplModel->part_id = $data['part_id'][$i];
-            $this->pplModel->part_number = $data['part_number'][$i];
-            $pplRes =  $this->pplModel->save();
+            $pplData['order_no'] = $data['order_no'];
+            $pplData['part_id'] = $data['part_id'][$i];
+            $pplData['part_number'] = $data['part_number'][$i];
+            $pplRes =  $this->pplModel->create($pplData);
         }
 
         //成品信息表写入
-        $this->piModel->product_name = $data['product_name'];
-        $this->piModel->product_batch_number = $data['product_batch_number'];
-        $this->piModel->product_spec = $data['product_spec'];
-        $this->piModel->order_no = $data['order_no'];
-//        $this->piModel->product_code = ;//产品标识码
-        $piRes = $this->piModel->save();
+        for ($i=0;$i<$data['output'];$i++){
+            $piData['product_name'] = $data['product_name'];
+            $piData['product_batch_number'] = $data['product_batch_number'];
+            $piData['product_spec'] = $data['product_spec'];
+            $piData['order_no'] = $data['order_no'];
+            $piData['product_code'] = $this->codeMake($data['order_no'],$data['product_batch_number']);//产品标识码
+            $piRes = $this->piModel->create($piData);
+        }
+
 
         //工厂单号与生产订单号关联表写入
         $this->olfModel->order_no =  $data['order_no'];
@@ -161,9 +166,38 @@ class ProductionController extends Controller
 
 
         if (!$ppRes || !$pplRes || !$piRes || !$olfRes) return withInfoErr('添加失败');
-        return withInfoMsg('添加成功');
+        return redirect("/ad/productionPlanInfo/".$data['order_no']);
     }
 
+    /**
+     * @name:产品标识码生产
+     * @author: weikai
+     * @date: 2018/7/12 11:21
+     */
+    public function codeMake($orderId,$product_batch_number)
+    {
+        $province = PurchasingOrder::codeMake($orderId);//查询省份缩写
+        $last_num = NumberRecord::where('product_batch_number',$product_batch_number)->pluck('last_num')->toArray();//查询最后一次的递增号
+        //如果递增号没查到就初始值为10000 否则循环一次递增一次
+        if (!$last_num) {
+            $n = 10000;
+        }else{
+            $n = intval($last_num[0]);
+            $n++;
+        }
+
+        $code = $province[0].$product_batch_number.mt_rand('10','99').$n;//拼接产品id
+        //如果是这一批第一次生成就创建递增记录表否则就更新递增表递增数
+        if ($n == 10000){
+            $data['product_batch_number'] = $product_batch_number;
+            $data['last_num'] = $n;
+            NumberRecord::create($data);
+        }
+        $numberRecord = NumberRecord::where('product_batch_number',$product_batch_number)->first();
+        $numberRecord->last_num = $n;
+        $numberRecord->save();
+        return $code;
+    }
     /**
      * @param $orderId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -219,8 +253,7 @@ class ProductionController extends Controller
      */
     public function productionRecordView($orderId)
     {
-
-
+        return view('lha.production.production-record-add',['orderId'=>$orderId]);
     }
 
     /**
@@ -230,6 +263,46 @@ class ProductionController extends Controller
      */
     public function productionMakeRecord(Request $request)
     {
+        $data = $request->except('_token');
+        $data['user_id'] = session('user.id');
+        $data['product_date'] = date('Y-m-d h:i:s',strtotime($data['product_date']));
+        $prRes = $this->prModel->create($data);
+        if (!$prRes) return withInfoErr('添加失败');
+        return withInfoMsg('添加成功');
+    }
+
+    /**
+     * @param $orderId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @name:生产记录列表
+     * @author: weikai
+     * @date: 2018/7/12 14:27
+     */
+    public function productionRecordList($orderId)
+    {
+        $recordLists = $this->prModel->recordList($orderId);
+        return view('lha.production.production-record-list',['recordLists'=>$recordLists]);
+    }
+
+    public function test()
+    {
+        $str = 'asdaf12345678901235';
+        $code = floatval(sprintf('%u', crc32($str)));
+
+        $sstr = '';
+
+        while($code){
+            $mod = fmod($code, 62);
+            if($mod>9 && $mod<=35){
+                $mod = chr($mod + 55);
+            }elseif($mod>35){
+                $mod = chr($mod + 61);
+            }
+            $sstr .= $mod;
+            $code = floor($code/62);
+        }
+
+        return $sstr;
 
     }
 

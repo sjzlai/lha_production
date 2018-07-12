@@ -4,7 +4,7 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="/ad/production">生产订单</a> &raquo;生产计划详情
+    <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="/ad/productionOrder">生产订单</a> &raquo;生产计划详情
 </div>
 <!--面包屑导航 结束-->
 
@@ -47,7 +47,7 @@
                     <label>成品名称</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_name']}}</span>
                 </li>
                 <li>
-                    <label>成品标识码</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_code']}}</span>
+                    <label>成品标识码范围</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_code']}} 后五位至 {{(substr($productionPlanInfo['product']['product_code'],'-5')+$productionPlanInfo['product']['output']-1)}}</span>
                 </li>
                 <li>
                     <label>成品批号</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_batch_number']}}</span>
