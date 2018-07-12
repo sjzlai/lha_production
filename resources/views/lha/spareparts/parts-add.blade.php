@@ -9,8 +9,9 @@
     <!--面包屑导航 结束-->
     <!--结果集标题与导航组件 结束-->
     <div class="result_wrap">
-        <form action="#" method="post">
+        <form action="{{url('ad/spare/addSpare')}}" method="post">
             <table class="add_tab">
+                {{csrf_field()}}
                 <tbody>
                     <tr>
                         <th width="120"><i class="require">*</i>入库编号：</th>
@@ -73,9 +74,9 @@
                     <tr style="background: #5bc0de">
                         <th><i class="require">*</i>哨片：</th>
                         <td style="display: block;" >
-                            <input type="text" class="" name="3[part_number]" placeholder="请输入哨片数量">
-                            <input type="text" name="" placeholder="请输入批号">
-                            <input type="text" name="" placeholder="请输入型号">
+                            <input type="text" class="" name="3[part_number][]" placeholder="请输入哨片数量">
+                            <input type="text" name="3[batch_number][]" placeholder="请输入批号">
+                            <input type="text" name="3[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,3)" name="" value="+">
                             <input type="button" onclick="addRemove('remove', this,3)" name="" value="-">
                         </td>
@@ -85,7 +86,7 @@
                         <td style="display: block;" >
                             <input type="text" class="" name="4[part_number]" placeholder="请输入垫片数量">
                             <input type="text" name="4[batch_number]" placeholder="请输入批号">
-                            <input type="text" name="" placeholder="请输入型号">
+                            <input type="text" name="4[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,4)" name="" value="+">
                             <input type="button" onclick="addRemove('remove', this,4)" name="" value="-">
                         </td>
@@ -94,8 +95,8 @@
                         <th><i class="require">*</i>肺笛袋：</th>
                         <td style="display: block;" >
                             <input type="text" class="" name="5[part_number]" placeholder="请输入肺笛袋数量">
-                            <input type="text" name="" placeholder="请输入批号">
-                            <input type="text" name="" placeholder="请输入型号">
+                            <input type="text" name="5[batch_number][]" placeholder="请输入批号">
+                            <input type="text" name="5[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,5)" name="" value="+">
                             <input type="button" onclick="addRemove('remove', this,5)" name="" value="-">
                         </td>
@@ -104,8 +105,8 @@
                         <th><i class="require">*</i>哨片袋：</th>
                         <td style="display: block;" >
                             <input type="text" class="" name="6[part_number]" placeholder="请输入哨片袋数量">
-                            <input type="text" name="" placeholder="请输入批号">
-                            <input type="text" name="" placeholder="请输入型号">
+                            <input type="text" name="6[batch_number][]" placeholder="请输入批号">
+                            <input type="text" name="6[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,6)" name="" value="+">
                             <input type="button" onclick="addRemove('remove', this,6)" name="" value="-">
                         </td>

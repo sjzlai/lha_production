@@ -55,4 +55,10 @@ class SparePartsController extends Controller
         $shelve =GoodsShelve::RoomShelveList($id);
         return jsonReturn('1','货架列表',$shelve);
     }
+
+    public function store(Request $request)
+    {
+        $data = $request->except();
+        dd($data);
+    }
 }

@@ -77,7 +77,6 @@
                'id':id,
                '_token':'{{csrf_token()}}'
            },function (data) {
-
                var da =data.data;
                var tr = '';
                da.forEach(function (value) {

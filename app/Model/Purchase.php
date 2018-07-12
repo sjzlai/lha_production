@@ -18,11 +18,12 @@ class Purchase extends Model
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      * Date:2018/7/2 10:02
      */
-    public static function DateList()
+    public static function DateList($page=15)
     {
-        return self::leftjoin('user', 'part_purchase.user_id', '=', 'user.id')
+        return self::select('part_purchase.*','user.id','user.user_name','user.name','user.phone')
+            ->leftjoin('user', 'part_purchase.user_id', '=', 'user.id')
             ->where('part_purchase.status', '=', '0')
-            ->paginate('5');
+            ->paginate($page);
     }
 
     public static function searchList($keyword,$page=5)
@@ -39,9 +40,10 @@ class Purchase extends Model
      */
     public static function PartInfo($id)
     {
-        return self::join('part_purchase_lists', 'part_purchase.order_number', '=', 'part_purchase_lists.purchase_order_no')
-            ->join('part_info','part_purchase_lists.part_id','=','part_info.id')
-            ->where(['part_purchase.order_number'=>$id,'part_purchase_lists.status'=>0])
+        return self::from('part_purchase as pp')
+            ->leftjoin('part_purchase_lists as ppl', 'pp.order_number', '=', 'ppl.purchase_order_no')
+            ->join('part_info as pi','ppl.part_id','=','pi.id')
+            ->where(['pp.order_number'=>$id,'ppl.status'=>0])
             ->get();
     }
 
