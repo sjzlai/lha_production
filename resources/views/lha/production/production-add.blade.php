@@ -16,8 +16,14 @@
             <table class="add_tab">
                 <tbody>
                     <tr>
-                        <th><i class="require">*</i>生产订单号：</th>
+                        <th><i class="require">*</i>订单号：</th>
                         <td>{{$orderId}}</td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>工厂订单号</th>
+                        <td>
+                            <input type="number" name="factory_no"   placeholder="请输入工厂单号">
+                        </td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>生产量：</th>
@@ -136,12 +142,7 @@
                             <input type="text" name="product_spec"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入成品规格">
                         </td>
                     </tr>
-                    <tr>
-                        <th><i class="require">*</i>工厂订单号</th>
-                        <td>
-                            <input type="number" name="factory_no"   placeholder="请输入工厂单号">
-                        </td>
-                    </tr>
+
                     <tr>
                         <th></th>
                         <td>

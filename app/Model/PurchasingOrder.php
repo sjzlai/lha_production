@@ -39,4 +39,28 @@ class PurchasingOrder extends Model
 
         return self::where($key,'like',"%$keyword%")->paginate($page);
     }
+
+    /**
+     * @name:产品标识码生产 查询地址缩写
+     * @author: weikai
+     * @date: 2018/7/12 11:22
+     */
+    public static function codeMake($orderId)
+    {
+        return self::from('purchasing_order as po')
+            ->where('po.order_no',$orderId)
+            ->leftJoin('harvest_info as hi','hi.id','po.harvest_info_id')
+            ->pluck('hi.province')->toArray();
+    }
+
+    /**
+     * @param $orderId
+     * @name:成品批号查询
+     * @author: weikai
+     * @date: 2018/7/12 11:35
+     */
+    public static function productBatchNumber($orderId)
+    {
+        return ProductInfo::where('order_no',$orderId)->first()->toArray();
+    }
 }

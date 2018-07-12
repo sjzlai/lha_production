@@ -81,6 +81,7 @@
                                 <a href="/ad/productionPlanAddView/{{$orderEn->order_no}}">为此订单添加生产计划</a>
                                 <a href="/ad/productionPlanInfo/{{$orderEn->order_no}}">生产计划详情</a>
                                 <a href="/ad/productionRecordView/{{$orderEn->order_no}}">为此订单登记生产记录</a>
+                                <a href="/ad/productionRecordList/{{$orderEn->order_no}}">此订单的生产记录列表</a>
                             </td>
                         </tr>
                     @endforeach
