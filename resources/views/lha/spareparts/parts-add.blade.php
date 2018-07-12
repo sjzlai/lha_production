@@ -16,7 +16,7 @@
                     <tr>
                         <th width="120"><i class="require">*</i>入库编号：</th>
                         <td>
-                            <input type="text" placeholder="请输入入库编号">
+                            <input type="text" name="put_storage_no" placeholder="请输入入库编号">
                         </td>
                     </tr>
                     <tr>
@@ -34,7 +34,7 @@
                         <th><i class="require">*</i>库房：</th>
                         <td>
 
-                            <select name="stroe-room" id="one" onchange="info(this.value)">
+                            <select name="store_room" id="one" onchange="info(this.value)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                 <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -119,6 +119,14 @@
                             <input type="text" name="7[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,7)" name="" value="+">
                             <input type="button" onclick="addRemove('remove', this,7)" name="" value="-">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require">*</i>操作人:</th>
+                        <td>
+                            <select name="user_id">
+                                <option value="{{session('user.id')}}">{{session('user.name')}}</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
