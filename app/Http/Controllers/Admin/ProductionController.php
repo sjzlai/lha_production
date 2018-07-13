@@ -89,6 +89,8 @@ class ProductionController extends Controller
      */
     public function productionPlanAddView($orderId)
     {
+        $res = $this->ppModel->where('order_no',$orderId)->first();
+        if ($res) return withInfoErr('已有生产计划');
         $partInfosCZ = PartInfo::fuzzySearch('吹嘴');
         $partInfosDG = PartInfo::fuzzySearch('笛管');
         $partInfosSP = PartInfo::fuzzySearch('哨片');

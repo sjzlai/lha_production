@@ -107,3 +107,20 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad']
     Route::get('qualityAddView/{orderId}','ProductQualityController@qualityAddView');//质检添加
     Route::post('qualityAdd','ProductQualityController@qualityAdd');//质检添加
 });
+
+//成品入库 角色才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
+    Route::get('productWarehousingOrderList','ProductWarehousingController@orderList');//订单查看
+    Route::get('productWarehousingView/{orderId}','ProductWarehousingController@productWarehousingView');//成品入库视图
+    Route::post('productWarehousing','ProductWarehousingController@productWarehousing');//成品入库
+    Route::get('shelfInfo/{storageRoomId}','ProductWarehousingController@shelfInfo');//展示货架信息
+    Route::get('warehousingNumber/{orderId}','ProductWarehousingController@warehousingNumber');//已入库数量查询
+    Route::get('productWarehousingRecord/{orderId}','ProductWarehousingController@productWarehousingRecord');//入库记录查看
+
+});
+//成品出库 角色才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>'ad'],function (){
+    Route::get('ProductOutStorageRecordOrderList','ProductOutStorageRecordController@orderList');//订单查看
+
+});
+

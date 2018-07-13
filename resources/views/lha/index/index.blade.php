@@ -91,6 +91,14 @@
             <div class="icon">质</div>
             <div class="title">成品质检</div>
         </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/productWarehousingOrderList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>成品入库')">
+            <div class="icon">入</div>
+            <div class="title">成品入库</div>
+        </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/ProductOutStorageRecordOrderList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>成品出库')">
+            <div class="icon">出</div>
+            <div class="title">成品出库</div>
+        </div>
     </div>
     <div id="win10-menu" class="hidden">
         <div class="list win10-menu-hidden animated animated-slideOutLeft">
