@@ -4,23 +4,23 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="#">成品质检</a> &raquo;生产订单列表
+    <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="#">成品入库</a> &raquo;生产订单列表
 </div>
 <!--面包屑导航 结束-->
 
-<!--结果页快捷搜索框 开始-->
-<div class="search_wrap">
-    <form action="/ad/productionFuzzySearch" method="post">
-        {{csrf_field()}}
-        <table class="search_tab">
-                <th width="70">关键字:</th>
-                <td><input type="text" name="keyword" placeholder="输入订单号查询"></td>
-                <td><input type="submit" name="sub" value="查询"></td>
-            </tr>
-        </table>
-    </form>
-</div>
-<!--结果页快捷搜索框 结束-->
+{{--<!--结果页快捷搜索框 开始-->--}}
+{{--<div class="search_wrap">--}}
+    {{--<form action="/ad/productionFuzzySearch" method="post">--}}
+        {{--{{csrf_field()}}--}}
+        {{--<table class="search_tab">--}}
+                {{--<th width="70">关键字:</th>--}}
+                {{--<td><input type="text" name="keyword" placeholder="输入订单号查询"></td>--}}
+                {{--<td><input type="submit" name="sub" value="查询"></td>--}}
+            {{--</tr>--}}
+        {{--</table>--}}
+    {{--</form>--}}
+{{--</div>--}}
+{{--<!--结果页快捷搜索框 结束-->--}}
 
 <!--搜索结果页面 列表 开始-->
 <form action="#" method="post">
@@ -53,7 +53,7 @@
                         <th>备注信息</th>
                         <th>创建时间</th>
                         <th>更新时间</th>
-                        <th>处理状态</th>
+                        <th>已入库数量</th>
                         <th>操作</th>
                     </tr>
                     @foreach($ordersEn as $orderEn)
@@ -72,9 +72,10 @@
                             <td>{{$orderEn->remark}}</td>
                             <td>{{$orderEn->created_at}}</td>
                             <td>{{$orderEn->updated_at}}</td>
-                            <td>{{$orderEn->status==1 ? '已处理': '未处理'}}</td>
+                            <td><a class="num" href="javascript:void(0)">点击查看</a></td>
                             <td>
-                                <a href="/ad/qualityAddView/{{$orderEn->order_no}}">为此订单质检</a>
+                                <a href="/ad/productWarehousingView/{{$orderEn->order_no}}">入库</a>
+                                <a href="/ad/productWarehousingRecord/{{$orderEn->order_no}}">入库记录查看</a>
                             </td>
                         </tr>
                     @endforeach
@@ -101,32 +102,15 @@
 <!--搜索结果页面 列表 结束-->
 <script>
 
-    var url = '/ad/production/';
-    var did = $('#did').html();
-    var token = "{{csrf_token()}}";
-
-    $('#del').click(function () {
-        //询问框
-        layer.confirm('您确认要删除此库房吗？', {
-            btn: ['确认', '算了'] //按钮
-        }, function () {
-            $.ajax({
-                url :url+did,
-                type:"DELETE",
-                dataType:"json",
-                data:{"_token":token},
-                success:function (data) {
-                    layer.msg(data.message);
-                   window.location.reload();
-                },
-                error:function (data) {
-                    layer.msg(data.message);
-                }
-            })
-        }, function () {
-        });
-    });
-
+   var url = "/ad/warehousingNumber/{{$orderEn->order_no}}";
+   var countNum = "{{$orderEn->goods_number}}";
+    $('.num').click(function () {
+        $.get(url,function (data) {
+           if (data.data){
+               $(".num").html(data.data+'/'+countNum);
+           }
+        })
+    })
 </script>
 
 

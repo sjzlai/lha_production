@@ -74,7 +74,7 @@ class ProductQualityController extends Controller
      */
     public function orderList()
     {
-        $ordersEn = $this->productOrder->orderList(1,1);//已处理订单
+        $ordersEn = $this->productOrder->orderList(1,5);//已处理订单
         return view('lha.productQuality.production-order-list',['ordersEn'=>$ordersEn]);
     }
 }
