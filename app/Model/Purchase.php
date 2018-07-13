@@ -62,4 +62,9 @@ class Purchase extends Model
             ->where(['pp.order_number'=> $id,'ppl.status'=>0])
             ->get();
     }
+
+    public static function UpdateStatus($order_no)
+    {
+        return self::where(['order_number'=>$order_no])->update(['warehousing'=>1]);
+    }
 }

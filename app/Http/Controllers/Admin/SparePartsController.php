@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Notes:零部件仓库管理:页面展示,入库,查询
+ * Class SparePartsController
+ * @package App\Http\Controllers\Admin
+ * Author:sjzlai
+ * Date:2018/07/13 10:08
+ */
 class SparePartsController extends Controller
 {
     /**
@@ -26,8 +33,10 @@ class SparePartsController extends Controller
      */
     public function index()
     {
-        $data = Purchase_quality::QualityOk();
-        return view('lha.spareparts.list', compact('data'));
+        $orderEn= Purchase_quality::QualityOk(1);
+        $orderUn= Purchase_quality::QualityOk(0);
+        //dd($orderUn);
+        return view('lha.spareparts.list', ['orderEn'=>$orderEn,'orderUn'=>$orderUn]);
     }
 
     /**
@@ -59,18 +68,25 @@ class SparePartsController extends Controller
         return jsonReturn('1', '货架列表', $shelve);
     }
 
+    /**
+     * Notes:订单入库操作
+     * Author:sjzlai
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * Date:2018/07/13 10:06
+     */
     public function store(Request $request)
     {
         $data = $request->except('_token', 'purchase_order_no', 'store_room', 'put_storage_no', 'shelve','user_id');
         //dd($data);
         $info['purchase_order_no'] = $request->input('purchase_order_no');
-        $info['room_id'] = $request->input('store_room');
+        $info['storageroom_id'] = $request->input('store_room');
         $info['put_storage_no'] = $request->input('put_storage_no');
         $info['shelve_id'] = $request->input('shelve');
         $info['user_id'] = $request->input('user_id');
-        $result = PartPutStorageRecord::create($info);
+        $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
-            //将零部件信息:数量,批号,型号存入表part_info_detailed
+            //将零部件详细信息:数量,批号,型号存入表part_info_detailed
             for ($i = 1; $i < count($data); $i++):
                 for ($j = 0; $j < count($data[$i]['part_number']); $j++):
                     $a['part_id'] = $i;
@@ -81,8 +97,11 @@ class SparePartsController extends Controller
                     $re = PartInfoDetailed::create($a);
                 endfor;
             endfor;
-            if ($re):
-                back()->withInfoMsg('入库成功');
+            if ($re):       //更改订单入库状态
+                $res = Purchase::UpdateStatus($info['purchase_order_no']);
+                endif;
+            if ($res):
+                //back()->withInfoMsg('入库成功');
                 return redirect('ad/spare');
             else:
                 return back()->withInfoErr('入库失败');

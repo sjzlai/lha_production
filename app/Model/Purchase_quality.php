@@ -57,14 +57,14 @@ class Purchase_quality extends Model
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      * Date:2018/07/06 10:04
      */
-    public static function QualityOk($page=5)
+    public static function QualityOk($status,$page=5)
     {
         return self::from('part_purchase as part')
             ->select('part.*','user.id','user.name','test.purchase_order_no','test.status')
-            ->leftjoin('user', 'part.user_id', '=', 'user.id')
-            ->leftjoin('purchase_quality_test as test','part.order_number','=','test.purchase_order_no')
-            ->where(['part.status' => '0', 'part.warehousing' => '0','test.status'=>1])
-            ->orwhere('test.status','=','2')
+            ->join('user', 'part.user_id', '=', 'user.id')
+            ->join('purchase_quality_test as test','part.order_number','=','test.purchase_order_no')
+           // ->where(['part.status' => '0','test.status'=>1])
+            ->where(['part.warehousing'=>$status])
             ->orderBy('part.created_at','desc')
             ->paginate($page);
     }

@@ -24,7 +24,7 @@
                         <td>
                             <select name="purchase_order_no">
                                 @foreach($info as $v)
-                                <option value="19">{{$v->order_number}}</option>
+                                <option value="{{$v->order_number}}">{{$v->order_number}}</option>
                                 @endforeach
                             </select>
                         </td>
