@@ -72,7 +72,7 @@ UE.I18N['en'] = {
         'exceedTypeError': 'File Type Not Allow',
         'jsonEncodeError': 'Server Return Format Error',
         'loading':"loading...",
-        'loadError':"load error",
+        'loadError':"load errors",
         'errorLoadConfig': 'Server config not loaded, upload can not work.',
     },
     'simpleupload':{
@@ -80,7 +80,7 @@ UE.I18N['en'] = {
         'exceedTypeError': 'File Type Not Allow',
         'jsonEncodeError': 'Server Return Format Error',
         'loading':"loading...",
-        'loadError':"load error",
+        'loadError':"load errors",
         'errorLoadConfig': 'Server config not loaded, upload can not work.',
     },
     'elementPathTip':"Path",
@@ -92,13 +92,13 @@ UE.I18N['en'] = {
     'closeDialog':"closeDialog",
     'tableDrag':"You must import the file uiUtils.js before drag! ",
     'autofloatMsg':"The plugin AutoFloat depends on EditorUI!",
-    'loadconfigError': 'Get server config error.',
-    'loadconfigFormatError': 'Server config format error.',
-    'loadconfigHttpError': 'Get server config http error.',
+    'loadconfigError': 'Get server config errors.',
+    'loadconfigFormatError': 'Server config format errors.',
+    'loadconfigHttpError': 'Get server config http errors.',
     'snapScreen_plugin':{
         'browserMsg':"Only IE supported!",
         'callBackErrorMsg':"The callback data is wrong,please check the config!",
-        'uploadErrorMsg':"Upload error,please check your server environment! "
+        'uploadErrorMsg':"Upload errors,please check your server environment! "
     },
     'insertcode':{
         'as3':'ActionScript 3',
@@ -390,13 +390,13 @@ UE.I18N['en'] = {
         'delFailFile':'Remove failure file',
         'fileSizeLimit':'File size exceeds the limit！',
         'emptyFile':'Can not upload an empty file！',
-        'fileTypeError':'File type error！',
-        'unknownError':'Unknown error！',
+        'fileTypeError':'File type errors！',
+        'unknownError':'Unknown errors！',
         'fileUploading':'Uploading,please wait...',
         'cancelUpload':'Cancel upload',
-        'netError':'Network error',
+        'netError':'Network errors',
         'failUpload':'Upload failed',
-        'serverIOError':'Server IO error！',
+        'serverIOError':'Server IO errors！',
         'noAuthority':'No Permission！',
         'fileNumLimit':'Upload limit to the number',
         'failCheck':'Authentication fails, the upload is skipped!',
@@ -656,7 +656,7 @@ UE.I18N['en'] = {
         },
         fileType:"Image",
         flashError:"Flash initialization failed!",
-        netError:"Network error! Please try again!",
+        netError:"Network errors! Please try again!",
         copySuccess:"URL has been copied!",
 
         'flashI18n':{

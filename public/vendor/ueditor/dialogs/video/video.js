@@ -420,7 +420,7 @@
                         '<span class="rotateLeft">' + lang.uploadTurnLeft + '</span></div>').appendTo($li),
                     $prgress = $li.find('p.progress span'),
                     $wrap = $li.find('p.imgWrap'),
-                    $info = $('<p class="error"></p>').hide().appendTo($li),
+                    $info = $('<p class="errors"></p>').hide().appendTo($li),
 
                     showError = function (code) {
                         switch (code) {
