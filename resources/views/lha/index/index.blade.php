@@ -64,11 +64,15 @@
             <div class="title">零部件质检</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>零部件仓库')">
-            <div class="icon">零</div>
-            <div class="title">零部件仓库</div>
+            <div class="icon"><i class="icon fa fa-fw fa-truck"></i></div>
+            <div class="title">零部件入库</div>
+        </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>零部件仓库')">
+            <div class="icon"><i class="icon fa fa-fw fa-bus"></i></div>
+            <div class="title">零部件出库</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/articleList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>仓库管理')">
-            <i class="icon fa fa-fw fa-area-chart black" ></i>
+            <i class="icon fa fa-fw fa-area-chart" ></i>
             <div class="title">图表</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限角色管理')">

@@ -23,8 +23,8 @@ class Purchase_quality extends Model
     {
         return self::from('part_purchase as part')
         ->select('part.*','user.id','user.name','test.purchase_order_no','test.status')
-        ->leftjoin('user', 'part.user_id', '=', 'user.id')
-        ->leftjoin('purchase_quality_test as test','part.order_number','=','test.purchase_order_no')
+        ->leftJoin('user', 'part.user_id', '=', 'user.id')
+        ->leftJoin('purchase_quality_test as test','part.order_number','=','test.purchase_order_no')
         ->where(['part.status' => '0', 'part.warehousing' => '0'])
         ->orderBy('part.created_at','desc')
         ->paginate($page);

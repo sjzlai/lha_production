@@ -10,6 +10,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Notes:零部件质检
+ * Class QualityController
+ * @package App\Http\Controllers\Admin
+ * Author:sjzlai
+ * Date:2018/07/17 11:07
+ */
 class QualityController extends Controller
 {
     //零部件质检

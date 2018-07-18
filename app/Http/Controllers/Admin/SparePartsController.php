@@ -8,6 +8,7 @@ use App\Model\PartPutStorageRecord;
 use App\Model\Purchase;
 use App\Model\Purchase_quality;
 use App\Model\StorageRoom;
+use App\Model\Unqualified;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,7 @@ class SparePartsController extends Controller
 
     /**
      * Notes:列表页
+     * explain: 分别查询已有入库记录和未有入库记录的订单信息
      * Author:sjzlai
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * Date:2018/7/3 10:51
@@ -35,7 +37,6 @@ class SparePartsController extends Controller
     {
         $orderEn= Purchase_quality::QualityOk(1);
         $orderUn= Purchase_quality::QualityOk(0);
-        //dd($orderUn);
         return view('lha.spareparts.list', ['orderEn'=>$orderEn,'orderUn'=>$orderUn]);
     }
 
@@ -70,6 +71,7 @@ class SparePartsController extends Controller
 
     /**
      * Notes:订单入库操作
+     * explain: 将所有零部件入库做记录,并验证入库数量=订单数量-不合格数量
      * Author:sjzlai
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -78,7 +80,6 @@ class SparePartsController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token', 'purchase_order_no', 'store_room', 'put_storage_no', 'shelve','user_id');
-        //dd($data);
         $info['purchase_order_no'] = $request->input('purchase_order_no');
         $info['storageroom_id'] = $request->input('store_room');
         $info['put_storage_no'] = $request->input('put_storage_no');
@@ -94,6 +95,7 @@ class SparePartsController extends Controller
                     $a['batch_number'] = $data[$i]['batch_number'][$j];
                     $a['model'] = $data[$i]['model'][$j];
                     $a['status'] = 1;
+                    $a['purchase_order_no'] = $info['purcjase_order_no'];
                     $re = PartInfoDetailed::create($a);
                 endfor;
             endfor;
@@ -101,11 +103,23 @@ class SparePartsController extends Controller
                 $res = Purchase::UpdateStatus($info['purchase_order_no']);
                 endif;
             if ($res):
-                //back()->withInfoMsg('入库成功');
                 return redirect('ad/spare');
             else:
                 return back()->withInfoErr('入库失败');
             endif;
         endif;
+    }
+
+    /**
+     * Notes:查看单个订单入库记录
+     * Author:sjzlai
+     * @param $order_no
+     * Date:2018/07/18 10:18
+     */
+    public function record($order_no)
+    {
+        $record = PartPutStorageRecord::InRecord($order_no);
+        dd($record);
+        return view('lha.spareparts.part-inrecord',['data'=>$record]);
     }
 }

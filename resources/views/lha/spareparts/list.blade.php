@@ -35,8 +35,8 @@
         {{--已处理订单开始--}}
         <div class="result_wrap">
             <ul class="tab_title">
-                <li>已处理订单</li>
-                <li class="">未处理订单</li>
+                <li>已有入库记录</li>
+                <li class="">未入库</li>
             </ul>
             <div class="tab_content" style="margin: 0;padding: 0">
                 <div class="result_content">
@@ -73,7 +73,7 @@
                                     </td>
                                 @endif
                                 <td>
-
+                                    <a href="{{url('ad/spare/inrecord/'.$v->order_number)}}">查看入库记录</a>
                                 </td>
 
                                 <td>
