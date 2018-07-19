@@ -64,7 +64,7 @@ class UserController extends Controller
         $userData['password'] = md5($userData['password']);
         $res = User::create($userData);
         if (!$res) return withInfoErr('添加失败');
-        return withInfoMsg('添加成功');
+        return redirect('/ad/userlist');
     }
 
     /**
@@ -162,7 +162,7 @@ class UserController extends Controller
         if (!$roleRes) return withInfoErr('添加失败');
         $res = $user->assignRole($inputs['roleName']);//为用户分配角色
         if (!$res) return withInfoErr('添加失败');
-        return withInfoMsg('添加成功');
+        return redirect('/ad/userlist');
     }
 
     /**

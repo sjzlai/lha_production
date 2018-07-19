@@ -70,7 +70,7 @@ class RoleController extends Controller
         if (empty($roleName)) return withInfoErr('角色名字不能为空');
         $role = Role::create(['name'=>$roleName]);
         if(!$role) return withInfoErr('创建角色失败');
-        return withInfoMsg('创建角色成功');
+        return redirect('/ad/role');
     }
 
     /**

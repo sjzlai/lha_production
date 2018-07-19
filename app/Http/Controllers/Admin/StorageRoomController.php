@@ -62,7 +62,7 @@ class StorageRoomController extends Controller
        $this->storageRoom->store_name = $input;
        $res = $this->storageRoom->save();
         if (empty($res)) return withInfoErr('添加失败');
-        return withInfoMsg('添加成功');
+        return redirect('/ad/storageRoom');
     }
 
     /**
