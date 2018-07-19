@@ -35,7 +35,7 @@ class ProductOutStorageRecordController extends Controller
     public function orderList()
     {
         $ordersEn = $this->posrModel->orderList(1,5);//已处理订单
-        if ($ordersEn->isEmpty()) return view('lha.')
+        if ($ordersEn->isEmpty())      return view('lha.productWarehousing.black');
         //查询订单
         return view('lha.productQutStorage.order-list',['ordersEn'=>$ordersEn]);
     }

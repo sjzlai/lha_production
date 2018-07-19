@@ -75,6 +75,7 @@ class ProductQualityController extends Controller
     public function orderList()
     {
         $ordersEn = $this->productOrder->orderList(1,5);//已处理订单
+        if ($ordersEn->isEmpty())         return view('lha.productWarehousing.black');
         return view('lha.productQuality.production-order-list',['ordersEn'=>$ordersEn]);
     }
 }
