@@ -36,8 +36,11 @@ class ProductWarehousingController extends Controller
     {
         $ordersEn = $this->ppsrModel->orderList(1,5);//已处理订单
         //查询订单已入库数量
-
+        if ($ordersEn->isEmpty()):
+            return view('lha.productWarehousing.black');
+        else:
         return view('lha.productWarehousing.order-list',['ordersEn'=>$ordersEn]);
+        endif;
     }
 
     /**
