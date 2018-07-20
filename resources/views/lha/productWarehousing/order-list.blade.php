@@ -21,7 +21,6 @@
     {{--</form>--}}
 {{--</div>--}}
 {{--<!--结果页快捷搜索框 结束-->--}}
-
 <!--搜索结果页面 列表 开始-->
 <form action="#" method="post">
     <div class="result_wrap">
@@ -34,8 +33,6 @@
         </div>
         <!--快捷导航 结束-->
     </div>
-
-
         {{--已处理订单--}}
         <div class="tab_content">
             <div class="result_content">

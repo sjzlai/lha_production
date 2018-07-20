@@ -89,13 +89,13 @@ class QualityController extends Controller
             if ($res):
                 //将不合格零部件数量及批号存入到表part_info_unqualified
 //              dump($data);
-                for($j=1; $j<=count($data);$j++):
+                for($j=1; $j<count($data);$j++):
                     for ($i=0; $i<count($data[$j]['part_number']);$i++):
                         $a['purchase_order_no'] = $info['purchase_order_no'];
                         $a['part_id']= "$j";
                         $a['part_number'] = $data[$j]['part_number'][$i];
                         $a['batch_number'] =$data[$j]['batch_number'][$i];
-                        $re = Unqualified::create($a);
+                        $re= Unqualified::create($a);
                     endfor;
                 endfor;
                 if ($re):

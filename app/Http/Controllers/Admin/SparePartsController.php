@@ -95,7 +95,7 @@ class SparePartsController extends Controller
                     $a['batch_number'] = $data[$i]['batch_number'][$j];
                     $a['model'] = $data[$i]['model'][$j];
                     $a['status'] = 1;
-                    $a['purchase_order_no'] = $info['purcjase_order_no'];
+                    $a['purchase_order_no'] = $info['purchase_order_no'];
                     $re = PartInfoDetailed::create($a);
                 endfor;
             endfor;

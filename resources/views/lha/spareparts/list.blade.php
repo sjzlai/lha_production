@@ -35,64 +35,9 @@
         {{--已处理订单开始--}}
         <div class="result_wrap">
             <ul class="tab_title">
-                <li>已有入库记录</li>
                 <li class="">未入库</li>
+                <li>已有入库记录</li>
             </ul>
-            <div class="tab_content" style="margin: 0;padding: 0">
-                <div class="result_content">
-                    <table class="list_tab">
-                        <tr>
-                            <th class="tc">订单编号</th>
-                            <th>采购申请人</th>
-                            <th>申请时间</th>
-                            <th>到货时间</th>
-                            <th>仓库状态</th>
-                            <th>订单详情查看</th>
-                            <th>质检结果</th>
-                            <th>查看入库记录</th>
-                            <th>操作</th>
-                        </tr>
-                        @foreach($orderEn as $v)
-                            <tr>
-                                <td class="tc">{{$v->order_number}}</td>
-                                <td>{{$v->name}}</td>
-                                <td>{{$v->created_at}}</td>
-                                <td style="color:red">{{$v->delivery_time}}</td>
-                                <td>{{$v->warehousing==0?"未入库":"已入库"}}</td>
-                                <td>
-                                    <a id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
-                                </td>
-                                @if($v->status==1 || $v->status==2)
-                                    <td>
-                                        <a href="{{url('ad/quality/img/'.$v->order_number)}}"
-                                           style="color: green">查看质检结果</a>
-                                    </td>
-                                @else
-                                    <td>
-                                        <a href="{{url('ad/quality/show/'.$v->order_number)}}">上传质检结果</a>
-                                    </td>
-                                @endif
-                                <td>
-                                    <a href="{{url('ad/spare/inrecord/'.$v->order_number)}}">查看入库记录</a>
-                                </td>
-
-                                <td>
-                                    <a href="{{url('ad/spare/add/'.$v->order_number)}}">入库</a>
-                                </td>
-                                <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
-                            </tr>
-                        @endforeach
-                    </table>
-                    <div class="page_nav">
-                        <div class="page_list">
-                            <ul>
-                                {!! $orderEn->links() !!}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{--已处理入库结束--}}
             {{--未处理入库操作--}}
             <div class="tab_content" style="margin: 0;padding: 0">
                 <div class="result_content">
@@ -149,7 +94,63 @@
                     </div>
                 </div>
             </div>
-        {{--未处理入库结束--}}
+            {{--未处理入库结束--}}
+            <div class="tab_content" style="margin: 0;padding: 0">
+                <div class="result_content">
+                    <table class="list_tab">
+                        <tr>
+                            <th class="tc">订单编号</th>
+                            <th>采购申请人</th>
+                            <th>申请时间</th>
+                            <th>到货时间</th>
+                            <th>仓库状态</th>
+                            <th>订单详情查看</th>
+                            <th>质检结果</th>
+                            <th>查看入库记录</th>
+                            <th>操作</th>
+                        </tr>
+                        @foreach($orderEn as $v)
+                            <tr>
+                                <td class="tc">{{$v->order_number}}</td>
+                                <td>{{$v->name}}</td>
+                                <td>{{$v->created_at}}</td>
+                                <td style="color:red">{{$v->delivery_time}}</td>
+                                <td>{{$v->warehousing==0?"未入库":"已入库"}}</td>
+                                <td>
+                                    <a id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
+                                </td>
+                                @if($v->status==1 || $v->status==2)
+                                    <td>
+                                        <a href="{{url('ad/quality/img/'.$v->order_number)}}"
+                                           style="color: green">查看质检结果</a>
+                                    </td>
+                                @else
+                                    <td>
+                                        <a href="{{url('ad/quality/show/'.$v->order_number)}}">上传质检结果</a>
+                                    </td>
+                                @endif
+                                <td>
+                                    <a href="{{url('ad/spare/inrecord/'.$v->order_number)}}">查看入库记录</a>
+                                </td>
+
+                                <td>
+                                    <a href="{{url('ad/spare/add/'.$v->order_number)}}">入库</a>
+                                </td>
+                                <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
+                            </tr>
+                        @endforeach
+                    </table>
+                    <div class="page_nav">
+                        <div class="page_list">
+                            <ul>
+                                {!! $orderEn->links() !!}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{--已处理入库结束--}}
+
     </form>
     <!--搜索结果页面 列表 结束-->
     <script>
