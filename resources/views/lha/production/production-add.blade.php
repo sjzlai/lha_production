@@ -91,8 +91,8 @@
                     <tr>
                         <th><i class="require">*</i>肺笛袋</th>
                         <td style="display: block"><select name="part_id[]"  id="">
-                                @foreach($partInfosD as $partInfoD)
-                                    <option value="{{$partInfoD->id}}">零部件名称：{{$partInfoD->part_name}} 生产商：{{$partInfoD->manufacturer}} 生产批号：{{$partInfoD->batch_number}} 型号：{{$partInfoD->model}}</option>
+                                @foreach($partInfosFDD as $partInfoFDD)
+                                    <option value="{{$partInfoFDD->id}}">零部件名称：{{$partInfoFDD->part_name}} 生产商：{{$partInfoFDD->manufacturer}} 生产批号：{{$partInfoFDD->batch_number}} 型号：{{$partInfoFDD->model}}</option>
                                 @endforeach
                             </select>数量<input type="number" name="part_number[]" style="width: 40px">
                             <input type="button"   onclick="addRemove('add', this,5)" value="+">
@@ -102,8 +102,8 @@
                     <tr>
                         <th><i class="require">*</i>哨片袋</th>
                         <td style="display: block"><select name="part_id[]" id="">
-                                @foreach($partInfosD as $partInfoD)
-                                    <option value="{{$partInfoD->id}}">零部件名称：{{$partInfoD->part_name}} 生产商：{{$partInfoD->manufacturer}} 生产批号：{{$partInfoD->batch_number}} 型号：{{$partInfoD->model}}</option>
+                                @foreach($partInfosSPD as $partInfoSPD)
+                                    <option value="{{$partInfoSPD->id}}">零部件名称：{{$partInfoSPD->part_name}} 生产商：{{$partInfoSPD->manufacturer}} 生产批号：{{$partInfoSPD->batch_number}} 型号：{{$partInfoSPD->model}}</option>
                                 @endforeach
                             </select>数量<input type="number" name="part_number[]" style="width: 40px">
                             <input type="button"   onclick="addRemove('add', this,6)" value="+">

@@ -7,6 +7,8 @@ use App\Model\PartInfoDetailed;
 use App\Model\PartPutStorageRecord;
 use App\Model\Purchase;
 use App\Model\Purchase_quality;
+use App\Model\ShelfHasPart;
+use App\Model\ShelfInfo;
 use App\Model\StorageRoom;
 use App\Model\Unqualified;
 use Illuminate\Http\Request;
@@ -25,7 +27,6 @@ class SparePartsController extends Controller
     /**
      * 零部件仓库
      */
-
     /**
      * Notes:列表页
      * explain: 分别查询已有入库记录和未有入库记录的订单信息
@@ -35,9 +36,9 @@ class SparePartsController extends Controller
      */
     public function index()
     {
-        $orderEn= Purchase_quality::QualityOk(1);
-        $orderUn= Purchase_quality::QualityOk(0);
-        return view('lha.spareparts.list', ['orderEn'=>$orderEn,'orderUn'=>$orderUn]);
+        $orderEn = Purchase_quality::QualityOk(1);
+        $orderUn = Purchase_quality::QualityOk(0);
+        return view('lha.spareparts.list', ['orderEn' => $orderEn, 'orderUn' => $orderUn]);
     }
 
     /**
@@ -50,9 +51,11 @@ class SparePartsController extends Controller
      */
     public function addparts($order_number)
     {
-        $info = Purchase::where(['warehousing' => '0', 'order_number' => $order_number])->get();
+        $info = Purchase::where(['order_number' => $order_number])->get();
         $room = StorageRoom::roomAll();
-        return view('lha.spareparts.parts-add', ['info' => $info, 'room' => $room]);
+        $shelf = ShelfInfo::get();
+//        dd($room);
+        return view('lha.spareparts.parts-add', ['info' => $info, 'room' => $room,'shelf'=>$shelf]);
     }
 
     /**
@@ -71,7 +74,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:订单入库操作
-     * explain: 将所有零部件入库做记录,并验证入库数量=订单数量-不合格数量
      * Author:sjzlai
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -79,7 +81,7 @@ class SparePartsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token', 'purchase_order_no', 'store_room', 'put_storage_no', 'shelve','user_id');
+        $data = $request->except('_token', 'purchase_order_no', 'store_room', 'put_storage_no', 'shelve', 'user_id');
         $info['purchase_order_no'] = $request->input('purchase_order_no');
         $info['storageroom_id'] = $request->input('store_room');
         $info['put_storage_no'] = $request->input('put_storage_no');
@@ -87,21 +89,43 @@ class SparePartsController extends Controller
         $info['user_id'] = $request->input('user_id');
         $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
-            //将零部件详细信息:数量,批号,型号存入表part_info_detailed
-            for ($i = 1; $i < count($data); $i++):
+            for ($i = 1; $i <= count($data); $i++):
                 for ($j = 0; $j < count($data[$i]['part_number']); $j++):
+                    //将零部件详细信息:数量,批号,型号存入表part_info_detailed
                     $a['part_id'] = $i;
                     $a['part_number'] = $data[$i]['part_number'][$j];
                     $a['batch_number'] = $data[$i]['batch_number'][$j];
                     $a['model'] = $data[$i]['model'][$j];
                     $a['status'] = 1;
                     $a['purchase_order_no'] = $info['purchase_order_no'];
-                    $re = PartInfoDetailed::create($a);
+                    $a['put_storage_no'] = $info['put_storage_no'];
+                    /*//查询配件信息中是否有批号与型号相同的配件,有则增加其数量即可,无则增加相应数据
+                    $detailed = PartInfoDetailed::where('part_id',$a['part_id'])->where(['batch_number'=>$a['batch_number'],'model'=>$a['model']])->pluck('part_number')->toArray();
+                    $addDe = null;
+                    $numDe = null;
+                    if ($detailed):
+                        $numDe = PartInfoDetailed::where('')
+                    */
+                    $re = PartInfoDetailed::create($a);//将零部件信息填入表part_info_detailed表中
+                    if ($re):
+                        //将入库信息填入shelf_has_part表中:查询某货架中是否有此配件,有则增加数量,无则增加货架及配件信息
+                        $shelf_info['shelf_id'] = $info['shelve_id'];
+                        $shelf_info['part_id'] = $i;
+                        $shelf_info['part_number'] = $a['part_number'];
+                        $part_number = DB::table('shelf_has_part')->where('shelf_id', $shelf_info['shelf_id'])->where('part_id', $shelf_info['part_id'])->pluck('part_number')->toArray();
+                        $addRes = null;
+                        $numRes = null;
+                        if ($part_number):
+                            $numRes = ShelfHasPart::where('shelf_id', $shelf_info['shelf_id'])->where('part_id', $shelf_info['part_id'])->increment('part_number', $shelf_info['part_number']);
+                        else:
+                            $addRes = ShelfHasPart::create($shelf_info);
+                        endif;
+                    endif;
                 endfor;
             endfor;
-            if ($re):       //更改订单入库状态
+            if ($numRes || $addRes):       //更改订单入库状态
                 $res = Purchase::UpdateStatus($info['purchase_order_no']);
-                endif;
+            endif;
             if ($res):
                 return redirect('ad/spare');
             else:
@@ -119,7 +143,30 @@ class SparePartsController extends Controller
     public function record($order_no)
     {
         $record = PartPutStorageRecord::InRecord($order_no);
-        dd($record);
-        return view('lha.spareparts.part-inrecord',['data'=>$record]);
+//        dd($record);
+        return view('lha.spareparts.part-inrecord', ['data' => $record]);
+    }
+
+
+    /**
+     * Notes:根据入库编号查看相应零部件入库数量
+     * Author:sjzlai
+     * Date:2018/08/01 15:02
+     */
+    public function WarehousingRecord(Request $request)
+    {
+        $put_storage_no = $request->except('_token');
+        $data = PartInfoDetailed::SpareWarehousingRecord($put_storage_no);
+        //dd($data);
+        return jsonReturn(1,'返回结果',$data);
+    }
+    /**
+     * Notes:仓库列表
+     * Author:sjzlai
+     * Date:2018/07/23 10:24
+     */
+    public function outlist()
+    {
+
     }
 }

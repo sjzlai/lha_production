@@ -86,19 +86,18 @@ class QualityController extends Controller
                 return withInfoErr('订单号已存在!请重新输入');
             else:
             $res = Purchase_quality::create($info);
-            if ($res):
+            if($res):
                 //将不合格零部件数量及批号存入到表part_info_unqualified
-//              dump($data);
-                for($j=1; $j<count($data);$j++):
+                for($j=1; $j<=count($data);$j++):
                     for ($i=0; $i<count($data[$j]['part_number']);$i++):
                         $a['purchase_order_no'] = $info['purchase_order_no'];
                         $a['part_id']= "$j";
                         $a['part_number'] = $data[$j]['part_number'][$i];
                         $a['batch_number'] =$data[$j]['batch_number'][$i];
-                        $re= Unqualified::create($a);
+                        $resu= Unqualified::create($a);
                     endfor;
                 endfor;
-                if ($re):
+                if($resu):
                         return redirect('ad/quality');
                     else:
                         return "采购失败";

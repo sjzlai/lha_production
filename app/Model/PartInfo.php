@@ -24,7 +24,9 @@ class PartInfo extends Model
      */
     public static function fuzzySearch($value,$key = 'part_name')
     {
-        return PartInfo::where($key,'like','%'.$value.'%')->get();
+        return PartInfo::where($key,'=',$value)
+            ->Leftjoin('part_info_detailed as pid' ,'part_info.id','=','pid.part_id')
+            ->get();
 
     }
 }

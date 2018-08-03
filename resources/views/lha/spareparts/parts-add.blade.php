@@ -30,30 +30,44 @@
                         </td>
 
                     </tr>
-                    <tr>
+             {{--       <tr>
                         <th><i class="require">*</i>库房：</th>
                         <td>
-
                             <select name="store_room" id="one" onchange="info(this.value)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                 <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
                                 @endforeach
                             </select>
-
                         </td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>货架:</th>
                         <td>
-                            <select name="shelve" id="two">
+                            <select name="shelve" class="two">
                                 <option value="">请选择货架</option>
                             </select>
                         </td>
-                    </tr>
+                    </tr>--}}
                     <tr style="background: #6dbfff">
                         <th><i class="require">*</i>吹嘴：</th>
                         <td style="display: block;" >
+                            库房:
+                            <select name="store_room" id="one" onchange="info(this.value,one)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                    <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+                            货架:
+                            <select name="shelve" class="one">
+                                <option value="">请选择货架</option>
+                                @foreach($shelf as $sh)
+                                    @if($ro['id'] == $sh['storageroom_id'])
+                                    <option value="{{$sh->id}}">{{$sh->shelf_name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                             <input type="text" class="" name="1[part_number][]" placeholder="请输入吹嘴数量">
                             <input type="text" name="1[batch_number][]" placeholder="请输入批号">
                             <input type="text" name="1[model][]" placeholder="请输入型号">
@@ -64,6 +78,17 @@
                     <tr style="background: #e4b9b9">
                         <th><i class="require">*</i>笛管：</th>
                         <td style="display: block;" >
+                            库房:
+                            <select name="store_room" id="one" onchange="info(this.value,two)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                    <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+                            货架:
+                            <select name="shelve" class="two">
+                                <option value="">请选择货架</option>
+                            </select>
                             <input type="text" class="" name="2[part_number][]" placeholder="请输入笛管数量">
                             <input type="text" name="2[batch_number][]" placeholder="请输入批号">
                             <input type="text" name="2[model][]" placeholder="请输入型号">
@@ -74,6 +99,17 @@
                     <tr style="background: #5bc0de">
                         <th><i class="require">*</i>哨片：</th>
                         <td style="display: block;" >
+                            库房:
+                            <select name="store_room" id="one" onchange="info(this.value,three)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                    <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+                            货架:
+                            <select name="shelve" class="three">
+                                <option value="">请选择货架</option>
+                            </select>
                             <input type="text" class="" name="3[part_number][]" placeholder="请输入哨片数量">
                             <input type="text" name="3[batch_number][]" placeholder="请输入批号">
                             <input type="text" name="3[model][]" placeholder="请输入型号">
@@ -84,8 +120,19 @@
                     <tr style="background: #FFF0F5">
                         <th><i class="require">*</i>垫片：</th>
                         <td style="display: block;" >
-                            <input type="text" class="" name="4[part_number]" placeholder="请输入垫片数量">
-                            <input type="text" name="4[batch_number]" placeholder="请输入批号">
+                            库房:
+                            <select name="store_room" id="one" onchange="info(this.value)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                    <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+                            货架:
+                            <select name="shelve" class="two">
+                                <option value="">请选择货架</option>
+                            </select>
+                            <input type="text" class="" name="4[part_number][]" placeholder="请输入垫片数量">
+                            <input type="text" name="4[batch_number][]" placeholder="请输入批号">
                             <input type="text" name="4[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,4)" name="" value="+">
                             <input type="button" onclick="addRemove('remove', this,4)" name="" value="-">
@@ -94,7 +141,18 @@
                     <tr style="background: #E6E6FA">
                         <th><i class="require">*</i>肺笛袋：</th>
                         <td style="display: block;" >
-                            <input type="text" class="" name="5[part_number]" placeholder="请输入肺笛袋数量">
+                            库房:
+                            <select name="store_room" id="one" onchange="info(this.value)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                    <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+                            货架:
+                            <select name="shelve" class="two">
+                                <option value="">请选择货架</option>
+                            </select>
+                            <input type="text" class="" name="5[part_number][]" placeholder="请输入肺笛袋数量">
                             <input type="text" name="5[batch_number][]" placeholder="请输入批号">
                             <input type="text" name="5[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,5)" name="" value="+">
@@ -104,7 +162,18 @@
                     <tr style="background: #FFFFF0">
                         <th><i class="require">*</i>哨片袋：</th>
                         <td style="display: block;" >
-                            <input type="text" class="" name="6[part_number]" placeholder="请输入哨片袋数量">
+                            库房:
+                            <select name="store_room" id="one" onchange="info(this.value)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                    <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+                            货架:
+                            <select name="shelve" class="two">
+                                <option value="">请选择货架</option>
+                            </select>
+                            <input type="text" class="" name="6[part_number][]" placeholder="请输入哨片袋数量">
                             <input type="text" name="6[batch_number][]" placeholder="请输入批号">
                             <input type="text" name="6[model][]" placeholder="请输入型号">
                             <input type="button" onclick="addRemove('add', this,6)" name="" value="+">
@@ -114,6 +183,18 @@
                     <tr style="background: #BAC498">
                         <th><i class="require">*</i>皮筋：</th>
                         <td style="display: block;" >
+                            库房:
+                            <select name="store_room" id="one" onchange="info(this.value)">
+                                <option value="">请选择库房</option>
+                                @foreach($room as $ro)
+                                    <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
+                                @endforeach
+                            </select>
+                            货架:
+                            <select name="shelve" class="two">
+                                <option value="">请选择货架</option>
+
+                            </select>
                             <input type="text" class="" name="7[part_number][]" placeholder="请输入皮筋数量">
                             <input type="text" name="7[batch_number][]" placeholder="请输入批号">
                             <input type="text" name="7[model][]" placeholder="请输入型号">
@@ -144,7 +225,9 @@
         //增加与减少零部件信息填写内容
         var addRemove = function (params, ele,number) {
             if (params == 'add') {
-                    $(ele).parent().parent().append('<td style="display: block;" >\n' +
+                    $(ele).parent().parent().append( '<td style="display: block;" >\n' +
+                        ' 库房: <select name="1[store_room][]"><option value="">请选择库房</option>@foreach($room as $ro)<option value="{{$ro->id}}">{{$ro->store_name}} </option>@endforeach</select>' +
+                        '货架: <select name="shelve"><option value="">请选择货架</option> </select> '+
                         '<input type="text" class="" name="'+number+'[part_number][]" placeholder="请输入吹嘴数量">\n' +
                         '<input type="text" name="'+number+'[batch_number][]" placeholder="请输入批号">\n' +
                         '<input type="text" name="'+number+'[model][]" placeholder="请输入型号">\n' +
@@ -159,7 +242,7 @@
         };
 
         //选择库房查询货架
-        function info(id) {
+     /*   function info(id) {
             $.get("{{url('ad/spare/shelve/info')}}",{
                 'id':id,
                 '_token':'{{csrf_token()}}'
@@ -168,10 +251,9 @@
                 var info =data.data;
                 info.forEach(function (item) {
                     if (item.id)
-                    $('#two').append(`<option  value=${item.id}>  ${item.shelf_name} </option>`);
+                    $('.two').append(`<option  value=${item.id}>  ${item.shelf_name} </option>`);
                 })
-
             });
-        }
+        }*/
     </script>
 @endsection

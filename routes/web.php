@@ -72,6 +72,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|adm
     Route::get('spare/shelve/info','SparePartsController@shelveinfo');                      //货架信息
     Route::post('spare/addSpare','SparePartsController@store');                             //提交入库信息
     Route::get('spare/inrecord/{order_no}','SparePartsController@record');                  //查看单个订单入库记录
+    Route::post('spare/WarehousingRecord','SparePartsController@WarehousingRecord');                  //查看入库记录中零部件信息
 
 });
 
