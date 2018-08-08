@@ -56,8 +56,6 @@ class GoodsShelve extends Model
         ->where('shelf_id',$goodsShelve)
         ->orderBy('created_at','desc')
         ->paginate(5);
-
-
     }
 
     /**
@@ -80,6 +78,7 @@ class GoodsShelve extends Model
             ->orderBy('sp.created_at','desc')
             ->paginate($page);
     }
+
 
     public static function RoomShelveList($id)
     {

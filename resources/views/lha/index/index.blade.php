@@ -67,7 +67,7 @@
             <div class="icon"><i class="icon fa fa-fw fa-truck"></i></div>
             <div class="title">零部件入库</div>
         </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>零部件仓库')">
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare/out')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>零部件仓库')">
             <div class="icon"><i class="icon fa fa-fw fa-bus"></i></div>
             <div class="title">零部件出库</div>
         </div>

@@ -66,14 +66,18 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|adm
 
 //权限角色为仓库库管才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|admin'],'prefix'=>'ad'],function (){
-    //零部件仓库
+    //零部件仓库    入库
     Route::get('spare','SparePartsController@index');                                       //零部件仓库列表
     Route::get('spare/add/{order_number}','SparePartsController@addparts');                 //零部件入库页
     Route::get('spare/shelve/info','SparePartsController@shelveinfo');                      //货架信息
     Route::post('spare/addSpare','SparePartsController@store');                             //提交入库信息
     Route::get('spare/inrecord/{order_no}','SparePartsController@record');                  //查看单个订单入库记录
     Route::post('spare/WarehousingRecord','SparePartsController@WarehousingRecord');                  //查看入库记录中零部件信息
-
+    //零部件仓库     出库
+    Route::get('spare/out','SparePartsController@outlist');                                 //零部件列表
+    Route::get('spare/outInfo/{part_id}','SparePartsController@outToInfo');                             //零部件出库
+    Route::get('spare/outAll','SparePartsController@outToAll');                             //零部件出库
+    Route::post('spare/outadd','SparePartsController@outAdd');                              //零部件出库提交
 });
 
 //权限角色为库管才能访问的路由

@@ -26,7 +26,7 @@ class QualityController extends Controller
      */
     public function index()
     {
-        $data = Purchase_quality::QualityList($page=10);
+        $data = Purchase_quality::QualityList($page = 10);
         return view('lha.quality.list', ['data' => $data]);
     }
 
@@ -60,7 +60,7 @@ class QualityController extends Controller
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
-            $data = $request->except('_token', 'picture','purchase_order_no','status','user_id');
+            $data = $request->except('_token', 'picture', 'purchase_order_no', 'status', 'user_id');
             $info['purchase_order_no'] = $request->input('purchase_order_no');
             $info['status'] = $request->input('status');
             $info['user_id'] = $request->input('user_id');
@@ -81,28 +81,26 @@ class QualityController extends Controller
             }
             $info['img_path'] = $filedir . $filename;
             //判断订单是否已经上传过质检结果
-            $result = Purchase_quality::where(['purchase_order_no'=>$info['purchase_order_no']])->get();
+            $result = Purchase_quality::where(['purchase_order_no' => $info['purchase_order_no']])->get();
             if (!$result->isEmpty()):
                 return withInfoErr('订单号已存在!请重新输入');
             else:
-            $res = Purchase_quality::create($info);
-            if($res):
-                //将不合格零部件数量及批号存入到表part_info_unqualified
-                for($j=1; $j<=count($data);$j++):
-                    for ($i=0; $i<count($data[$j]['part_number']);$i++):
-                        $a['purchase_order_no'] = $info['purchase_order_no'];
-                        $a['part_id']= "$j";
-                        $a['part_number'] = $data[$j]['part_number'][$i];
-                        $a['batch_number'] =$data[$j]['batch_number'][$i];
-                        $resu= Unqualified::create($a);
+                $res = Purchase_quality::create($info);
+                if ($res):
+                    //将不合格零部件数量及批号存入到表part_info_unqualified
+                    for ($j = 1; $j <= count($data); $j++):
+                        for ($i = 0; $i < count($data[$j]['part_number']); $i++):
+                            $a['purchase_order_no'] = $info['purchase_order_no'];
+                            $a['part_id'] = "$j";
+                            $a['part_number'] = $data[$j]['part_number'][$i];
+                            $a['batch_number'] = $data[$j]['batch_number'][$i];
+                            $resu = Unqualified::create($a);
+                        endfor;
                     endfor;
-                endfor;
-                if($resu):
                         return redirect('ad/quality');
-                    else:
-                        return "采购失败";
-                    endif;
-            endif;
+                else:
+                    return withInfoErr('质检结果上传失败');
+                endif;
             endif;
         }
     }
@@ -113,7 +111,7 @@ class QualityController extends Controller
      */
     public function img($order_number)
     {
-        $img = Purchase_quality::where(['purchase_order_no'=>$order_number])->get();
-        return view('lha.quality.img',['img'=>$img]);
+        $img = Purchase_quality::where(['purchase_order_no' => $order_number])->get();
+        return view('lha.quality.img', ['img' => $img]);
     }
 }

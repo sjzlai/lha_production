@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\GoodsShelve;
+use App\Model\PartInfo;
 use App\Model\PartInfoDetailed;
 use App\Model\PartPutStorageRecord;
 use App\Model\Purchase;
@@ -53,9 +54,7 @@ class SparePartsController extends Controller
     {
         $info = Purchase::where(['order_number' => $order_number])->get();
         $room = StorageRoom::roomAll();
-        $shelf = ShelfInfo::get();
-//        dd($room);
-        return view('lha.spareparts.parts-add', ['info' => $info, 'room' => $room,'shelf'=>$shelf]);
+        return view('lha.spareparts.parts-add', ['info' => $info, 'room' => $room]);
     }
 
     /**
@@ -81,12 +80,13 @@ class SparePartsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token', 'purchase_order_no', 'store_room', 'put_storage_no', 'shelve', 'user_id');
+        $data = $request->except('_token', 'purchase_order_no', 'put_storage_no', 'user_id');
         $info['purchase_order_no'] = $request->input('purchase_order_no');
         $info['storageroom_id'] = $request->input('store_room');
         $info['put_storage_no'] = $request->input('put_storage_no');
         $info['shelve_id'] = $request->input('shelve');
         $info['user_id'] = $request->input('user_id');
+//        dd($data);
         $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
             for ($i = 1; $i <= count($data); $i++):
@@ -99,19 +99,21 @@ class SparePartsController extends Controller
                     $a['status'] = 1;
                     $a['purchase_order_no'] = $info['purchase_order_no'];
                     $a['put_storage_no'] = $info['put_storage_no'];
-                    /*//查询配件信息中是否有批号与型号相同的配件,有则增加其数量即可,无则增加相应数据
-                    $detailed = PartInfoDetailed::where('part_id',$a['part_id'])->where(['batch_number'=>$a['batch_number'],'model'=>$a['model']])->pluck('part_number')->toArray();
-                    $addDe = null;
-                    $numDe = null;
-                    if ($detailed):
-                        $numDe = PartInfoDetailed::where('')
-                    */
-                    $re = PartInfoDetailed::create($a);//将零部件信息填入表part_info_detailed表中
+                    if (!$a['put_storage_no']) {
+                        return withInfoErr('请填写入库编号');
+                        exit();
+                    }
+                    if ($a['part_number']):
+                        $re = PartInfoDetailed::create($a);//将零部件信息填入表part_info_detailed表中
+                    else:
+                        continue;
+                    endif;
                     if ($re):
                         //将入库信息填入shelf_has_part表中:查询某货架中是否有此配件,有则增加数量,无则增加货架及配件信息
-                        $shelf_info['shelf_id'] = $info['shelve_id'];
+                        $shelf_info['shelf_id'] = $data[$i]['shelve'][$j];
+                        $shelf_info['storageroom_id'] = $data[$i]['store_room'][$j];
                         $shelf_info['part_id'] = $i;
-                        $shelf_info['part_number'] = $a['part_number'];
+                        $shelf_info['part_number'] = $data[$i]['part_number'][$j];
                         $part_number = DB::table('shelf_has_part')->where('shelf_id', $shelf_info['shelf_id'])->where('part_id', $shelf_info['part_id'])->pluck('part_number')->toArray();
                         $addRes = null;
                         $numRes = null;
@@ -143,7 +145,6 @@ class SparePartsController extends Controller
     public function record($order_no)
     {
         $record = PartPutStorageRecord::InRecord($order_no);
-//        dd($record);
         return view('lha.spareparts.part-inrecord', ['data' => $record]);
     }
 
@@ -157,15 +158,54 @@ class SparePartsController extends Controller
     {
         $put_storage_no = $request->except('_token');
         $data = PartInfoDetailed::SpareWarehousingRecord($put_storage_no);
-        //dd($data);
-        return jsonReturn(1,'返回结果',$data);
+        return jsonReturn(1, '返回结果', $data);
     }
+
     /**
-     * Notes:仓库列表
+     * Notes:零部件列表
      * Author:sjzlai
-     * Date:2018/07/23 10:24
+     * Date:2018/08/07 10:24
      */
     public function outlist()
+    {
+        $data = ShelfHasPart::PartRecordInfo();
+        return view('lha.spareparts.part-out-list',['data'=>$data]);
+    }
+
+    /**
+     * Notes:某一个零部件操作出库
+     * Author:sjzlai
+     * Date:2018/08/07 14:33
+     */
+    public function outToInfo($part_id)
+    {
+        $part = PartInfo::where('id','=',$part_id)->first();
+        return view('lha.spareparts.part-out-info',['part'=>$part]);
+    }
+    /**
+     * Notes: 零部件出库提交
+     * Author:sjzlai
+     * Date:2018/08/07 16:49
+     */
+    public function outAdd(Request $request)
+    {
+        $data = $request->except('_token');
+        //查询数据库中该数据,并操作减库存
+        $date = ShelfHasPart::fistInfo($data['part_id']);
+        $date->part_number = intval($date->part_number) - intval($data['part_number']);
+        $result = $date->save();
+        if ($result):
+            return redirect('ad/spare/out');
+        else:
+            return withInfoErr('出库失败');
+        endif;
+    }
+    /**
+     * Notes: 多个零部件操作出库
+     * Author:sjzlai
+     * Date:2018/08/07 14:46
+     */
+    public function outToAll()
     {
 
     }
