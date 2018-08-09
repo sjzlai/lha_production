@@ -59,12 +59,15 @@
     <script>
 
         $(".selects").change(function () {
-            $(".n").remove()
+            // $(".n").remove()
             var options=$(this).children("option:selected").val();
+            console.log(options);
            $.get('/ad/shelfInfo/'+options,function (data,status) {
             if (data.status ==1){
+                // console.log(data);
                 var i =0;
                 for(i = 0; i<data.data.length;i++){
+                    // console.log(data.data[i]);
                     var html = '   <option class="n" value='+data.data[i].id+ '>'+data.data[i].shelf_name+'</option>';
                     $(".shelf").append(html)
                 }
@@ -72,5 +75,7 @@
             }
            })
         });
+
+
     </script>
 @endsection

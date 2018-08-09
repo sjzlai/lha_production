@@ -158,17 +158,101 @@
         //增加零部件信息填写内容
         var addRemove = function (params, ele,number) {
             if (params == 'add') {
-                $(ele).parent().parent().append(' <td style="display: block;" >\n' +
-                    '<select name="part_id[]" id="">\n'+
-                    '@foreach($partInfos as $partInfo)\n'+
-                    '<option value="{{$partInfo->id}}">\n'+
-                    "零部件名称：{{$partInfo->part_name}} 生产商：{{$partInfo->manufacturer}} 生产批号：{{$partInfo->batch_number}} 型号：{{$partInfo->model}}\n" +
-                    '</option>\n'+
-                    '@endforeach \n'+
-                    '</select>\n' +
-                    '数量\n'+
-                    '<input type="number" name="part_number[]" style="width: 40px">\n' +
-                    '                        </td>')
+                switch (number) {
+                    case 1:
+                        $(ele).parent().parent().append(' <td style="display: block;" >\n' +
+                            '<select name="part_id[]" id="">\n'+
+                            '@foreach($partInfosCZ as $partInfoCZ)\n'+
+                            '<option value="{{$partInfoCZ->id}}">\n'+
+                            "零部件名称：{{$partInfoCZ->part_name}} 生产商：{{$partInfoCZ->manufacturer}} 生产批号：{{$partInfoCZ->batch_number}} 型号：{{$partInfoCZ->model}}\n" +
+                            '</option>\n'+
+                            '@endforeach \n'+
+                            '</select>\n' +
+                            '数量\n'+
+                            '<input type="number" name="part_number[]" style="width: 40px">\n' +
+                            '                        </td>');
+                        break;
+                    case 2:
+                        $(ele).parent().parent().append(' <td style="display: block;" >\n' +
+                            '<select name="part_id[]" id="">\n'+
+                            '@foreach($partInfosDG as $partInfoDG)\n'+
+                            '<option value="{{$partInfoDG->id}}">\n'+
+                            "零部件名称：{{$partInfoDG->part_name}} 生产商：{{$partInfoDG->manufacturer}} 生产批号：{{$partInfoDG->batch_number}} 型号：{{$partInfoDG->model}}\n" +
+                            '</option>\n'+
+                            '@endforeach \n'+
+                            '</select>\n' +
+                            '数量\n'+
+                            '<input type="number" name="part_number[]" style="width: 40px">\n' +
+                            '                        </td>');
+                        break;
+                    case 3:
+                        $(ele).parent().parent().append(' <td style="display: block;" >\n' +
+                            '<select name="part_id[]" id="">\n'+
+                            '@foreach($partInfosSP as $partInfoSP)\n'+
+                            '<option value="{{$partInfoSP->id}}">\n'+
+                            "零部件名称：{{$partInfoSP->part_name}} 生产商：{{$partInfoSP->manufacturer}} 生产批号：{{$partInfoSP->batch_number}} 型号：{{$partInfoDG->model}}\n" +
+                            '</option>\n'+
+                            '@endforeach \n'+
+                            '</select>\n' +
+                            '数量\n'+
+                            '<input type="number" name="part_number[]" style="width: 40px">\n' +
+                            '                        </td>');
+                        break;
+                    case 4:
+                        $(ele).parent().parent().append(' <td style="display: block;" >\n' +
+                            '<select name="part_id[]" id="">\n'+
+                            '@foreach($partInfosDP as $partInfoDP)\n'+
+                            '<option value="{{$partInfoDP->id}}">\n'+
+                            "零部件名称：{{$partInfoDP->part_name}} 生产商：{{$partInfoDP->manufacturer}} 生产批号：{{$partInfoDP->batch_number}} 型号：{{$partInfoDP->model}}\n" +
+                            '</option>\n'+
+                            '@endforeach \n'+
+                            '</select>\n' +
+                            '数量\n'+
+                            '<input type="number" name="part_number[]" style="width: 40px">\n' +
+                            '                        </td>');
+                        break;
+                    case 5:
+                        $(ele).parent().parent().append(' <td style="display: block;" >\n' +
+                            '<select name="part_id[]" id="">\n'+
+                            '@foreach($partInfosFDD as $partInfoFDD)\n'+
+                            '<option value="{{$partInfoFDD->id}}">\n'+
+                            "零部件名称：{{$partInfoFDD->part_name}} 生产商：{{$partInfoFDD->manufacturer}} 生产批号：{{$partInfoFDD->batch_number}} 型号：{{$partInfoFDD->model}}\n" +
+                            '</option>\n'+
+                            '@endforeach \n'+
+                            '</select>\n' +
+                            '数量\n'+
+                            '<input type="number" name="part_number[]" style="width: 40px">\n' +
+                            '                        </td>');
+                        break;
+                    case 6:
+                        $(ele).parent().parent().append(' <td style="display: block;" >\n' +
+                            '<select name="part_id[]" id="">\n'+
+                            '@foreach($partInfosSPD as $partInfoSPD)\n'+
+                            '<option value="{{$partInfoSPD->id}}">\n'+
+                            "零部件名称：{{$partInfoSPD->part_name}} 生产商：{{$partInfoSPD->manufacturer}} 生产批号：{{$partInfoSPD->batch_number}} 型号：{{$partInfoSPD->model}}\n" +
+                            '</option>\n'+
+                            '@endforeach \n'+
+                            '</select>\n' +
+                            '数量\n'+
+                            '<input type="number" name="part_number[]" style="width: 40px">\n' +
+                            '                        </td>');
+                        break;
+                    case 7:
+                        $(ele).parent().parent().append(' <td style="display: block;" >\n' +
+                            '<select name="part_id[]" id="">\n'+
+                            '@foreach($partInfosPJ as $partInfoPJ)\n'+
+                            '<option value="{{$partInfoPJ->id}}">\n'+
+                            "零部件名称：{{$partInfoPJ->part_name}} 生产商：{{$partInfoPJ->manufacturer}} 生产批号：{{$partInfoPJ->batch_number}} 型号：{{$partInfoPJ->model}}\n" +
+                            '</option>\n'+
+                            '@endforeach \n'+
+                            '</select>\n' +
+                            '数量\n'+
+                            '<input type="number" name="part_number[]" style="width: 40px">\n' +
+                            '                        </td>');
+                        break;
+                    default:'不存在的';break;
+                }
+
             } else if (params == 'remove') {
                 var len = $(ele).parent().parent().children().length;
                 if (len <= 2) return;

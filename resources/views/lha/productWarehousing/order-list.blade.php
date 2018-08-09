@@ -50,7 +50,7 @@
                         <th>备注信息</th>
                         <th>创建时间</th>
                         <th>更新时间</th>
-                        <th>已入库数量</th>
+                        {{--<th>已入库数量</th>--}}
                         <th>操作</th>
                     </tr>
                     @foreach($ordersEn as $orderEn)
@@ -69,7 +69,7 @@
                             <td>{{$orderEn->remark}}</td>
                             <td>{{$orderEn->created_at}}</td>
                             <td>{{$orderEn->updated_at}}</td>
-                            <td><a class="num" href="javascript:void(0)">点击查看</a></td>
+                            {{--<td><a class="num" >点击查看</a></td>--}}
                             <td>
                                 <a href="/ad/productWarehousingView/{{$orderEn->order_no}}">入库</a>
                                 <a href="/ad/productWarehousingRecord/{{$orderEn->order_no}}">入库记录查看</a>
@@ -99,15 +99,16 @@
 <!--搜索结果页面 列表 结束-->
 <script>
 
-   var url = "/ad/warehousingNumber/{{$orderEn->order_no}}";
-   var countNum = "{{$orderEn->goods_number}}";
-    $('.num').click(function () {
-        $.get(url,function (data) {
-           if (data.data){
-               $(".num").html(data.data+'/'+countNum);
-           }
-        })
-    })
+   {{--var url = "/ad/warehousingNumber/{{$orderEn->order_no}}";--}}
+   {{--var countNum = "{{$orderEn->goods_number}}";--}}
+    {{--$('.num').click(function () {--}}
+        {{--$.get(url,function (data) {--}}
+            {{--// console.log(data);--}}
+           {{--if (data.data){--}}
+               {{--$(".num").html(data.data+'/'+countNum);--}}
+           {{--}--}}
+        {{--})--}}
+    {{--})--}}
 </script>
 
 

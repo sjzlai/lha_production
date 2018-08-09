@@ -204,7 +204,9 @@
         var addRemove = function (params, ele,number) {
             if (params == 'add') {
                     $(ele).parent().parent().append( '<td style="display: block;" >\n' +
-                        '库房: <select name="'+number+'[store_room][]"  onchange=info(this.value,"'+number+'two")> <option value="" select="select">请选择库房</option>@foreach($room as $ro)<option value="{{$ro->id}}" >{{$ro->store_name}}</option>@endforeach</select>\n' +
+                        '库房: <select name="'+number+'[store_room][]"  onchange=info(this.value,"'+number+'two")>' +
+                        ' <option value="" select="select">请选择库房</option>' +
+                        '@foreach($room as $ro)<option value="{{$ro->id}}" >{{$ro->store_name}}</option>@endforeach</select>\n' +
                         '货架: <select name="'+number+'[shelve][]" id="'+number+'two"><option value="">请选择货架</option></select>\n'+
                         '<input type="text" class="" name="'+number+'[part_number][]" placeholder="请输入吹嘴数量"/>\n' +
                         '<input type="text" name="'+number+'[batch_number][]" placeholder="请输入批号"/>\n' +

@@ -98,18 +98,18 @@ class ProductionController extends Controller
         $partInfosFDD = PartInfo::fuzzySearch('肺笛袋');
         $partInfosSPD = PartInfo::fuzzySearch('哨片袋');
         $partInfosPJ = PartInfo::fuzzySearch('皮筋');
-        $partInfos = PartInfo::all();
+//        $partInfos = PartInfo::all();
         return view('lha.production.production-add',[
             'orderId'=>$orderId,
-            'orderId'=>$orderId,
+//            'orderId'=>$orderId,
             'partInfosCZ'=>$partInfosCZ,
             'partInfosDG'=>$partInfosDG,
             'partInfosSP'=>$partInfosSP,
             'partInfosDP'=>$partInfosDP,
             'partInfosFDD'=>$partInfosFDD,
             'partInfosSPD'=>$partInfosSPD,
-            'partInfosPJ'=>$partInfosPJ,
-            'partInfos'=>$partInfos
+            'partInfosPJ'=>$partInfosPJ
+//            'partInfos'=>$partInfos
         ]);
     }
 
