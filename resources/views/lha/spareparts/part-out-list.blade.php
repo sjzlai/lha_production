@@ -7,32 +7,49 @@
         <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="/ad/production">零部件列表</a> &raquo;
     </div>
     <!--面包屑导航 结束-->
+    <!--快捷导航 开始-->
+    <div class="result_content">
+        <div class="short_wrap">
+            <button id="allpart">出库所有零部件</button>
+        </div>
+    </div>
+    <script>
+        /*$(function(){
+            $("input[name='ckb']:checkbox").click(function() {
+                var str = [];
+                $("input[name='ckb']:checkbox").each(function() {
+                    if($(this).is(":checked"))
+                    {
+                        //str += $(this).attr("value")+",";
+                        str = $(this).push($(this).attr("value"));
+                    }
+                });
+                if(str != null && str.length > 1)
+                {
+                    str = str.substring(0,str.length-1);
+                }
+                console.log(str);
+            });
+        });*/
 
-    <!--结果页快捷搜索框 开始-->
-    {{--<div class="search_wrap">--}}
-    {{--<form action="/ad/productionFuzzySearch" method="post">--}}
-    {{--{{csrf_field()}}--}}
-    {{--<table class="search_tab">--}}
-    {{--<th width="70">关键字:</th>--}}
-    {{--<td><input type="text" name="keyword" placeholder="输入订单号查询"></td>--}}
-    {{--<td><input type="submit" name="sub" value="查询"></td>--}}
-    {{--</tr>--}}
-    {{--</table>--}}
-    {{--</form>--}}
-    {{--</div>--}}
-    <!--结果页快捷搜索框 结束-->
+        $('#allpart').click(function () {
+            var arr = [];
+            $("input[name='ckb']:checked").each(function () {
+                if ($(this).is(":checked"))
+                {
+                   arr= arr.push($(this).attr("value"));
+                }
 
+            });
+            alert(arr);
+
+        })
+    </script>
+    <!--快捷导航 结束-->
     <!--搜索结果页面 列表 开始-->
     <form action="#" method="post">
         <div class="result_wrap">
-            <!--快捷导航 开始-->
-            <div class="result_content">
-                <div class="short_wrap">
-                    <a href="#"><i class="fa fa-plus"></i>出库所有零部件</a>
-                    {{--<a href="" id="delAll"><i class="fa fa-recycle"></i>批量删除</a>--}}
-                </div>
-            </div>
-            <!--快捷导航 结束-->
+
         </div>
 
         <div class="result_wrap">
@@ -40,7 +57,7 @@
             <div class="result_content">
                 <table class="list_tab">
                     <tr>
-                        <th class="tc" width="5%"><input type="checkbox" name="id[]" ></th>
+                        <th class="tc" width="5%"><input type="checkbox" name="ckb[]"  id="check"></th>
                         {{--<th class="tc">排序</th>--}}
                         <th class="tc">ID</th>
                         <th>零部件名称</th>
@@ -49,8 +66,8 @@
                         <th>操作</th>
                     </tr>
                     @foreach($data as $value)
-                        <tr >
-                            <td class="tc"><input type="checkbox" name="id[]" value="{{$value->part_id}}" ></td>
+                        <tr>
+                            <td class="tc"><input type="checkbox" name="ckb[]" class="part" value="{{$value->part_id}}" ></td>
                             <td class="tc" id="did">{{$value->id}}</td>
                             <td>{{$value->part_name}}</td>
                             <td>{{$value->part_number}}</td>
@@ -103,6 +120,13 @@
             }, function () {
             });
         });
+
+        //选择框
+        $(function(){
+            $('#check').click(function(){
+                $('.list_tab').find('td').find('[type=checkbox]').prop('checked',$(this).prop('checked'));
+            });
+        })
 
     </script>
 

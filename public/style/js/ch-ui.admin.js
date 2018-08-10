@@ -37,11 +37,18 @@ $(function(){
 });
 
 //列表页点击全选按钮
-$(function(){
-	$('.list_tab').find('tr').find('[type=checkbox]').click(function(){
+/*$(function(){
+	$('#check').click(function(){
 		$('.list_tab').find('td').find('[type=checkbox]').prop('checked',$(this).prop('checked'));
 	});
-})
+})*/
+/*$(function(){
+    $('.list_tab').find('tr').find('[type=checkbox]').click(function(){
+        //$('.list_tab').find('td').find('[type=checkbox]').prop('checked',$(this).prop('checked'));
+    });
+})*/
+
+
 
 //删除图片列表
 function del_pic(obj){

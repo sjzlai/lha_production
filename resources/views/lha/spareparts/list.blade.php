@@ -23,23 +23,14 @@
 
     <!--搜索结果页面 列表 开始-->
     <form action="#" method="post">
-        {{--  <div class="result_wrap">
-              <!--快捷导航 开始-->
-              <div class="result_content">
-                  <div class="short_wrap">
-                      <a href="{{asset('ad/purAdd')}}"><i class="fa fa-plus"></i>新增采购</a>
-                  </div>
-              </div>
-              <!--快捷导航 结束-->
-          </div>--}}
-        {{--已处理订单开始--}}
+
         <div class="result_wrap">
             <ul class="tab_title">
-                <li class="">未入库</li>
-                <li>已有入库记录</li>
+                <li>未入库</li>
+                <li class="">有入库记录</li>
             </ul>
             {{--未处理入库操作--}}
-            <div class="tab_content" style="margin: 0;padding: 0">
+            <div class="tab_content">
                 <div class="result_content">
                     <table class="list_tab">
                         <tr>
@@ -85,17 +76,16 @@
                             </tr>
                         @endforeach
                     </table>
+
                     <div class="page_nav">
-                        <div class="page_list">
-                            <ul>
                                 {!! $orderUn->links() !!}
-                            </ul>
-                        </div>
                     </div>
+
                 </div>
             </div>
+
             {{--未处理入库结束--}}
-            <div class="tab_content" style="margin: 0;padding: 0">
+            <div class="tab_content">
                 <div class="result_content">
                     <table class="list_tab">
                         <tr>
@@ -141,16 +131,14 @@
                         @endforeach
                     </table>
                     <div class="page_nav">
-                        <div class="page_list">
-                            <ul>
                                 {!! $orderEn->links() !!}
-                            </ul>
-                        </div>
+
                     </div>
+
                 </div>
             </div>
-            {{--已处理入库结束--}}
-
+        </div>
+        {{--已处理入库结束--}}
     </form>
     <!--搜索结果页面 列表 结束-->
     <script>
