@@ -94,7 +94,8 @@ class ProductWarehousingController extends Controller
         if ($part_number){
             $numRes = DB::table('shelf_has_part')->where('shelf_id',$data['shelf'])->where('part_name','1')->increment('part_number',$data['number']);
         }else{
-            $addRes = DB::table('shelf_has_part')->create($a);
+            $addRes=ShelfInfo::create($a);
+//            $addRes = DB::table('shelf_has_part')->create($a);
         }
         if (!$res) return withInfoErr('入库失败');
         if($numRes || $addRes) return redirect('/ad/productWarehousingOrderList');
