@@ -8,7 +8,7 @@
     </div>
     <!--面包屑导航 结束-->
 
-    
+    <p>这是一次测试</p>
     <div class="result_wrap">
         <form action="/ad/productionPlan" method="post">
             {{csrf_field()}}
