@@ -26,7 +26,10 @@ class ShelfHasPart extends Model
     public static function PartRecordInfo()
     {
         return self::from('shelf_has_part as shp')
+            ->select('shp.*','pi.*','room.*','shelf.*','room.id as room_id','shelf.id as shelf_id')
             ->join('part_info as pi' , 'shp.part_id','=','pi.id')
+            ->join('shelf_info as shelf','shelf.id','=','shp.shelf_id')
+            ->join('storageroom_info as room','shelf.storageroom_id','=','room.id')
             ->get();
     }
 

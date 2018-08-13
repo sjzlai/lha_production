@@ -61,6 +61,8 @@
                         {{--<th class="tc">排序</th>--}}
                         <th class="tc">ID</th>
                         <th>零部件名称</th>
+                        <th>所在仓库</th>
+                        <th>所在货架</th>
                         <th>数量</th>
                         <th>更新时间</th>
                         <th>操作</th>
@@ -68,8 +70,10 @@
                     @foreach($data as $value)
                         <tr>
                             <td class="tc"><input type="checkbox" name="ckb[]" class="part" value="{{$value->part_id}}" ></td>
-                            <td class="tc" id="did">{{$value->id}}</td>
+                            {{--<td class="tc" >{{$value->id}}</td>--}}
                             <td>{{$value->part_name}}</td>
+                            <td>{{$value->store_name}}</td>
+                            <td>{{$value->shelf_name}}</td>
                             <td>{{$value->part_number}}</td>
                             <td>{{$value->updated_at}}</td>
                             <td>
