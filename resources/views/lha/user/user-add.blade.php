@@ -37,7 +37,7 @@
                     <tr>
                         <th><i class="require">*</i>手机号：</th>
                         <td>
-                            <input type="number" class="lg" name="phone">
+                            <input type="text" class="lg" name="phone" style="width: 148px;">
                         </td>
                     </tr>
                     <tr>

@@ -17,7 +17,7 @@
                     <tr>
                         <th><i class="require">*</i>用户名：</th>
                         <td>
-                            <input type="text" id="username" class="lg" name="user_name" value="{{$user->user_name}}">
+                            <input type="text" id="username" class="lg" name="user_name" value="{{$user->user_name}}"style="width: 148px;">
                             <p>请填写用户名 注意：英文</p>
                         </td>
                     </tr>
@@ -37,7 +37,7 @@
                     <tr>
                         <th><i class="require">*</i>手机号：</th>
                         <td>
-                            <input type="number" class="lg" id="phone" name="phone" value="{{$user->phone}}">
+                            <input type="text" class="lg" id="phone" name="phone" value="{{$user->phone}}" style="width: 148px;">
                         </td>
                     </tr>
                     <tr>
