@@ -7,8 +7,6 @@
         <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo; <a href="/ad/productionOrder">生产订单</a> &raquo;生产计划添加
     </div>
     <!--面包屑导航 结束-->
-
-    <p>这是一次测试</p>
     <div class="result_wrap">
         <form action="/ad/productionPlan" method="post">
             {{csrf_field()}}
