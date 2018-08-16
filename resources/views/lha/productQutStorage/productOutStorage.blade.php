@@ -24,7 +24,7 @@
                         <td style="font-weight: bold">{{$factoryNO}}</td>
                     </tr>
                     <tr>
-                        <th><i class="require">*</i>选择出库</th>
+                        <th><i class="require">*</i>选择出库：</th>
                         <td style="display: block">
                             <select class="" name="shelf_id"  id="">
                                 <option value="">选择库房</option>
@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <th><i class="require">*</i>出库数量：</th>
-                        <td><input name="number" type="number" placeholder="请输入出库数量"></td>
+                        <td><input name="number" type="number" placeholder="请输入出库数量" style="width: 156px;height: 26px;" ></td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>发货地址：</th>
@@ -71,27 +71,23 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require">*</i>物流方式：</th>
+                        <th><i class="require">*</i>快递单号：</th>
                         <td>
-                            <select class="selects" name="logistics_mode"  id="">
-                                <option value="">物流方式</option>
-                                    <option class="options" value="1" style="font-weight: bold; font-size: 14px">快递 &nbsp;&nbsp;</option>
-                                    <option class="options" value="2" style="font-weight: bold; font-size: 14px">自提 &nbsp;&nbsp;</option>
+                            <select class="selects" name="logistics_company"  id="">
+                                <option value="">物流公司</option>
+                                <option class="options" value="1" style="font-weight: bold; font-size: 14px">顺丰 &nbsp;&nbsp;</option>
+                                <option class="options" value="2" style="font-weight: bold; font-size: 14px">申通 &nbsp;&nbsp;</option>
+                                <option class="options" value="3" style="font-weight: bold; font-size: 14px">中通 &nbsp;&nbsp;</option>
+                                <option class="options" value="4" style="font-weight: bold; font-size: 14px">圆通 &nbsp;&nbsp;</option>
+                                <option class="options" value="5" style="font-weight: bold; font-size: 14px">EMS &nbsp;&nbsp;</option>
+
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>物流公司：</th>
                         <td>
-                            <select class="selects" name="logistics_company"  id="">
-                                <option value="">物流公司</option>
-                                    <option class="options" value="1" style="font-weight: bold; font-size: 14px">顺丰 &nbsp;&nbsp;</option>
-                                    <option class="options" value="2" style="font-weight: bold; font-size: 14px">申通 &nbsp;&nbsp;</option>
-                                    <option class="options" value="3" style="font-weight: bold; font-size: 14px">中通 &nbsp;&nbsp;</option>
-                                    <option class="options" value="4" style="font-weight: bold; font-size: 14px">圆通 &nbsp;&nbsp;</option>
-                                    <option class="options" value="5" style="font-weight: bold; font-size: 14px">EMS &nbsp;&nbsp;</option>
-
-                            </select>
+                            <input type="text" name="kuaidi_number" placeholder="请输入快递单号">
                         </td>
                     </tr>
                     <tr>
@@ -107,7 +103,7 @@
     </div>
     <script>
 
-        $(".selects").change(function () {
+        $(".select").change(function () {
             $(".n").remove()
             var options=$(this).children("option:selected").val();
            $.get('/ad/shelfInfo/'+options,function (data,status) {

@@ -139,10 +139,12 @@ class GoodsShelveController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:货架模糊搜索
      * @author: weikai
      * @date: 2018/6/28 9:28
      */
+
     public function fuzzySearch(Request $request)
     {
         $storageRoomId  = $request->input('storageRoomId');

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Model\OrdereNoLinkFactoryNo;
 use App\Model\ProductPutStorageRecord;
 use App\Model\PurchasingOrder;
+use App\Model\ShelfHasPart;
 use App\Model\ShelfInfo;
 use App\Model\StorageRoom;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -94,8 +96,8 @@ class ProductWarehousingController extends Controller
         if ($part_number){
             $numRes = DB::table('shelf_has_part')->where('shelf_id',$data['shelf'])->where('part_name','1')->increment('part_number',$data['number']);
         }else{
-            $addRes=ShelfInfo::create($a);
-//            $addRes = DB::table('shelf_has_part')->create($a);
+
+            $addRes = ShelfHasPart::create($a);
         }
         if (!$res) return withInfoErr('入库失败');
         if($numRes || $addRes) return redirect('/ad/productWarehousingOrderList');

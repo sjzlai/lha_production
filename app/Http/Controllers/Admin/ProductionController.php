@@ -121,15 +121,16 @@ class ProductionController extends Controller
      */
     public function productionPlan(Request $request)
     {
-        $data = $request->except('_token');
-        if (count($data)<8) return withInfoErr('请填写完整');
+        $datas = $request->except('_token','order_no','output','remark','production_plan_date','product_name','product_batch_number','product_spec','factory_no');
+//        if (count($data)<8) return withInfoErr('请填写完整');
+        $data = array();
         $data['order_no'] = $request->input('order_no');//生产订单号
         $data['output'] = $request->input('output');//生产量
         $data['remark'] = $request->input('remark');//备注
         $data['production_plan_date'] = $request->input('production_plan_date');//预计完工日期
 
-        $data['part_id'] = $request->input('part_id');//零部件id
-        $data['part_number'] = $request->input('part_number');//零部件数量
+//        $data['part_id'] = $request->input('part_id');//零部件id
+//        $data['part_number'] = $request->input('part_number');//零部件数量
 
         $data['product_name'] = $request->input('product_name');//成品名称
         $data['product_batch_number'] = $request->input('product_batch_number');//成品批号
@@ -145,13 +146,25 @@ class ProductionController extends Controller
         $ppRes = $this->ppModel->save();
 
         //零部件清单表写入
-        for ($i = 0; $i < count($data['part_id']); $i++) {
-            $pplData['order_no'] = $data['order_no'];
-            $pplData['part_id'] = $data['part_id'][$i];
-            $pplData['part_number'] = $data['part_number'][$i];
-            $pplRes =  $this->pplModel->create($pplData);
-        }
-
+//        for ($i = 0; $i < count($data['part_id']); $i++) {
+//            $pplData['order_no'] = $data['order_no'];
+//            $pplData['part_id'] = $data['part_id'][$i];
+//            $pplData['part_number'] = $data['part_number'][$i];
+//            $pplRes =  $this->pplModel->create($pplData);
+//        }
+//        dd($datas);
+        //零部件清单表写入
+        for ($i=1; $i <= count($datas); $i++):
+            for ($j = 0; $j < count($datas[$i]['part_number']); $j++):
+                //将零部件详细信息:数量,批号,型号存入表part_info_detailed
+                $a['part_id'] = $i;
+                $a['part_number'] = $datas[$i]['part_number'][$j];
+                $a['order_no']=$data['order_no'];
+//                dd($a);
+                $pplRes = $this->pplModel->create($a);
+            endfor;
+        endfor;
+    dd($pplRes);
         //成品信息表写入
         for ($i=0;$i<$data['output'];$i++){
             $piData['product_name'] = $data['product_name'];
@@ -272,7 +285,7 @@ class ProductionController extends Controller
         $data['product_date'] = date('Y-m-d h:i:s',strtotime($data['product_date']));
         $prRes = $this->prModel->create($data);
         if (!$prRes) return withInfoErr('添加失败');
-        return withInfoMsg('添加成功');
+        return back()->withErrors(1,'添加成功');
     }
 
     /**
