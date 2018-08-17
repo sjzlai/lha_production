@@ -122,6 +122,7 @@ class ProductionController extends Controller
     public function productionPlan(Request $request)
     {
         $data = $request->except('_token');
+        //dd($data);
         if (count($data)<8) return withInfoErr('请填写完整');
         $data['order_no'] = $request->input('order_no');//生产订单号
         $data['output'] = $request->input('output');//生产量

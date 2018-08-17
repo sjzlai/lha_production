@@ -26,13 +26,24 @@ class ShelfHasPart extends Model
     public static function PartRecordInfo()
     {
         return self::from('shelf_has_part as shp')
-            ->select('shp.*','pi.*','room.*','shelf.*','room.id as room_id','shelf.id as shelf_id')
+            ->select('shp.*','pi.id as pid','pi.part_name','shelf.id as shelf_id','shelf.shelf_name','shelf.storageroom_id','room.id as room_id','room.store_name')
             ->join('part_info as pi' , 'shp.part_id','=','pi.id')
             ->join('shelf_info as shelf','shelf.id','=','shp.shelf_id')
             ->join('storageroom_info as room','shelf.storageroom_id','=','room.id')
             ->get();
     }
 
+
+    public static function PartRecordMany($id)
+    {
+        return self::from('shelf_has_part as shp')
+            ->select('shp.*','pi.id as pid','pi.part_name','shelf.id as shelf_id','shelf.shelf_name','shelf.storageroom_id','room.id as room_id','room.store_name')
+            ->join('part_info as pi' , 'shp.part_id','=','pi.id')
+            ->join('shelf_info as shelf','shelf.id','=','shp.shelf_id')
+            ->join('storageroom_info as room','shelf.storageroom_id','=','room.id')
+            ->where('shp.id','=',$id)
+            ->get()->toArray();
+    }
     /**
      * Notes:根据传递的id查询其库存数量
      * Author:sjzlai
