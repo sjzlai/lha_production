@@ -19,10 +19,10 @@
                         <th><i class="require">*</i>生产订单号：</th>
                         <td>{{$orderId}}</td>
                     </tr>
-                    <tr>
-                        <th><i class="require">*</i>是否合格：</th>
-                        <td><input type="radio" class="" name="status" value="1">合格 <input type="radio" class="" name="status" value="2">不合格</td>
-                    </tr>
+                    {{--<tr id="">--}}
+                        {{--<th><i class="require">*</i>是否合格：</th>--}}
+                        {{--<td><input type="radio" class="" name="status" value="1">合格 <input type="radio" class="" name="status" value="2" onchange="unqualified(this)">不合格</td>--}}
+                    {{--</tr>--}}
                     <tr>
                         <th><i class="require">*</i>质检图片</th>
                         <td><input type="file" name="img"></td>
