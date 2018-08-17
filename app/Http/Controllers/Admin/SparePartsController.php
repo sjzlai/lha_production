@@ -86,7 +86,7 @@ class SparePartsController extends Controller
         $info['put_storage_no'] = $request->input('put_storage_no');
         $info['shelve_id'] = $request->input('shelve');
         $info['user_id'] = $request->input('user_id');
-//        dd($data);
+       // dd($data);
         $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
             for ($i = 1; $i <= count($data); $i++):
@@ -200,13 +200,20 @@ class SparePartsController extends Controller
             return withInfoErr('出库失败');
         endif;
     }
+
     /**
      * Notes: 多个零部件操作出库
      * Author:sjzlai
      * Date:2018/08/07 14:46
      */
-    public function outToAll()
-    {
-
-    }
+      public function outToAll(Request $request)
+      {
+          $data = $request->except('_token');
+          $da =explode(',',$data['arr']);
+          dump($da);
+          foreach ($da as $v):
+             $res[] = ShelfHasPart::PartRecordMany($v);
+          endforeach;
+            return view('lha.spareparts.part-out-many',['data'=>$res]);
+      }
 }

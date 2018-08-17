@@ -66,6 +66,7 @@ class QualityController extends Controller
             $info['user_id'] = $request->input('user_id');
             $file = $request->file('picture');
             // 文件是否上传成功
+            if(!$file)return withInfoErr('请上传质检结果图');
             if ($file->isValid()) {
                 // 获取文件相关信息
                 $originalName = $file->getClientOriginalName(); // 文件原名

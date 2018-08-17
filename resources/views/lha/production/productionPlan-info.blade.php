@@ -47,7 +47,7 @@
                     <label>成品名称</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_name']}}</span>
                 </li>
                 <li>
-                    <label>成品标识码范围</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_code']}} 后五位至 {{(substr($productionPlanInfo['product']['product_code'],'-5')+$productionPlanInfo['product']['output']-1)}}</span>
+{{--                    <label>成品标识码范围</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_code']}} 后五位至 {{(substr($productionPlanInfo['product']['product_code'],'-5')+$productionPlanInfo['product']['output']-1)}}</span>--}}
                 </li>
                 <li>
                     <label>成品批号</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['product_batch_number']}}</span>
