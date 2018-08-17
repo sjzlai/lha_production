@@ -38,7 +38,7 @@
     <div class="result_wrap">
         <ul class="tab_title">
             <li>已处理订单</li>
-            <li class="">未处理订单</li>
+            <li>未处理订单</li>
         </ul>
         {{--已处理订单--}}
         <div class="tab_content">

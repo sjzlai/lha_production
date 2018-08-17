@@ -74,7 +74,7 @@ class ProductOutStorageRecordController extends Controller
         $outStorageData['user_id'] =session('user.id');
         $outStorageData['consignee_id'] =$datas['consignee'];
         $outStorageData['shipping_address'] =$datas['shipping_address'];
-        $outStorageData['logistics_mode'] =$datas['logistics_mode'];
+        $outStorageData['logistics_num'] =$datas['kuaidi_number'];
         $outStorageData['logistics_company'] =$datas['logistics_company'];
         $outStorageData['shelf_id'] =$datas['shelf_id'];
         $storage = ShelfInfo::find($datas['shelf_id']);

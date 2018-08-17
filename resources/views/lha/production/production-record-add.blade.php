@@ -25,15 +25,15 @@
                     </tr>
                     <tr>
                         <th><i class="require">*</i>实际日生产量：</th>
-                        <td><input type="number" class="lg" name="number"></td>
+                        <td><input type="number" class="lg" name="number" style="width: 140px;"></td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>成品批号</th>
-                        <td><input type="text" name="product_batch_number"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入成品批号"></td>
+                        <td><input type="text" name="product_batch_number"  onkeyup="value=value.replace(/[\W]/g,'') " style="width: 130px;" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入成品批号"></td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>成品Id范围</th>
-                        <td><input type="text" name="product_code_range_up"> <i class="require">-</i><input type="text" name="product_code_range_down"></td>
+                        <td><input type="text" style="width: 50px;" name="product_code_range_up"> <i class="require">-</i><input type="text" style="width: 50px;" name="product_code_range_down"></td>
 
                     </tr>
                     <tr>
@@ -45,7 +45,7 @@
                         <th></th>
                         <td>
                             <input type="submit" value="提交">
-                            <input type="button" class="back" onclick="history.go(-1)" value="返回">
+                            <input type="button" class="back"  style="background: #337ab7;color: #fff;" value="重置">
                         </td>
                     </tr>
                 </tbody>
