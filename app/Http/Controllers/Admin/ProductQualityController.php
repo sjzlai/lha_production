@@ -63,7 +63,9 @@ class ProductQualityController extends Controller
         $datas['img_path'] = $filedir . $filename;
         $res = ProductionQualityTest::create($datas);
         if (!$res) return withInfoErr('添加失败');
-        return withInfoErr('添加成功');
+//        return  redirect("/ad/qualityProductionOrder")->withInfoErr('添加成功');
+        return  withInfoErr('添加成功');
+
 
     }
 

@@ -121,15 +121,11 @@ class ProductionController extends Controller
      */
     public function productionPlan(Request $request)
     {
-<<<<<<< HEAD
-        $data = $request->except('_token');
-        //dd($data);
-        if (count($data)<8) return withInfoErr('请填写完整');
-=======
+
         $datas = $request->except('_token','order_no','output','remark','production_plan_date','product_name','product_batch_number','product_spec','factory_no');
 //        if (count($data)<8) return withInfoErr('请填写完整');
         $data = array();
->>>>>>> dbd6d6493ce19dca725be7d2594cd0d1d8793536
+
         $data['order_no'] = $request->input('order_no');//生产订单号
         $data['output'] = $request->input('output');//生产量
         $data['remark'] = $request->input('remark');//备注
@@ -287,11 +283,16 @@ class ProductionController extends Controller
     public function productionMakeRecord(Request $request)
     {
         $data = $request->except('_token');
+
         $data['user_id'] = session('user.id');
         $data['product_date'] = date('Y-m-d h:i:s',strtotime($data['product_date']));
         $prRes = $this->prModel->create($data);
         if (!$prRes) return withInfoErr('添加失败');
-        return back()->withErrors(1,'添加成功');
+//        $request->session()->all();
+//        return redirect()->route("/ad/productionRecordList",[$data['order_no']=>1])->with(['message'=>'添加成功']);
+        return redirect("/ad/productionRecordList/".$data['order_no'])->with(['message'=>'添加成功']);
+       // return redirect()->route('ad/productionRecordList',['orderId'=>$data['order_no']])->with(['message'=>'添加成功']);
+
     }
 
     /**
