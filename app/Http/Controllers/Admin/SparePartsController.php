@@ -202,18 +202,56 @@ class SparePartsController extends Controller
     }
 
     /**
-     * Notes: 多个零部件操作出库
+     * Notes: 多个零部件操作出库视图
      * Author:sjzlai
      * Date:2018/08/07 14:46
      */
-      public function outToAll(Request $request)
+      public function outToAll($data)
+      {
+          $da =explode(',',$data);
+          foreach ($da as $value):
+          $res[] =ShelfHasPart::PartRecordMany($value);
+          endforeach;
+          foreach($res as $key=>$re):
+              foreach ($re as $k=>$r):
+                  $res[$key]=$re[$k];
+              endforeach;
+          endforeach;
+          //dd($res);
+          return view('lha.spareparts.part-out-many',['data'=>$res]);
+      }
+
+    /**
+     * Notes:多个零部件出库操作提交
+     * Author:sjzlai
+     * @param Request $request
+     * Date:2018/08/21 11:31
+     */
+      public function outMany(Request $request)
       {
           $data = $request->except('_token');
-          $da =explode(',',$data['arr']);
-          dump($da);
-          foreach ($da as $v):
-             $res[] = ShelfHasPart::PartRecordMany($v);
+          //查询验证出库数量  开始
+              for ($i=0;$i<count($data['id']);$i++):
+                  $info[] = ShelfHasPart::PartRecordMany($data['id'][$i]);
+              endfor;
+          foreach($info as $key=>$re):
+              foreach ($re as $k=>$r):
+                  $info[$key]=$re[$k];
+              endforeach;
           endforeach;
-            return view('lha.spareparts.part-out-many',['data'=>$res]);
+          for ($i=0;$i<count($data['id']);$i++):
+                if ($data['id'][$i] == $info[$i]['id'] && $data['part_number'][$i]>$info[$i]['part_number']):
+                    return withInfoErr($info[$i]['part_name'].'数量大于库存数量:'.$info[$i]['part_number'].',请重新填写');
+                elseif ($data['id'][$i] == $info[$i]['id'] && $data['part_number'][$i]<=$info[$i]['part_number']):
+                    $number[] = $info[$i]['part_number'] - $data['part_number'][$i];
+                    $res = ShelfHasPart::where('id','=',$data['id'][$i])->update(['part_number'=>$number[$i]]);
+                endif;
+          endfor;
+          if ($res):
+                return redirect()->to('ad/spare/out')->with('出库成功');
+              else:
+                return withInfoErr('出库失败,请重新操作');
+          endif;
+
       }
 }
