@@ -248,7 +248,7 @@ class SparePartsController extends Controller
                 endif;
           endfor;
           if ($res):
-                return redirect()->to('ad/spare/out')->with('出库成功');
+                return redirect()->to('ad/spare/out')->with(['message'=>'出库成功']);
               else:
                 return withInfoErr('出库失败,请重新操作');
           endif;

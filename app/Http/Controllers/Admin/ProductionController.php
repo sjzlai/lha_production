@@ -282,11 +282,16 @@ class ProductionController extends Controller
     public function productionMakeRecord(Request $request)
     {
         $data = $request->except('_token');
+
         $data['user_id'] = session('user.id');
         $data['product_date'] = date('Y-m-d h:i:s',strtotime($data['product_date']));
         $prRes = $this->prModel->create($data);
         if (!$prRes) return withInfoErr('添加失败');
-        return back()->withErrors(1,'添加成功');
+//        $request->session()->all();
+//        return redirect()->route("/ad/productionRecordList",[$data['order_no']=>1])->with(['message'=>'添加成功']);
+        return redirect("/ad/productionRecordList/".$data['order_no'])->with(['message'=>'添加成功']);
+       // return redirect()->route('ad/productionRecordList',['orderId'=>$data['order_no']])->with(['message'=>'添加成功']);
+
     }
 
     /**

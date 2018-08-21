@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th><i class="require">*</i>生产日期：</th>
-                        <td><input type="date" class="lg" name="product_date"></td>
+                        <td><input type="text" class="lg" name="product_date" id="test" placeholder="请选择生产日期" style="width: 130px;"></td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>实际日生产量：</th>
@@ -45,12 +45,21 @@
                         <th></th>
                         <td>
                             <input type="submit" value="提交">
-                            <input type="button" class="back"  style="background: #337ab7;color: #fff;" value="重置">
+                            <input type="reset" class="back"  style="background: #337ab7;color: #fff; height:26px; width: 82.67px
+" value="重置">
                         </td>
                     </tr>
                 </tbody>
             </table>
         </form>
     </div>
+    <script>
+        lay('#version').html('-v'+ laydate.v);
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test' //指定元素
+        });
+    </script>
 
 @endsection
