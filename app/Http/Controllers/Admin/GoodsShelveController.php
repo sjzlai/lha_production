@@ -48,7 +48,7 @@ class GoodsShelveController extends Controller
         $data['storageroom_id'] = $request->input('id');
         $res = $this->goodsShelve->insert($data);
         if (!$res) return withInfoErr('添加失败');
-        return withInfoMsg('添加成功');
+        return redirect("/ad/goodsList/".$data['storageroom_id'])->withInfoMsg('添加成功');
     }
 
     /**

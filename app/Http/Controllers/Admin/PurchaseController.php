@@ -133,6 +133,7 @@ class PurchaseController extends Controller
                 ->where(['part_id' => $part_name['part_id']])
                 ->update($info);
         endforeach;
+        dd($res);
         if ($res):
             $re = DB::table('part_purchase')
                 ->where(['order_number' => $order_number])
