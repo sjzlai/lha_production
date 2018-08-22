@@ -166,7 +166,7 @@ class ProductionController extends Controller
                 $pplRes = $this->pplModel->create($a);
             endfor;
         endfor;
-    dd($pplRes);
+//    dd($pplRes);
         //成品信息表写入
         for ($i=0;$i<$data['output'];$i++){
             $piData['product_name'] = $data['product_name'];
