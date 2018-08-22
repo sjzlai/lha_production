@@ -34,6 +34,13 @@ class ShelfHasPart extends Model
     }
 
 
+    /**
+     * Notes:根据id查询相关联库房,货架,名称,数量详细信息
+     * Author:sjzlai
+     * @param $id
+     * @return array
+     * Date:2018/08/21 9:43
+     */
     public static function PartRecordMany($id)
     {
         return self::from('shelf_has_part as shp')

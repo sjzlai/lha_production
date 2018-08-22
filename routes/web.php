@@ -11,6 +11,7 @@
 */
 Route::get('/', function () {
     return view('welcome');
+
 });
 //不判断登陆的路由组
 Route::group(['middleware'=>['web'],'namespace'=>'Admin','prefix'=>
@@ -76,9 +77,9 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|adm
     //零部件仓库     出库
     Route::get('spare/out','SparePartsController@outlist');                                 //零部件列表
     Route::get('spare/outInfo/{part_id}','SparePartsController@outToInfo');                             //零部件出库
-    Route::get('spare/outAll','SparePartsController@outToAll');                             //多个零部件出库
-    Route::post('spare/outadd','SparePartsController@outAdd');                              //零部件出库提交
-    Route::get('spare/out/many','SparePartController@outMany');
+    Route::get('spare/outAll/{data}','SparePartsController@outToAll');                             //多个零部件出库跳转控制器
+    Route::post('spare/outadd','SparePartsController@outAdd');                              //单个零部件出库提交
+    Route::post('spare/outMany','SparePartsController@outMany');                             //多个零部件出库展示视图
 });
 
 //权限角色为库管才能访问的路由

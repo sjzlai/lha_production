@@ -162,7 +162,7 @@ class UserController extends Controller
         if (!$roleRes) return withInfoErr('添加失败');
         $res = $user->assignRole($inputs['roleName']);//为用户分配角色
         if (!$res) return withInfoErr('添加失败');
-        return redirect('/ad/userlist');
+        return redirect('ad/userlist');
     }
 
     /**

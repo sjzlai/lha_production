@@ -125,7 +125,6 @@ class ProductionController extends Controller
         $datas = $request->except('_token','order_no','output','remark','production_plan_date','product_name','product_batch_number','product_spec','factory_no');
 //        if (count($data)<8) return withInfoErr('请填写完整');
         $data = array();
-
         $data['order_no'] = $request->input('order_no');//生产订单号
         $data['output'] = $request->input('output');//生产量
         $data['remark'] = $request->input('remark');//备注
