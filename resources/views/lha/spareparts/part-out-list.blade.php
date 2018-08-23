@@ -10,27 +10,11 @@
     <!--快捷导航 开始-->
     <div class="result_content">
         <div class="short_wrap">
-            <button id="b1">出库所有零部件</button>
+            <button id="b1" class="">出库所有零部件</button>
         </div>
     </div>
     <script>
         $("#b1").click(function(){
-            //$('input:checkbox:checked') 等同于 $('input[type=checkbox]:checked')
-            //意思是选择被选中的checkbox
-            /*obj = document.getElementsByName("ckb");
-            check_val = [];
-            for(k in obj){
-                if(obj[k].checked)
-                    check_val.push(obj[k].value);
-            }
-            console.log(check_val);
-
-            $ajax({
-                type:"get",
-                data:{str:check_val,'_token':""},
-                url:"",
-            });*/
-            var arr =new Array();
             var number ='';
             $.each($('input:checkbox:checked'),function(k){
                 //arr.push($(this).val());
@@ -39,21 +23,8 @@
                 }else{
                     number += ','+$(this).val();
                 }
-                // window.alert("你选了："+
-                //     $('input[type=checkbox]:checked').length+"个，其中有："+$(this).val());
             });
-            console.log(number);
-            //window.location.href= "{{url('ad/spare/outAll/_token/')}}"+{{csrf_token()}}+number;
             window.location.href= "/ad/spare/outAll/"+number;
-         /*   $.ajax({
-                type:'get',
-                url:"{{url('ad/spare/outAll')}}",
-                data:{arr:number,'_token':"{{csrf_token()}}"},
-                success:function (data) {
-                    console.log(data.data);
-                    window.location.href= "ad/spare/outMany/"+data.data;
-                }
-            })*/
         });
     </script>
     <!--快捷导航 结束-->

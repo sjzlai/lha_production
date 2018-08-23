@@ -95,7 +95,7 @@ class PurchaseController extends Controller
             endforeach;
             $re = Purchase::create($data);
             if ($re):
-                return redirect('ad/purchase/pur');
+                return redirect()->to('ad/purchase/pur');
             else:
                 return withInfoErr('添加失败');
             endif;
