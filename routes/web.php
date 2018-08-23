@@ -54,7 +54,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:采购|adm
     Route::get('purchase/edit/{id}','PurchaseController@edit');                          //修改采购页面
     Route::post('purchase/update','PurchaseController@store');                          //提交修改采购页面
     Route::get('purchase/delete/{no}','PurchaseController@delete');                     //删除采购订单
-    Route::post('purchase/search','PurchaseController@search');                     //模糊搜索采购订单
+   Route::post('purchase/search','PurchaseController@search');    // 模糊搜索采购订单
 });
 //权限角色为零部件质检的才能访问的路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|admin'],'prefix'=>'ad'],function () {
