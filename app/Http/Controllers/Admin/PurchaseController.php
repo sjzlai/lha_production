@@ -133,16 +133,14 @@ class PurchaseController extends Controller
                 ->where(['part_id' => $part_name['part_id']])
                 ->update($info);
         endforeach;
-        if ($res):
             $re = DB::table('part_purchase')
                 ->where(['order_number' => $order_number])
                 ->update($da);
-            if ($re):
-                return redirect('ad/purchase/pur');
+            if ($re || $res):
+                return redirect('ad/purchase/pur')->with('message','修改成功');
             else:
                 return withInfoErr('修改失败');
             endif;
-        endif;
     }
 
     /**
