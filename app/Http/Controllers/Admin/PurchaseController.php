@@ -95,7 +95,7 @@ class PurchaseController extends Controller
             endforeach;
             $re = Purchase::create($data);
             if ($re):
-                return redirect('ad/purchase/pur');
+                return redirect()->to('ad/purchase/pur');
             else:
                 return withInfoErr('添加失败');
             endif;
@@ -133,17 +133,15 @@ class PurchaseController extends Controller
                 ->where(['part_id' => $part_name['part_id']])
                 ->update($info);
         endforeach;
-//        dd($res);
-        if ($res):
+
             $re = DB::table('part_purchase')
                 ->where(['order_number' => $order_number])
                 ->update($da);
-            if ($re):
-                return redirect('ad/purchase/pur');
+            if ($re || $res):
+                return redirect('ad/purchase/pur')->with('message','修改成功');
             else:
                 return withInfoErr('修改失败');
             endif;
-        endif;
     }
 
     /**
