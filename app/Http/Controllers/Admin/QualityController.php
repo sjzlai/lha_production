@@ -98,8 +98,12 @@ class QualityController extends Controller
                             $resu = Unqualified::create($a);
                         endfor;
                     endfor;
-                        return redirect('ad/quality');
-                else:
+                        if ($resu):
+                            return redirect('ad/quality')->with('message','添加成功');
+                        else:
+                            return withInfoErr('结果上传失败');
+                        endif;
+                    else:
                     return withInfoErr('质检结果上传失败');
                 endif;
             endif;
