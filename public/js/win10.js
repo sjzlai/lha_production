@@ -414,6 +414,7 @@ window.Win10 = {
             var mins=myDate.getMinutes();if (mins<10){mins='0'+mins}
             $("#win10_btn_time").html(hours+':'+mins+'<br/>'+year+'/'+month+'/'+date);
         },1000);
+        //判断session是否过期,过期则执行离开
         //离开前警告
         document.body.onbeforeunload = function(event){
             var rel = Win10.lang( '系统可能不会保存您所做的更改','The system may not save the changes you have made.');
@@ -423,6 +424,7 @@ window.Win10 = {
                 window.event.returnValue=rel;
             }
         };
+
         Win10.buildList();//预处理左侧菜单
         Win10._startAnimate();//动画处理
         Win10.renderShortcuts();//渲染图标
