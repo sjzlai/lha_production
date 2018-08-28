@@ -6,6 +6,7 @@ use App\Model\Roles;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -203,6 +204,5 @@ class UserController extends Controller
         if($user->hasRole($role->name)) return withInfoErr('用户已有此角色');
         $user->assignRole($role->name);
         return withInfoMsg('角色分配成功');
-
     }
 }

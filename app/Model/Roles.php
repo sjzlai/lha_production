@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
+use function foo\func;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Roles extends Model
 {
@@ -16,7 +18,7 @@ class Roles extends Model
      * @author: weikai
      * @date: 2018/6/22 10:10
      */
-    public static function roleAll($page=5)
+    public static function roleAll($page=15)
     {
         return self::orderBy('created_at','desc')->paginate($page);
     }

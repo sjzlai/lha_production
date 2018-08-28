@@ -26,12 +26,12 @@
 <form action="#" method="post">
     <div class="result_wrap">
         {{--<!--快捷导航 开始-->--}}
-        {{--<div class="result_content">--}}
-            {{--<div class="short_wrap">--}}
-                {{--<a href="/ad/role/create"><i class="fa fa-plus"></i>新增角色</a>--}}
+        <div class="result_content">
+            <div class="short_wrap">
+                <a href="/ad/user/userRole/{{$userid}}"><i class="fa fa-plus"></i>返回当前用户角色列表</a>
                 {{--<a href="" id="delAll"><i class="fa fa-recycle"></i>批量删除</a>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+            </div>
+        </div>
         {{--<!--快捷导航 结束-->--}}
     </div>
 
@@ -47,7 +47,8 @@
                     <th>更新时间</th>
                     <th>操作</th>
                 </tr>
-                @foreach($roles as $role)
+
+               @foreach($roles as $role)
                 <tr >
                     <td class="tc" id="aa"><input type="checkbox" name="id[]"  ></td>
                     {{--<td class="tc">--}}
@@ -85,7 +86,7 @@
     $('#del').click(function () {
         //询问框
         layer.confirm('您确认要删除此角色吗？', {
-            btn: ['确认', '算了'] //按钮
+            btn: ['确认'] //按钮
         }, function () {
             $.ajax({
                 url :url+did,
