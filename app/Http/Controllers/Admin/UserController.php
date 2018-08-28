@@ -189,7 +189,7 @@ class UserController extends Controller
     public function roleListInAddView($id)
     {
         $user  = User::userinfo($id);
-        $role = $user->getRoleNames()->toArray();//获取所有已定以的角色集合
+        $role = $user->pluck('id')->toArray();//获取所有已定以的角色集合
         $roles =Roles::whereNotIn('name',$role)->orderBy('created_at','desc')->paginate($page=5);
         return view('lha.user.role-list-in-add',['userid'=>$id,'roles'=>$roles]);
     }
