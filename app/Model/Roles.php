@@ -4,7 +4,6 @@ namespace App\Model;
 
 use function foo\func;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Roles extends Model
 {

@@ -180,13 +180,17 @@ class UserController extends Controller
     }
 
     /**
-     * @name:从角色列表中为用户添加角色
-     * @author: weikai
-     * @date: 2018/6/26 10:12
+     * Notes:从角色列表中为用户添加角色
+     * Author:sjzlai
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Date:2018/08/28 14:56
      */
     public function roleListInAddView($id)
     {
-        $roles = Roles::roleAll();
+        $user  = User::userinfo($id);
+        $role = $user->getRoleNames()->toArray();//获取所有已定以的角色集合
+        $roles =Roles::whereNotIn('name',$role)->orderBy('created_at','desc')->paginate($page=5);
         return view('lha.user.role-list-in-add',['userid'=>$id,'roles'=>$roles]);
     }
 

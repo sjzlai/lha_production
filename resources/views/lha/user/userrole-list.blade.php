@@ -133,7 +133,7 @@
     $('#del').click(function () {
         //询问框
         layer.confirm('您确认要删除此用户吗？', {
-            btn: ['确认', '算了'] //按钮
+            btn: ['确认'] //按钮
         }, function () {
             $.ajax({
                 url :url+did,
