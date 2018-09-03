@@ -177,10 +177,10 @@ class SparePartsController extends Controller
      * Author:sjzlai
      * Date:2018/08/07 14:33
      */
-    public function outToInfo($part_id)
+    public function outToInfo($part_id,$part_number)
     {
         $part = PartInfo::where('id','=',$part_id)->first();
-        return view('lha.spareparts.part-out-info',['part'=>$part]);
+        return view('lha.spareparts.part-out-info',['part'=>$part,'part_number'=>$part_number]);
     }
     /**
      * Notes: 零部件出库提交

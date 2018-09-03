@@ -16,7 +16,7 @@
                     <th><i class="require">*</i>{{$part->part_name}}：</th>
                     <td>
                         <input type="hidden" name="part_id" value="{{$part->id}}">
-                        <input type="text" class="lg" name="part_number" placeholder="请填写出库数量">
+                        <input type="text" class="lg" name="part_number" placeholder="请填写出库数量,最大为{{$part_number}}">
                     </td>
                 </tr>
                 <tr>
