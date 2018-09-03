@@ -37,7 +37,7 @@
             <div class="result_content">
                 <table class="list_tab">
                     <tr>
-                        <th class="tc" width="5%"><input type="checkbox" name=""  id="check"></th>
+                        <th class="tc" width="5%"></th>
                         {{--<th class="tc">排序</th>--}}
                         <th class="tc">ID</th>
                         <th>零部件名称</th>
