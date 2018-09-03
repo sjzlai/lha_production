@@ -66,7 +66,7 @@ class QualityController extends Controller
             $info['user_id'] = $request->input('user_id');
             $file = $request->file('picture');
             // 文件是否上传成功
-            if(!$file)return withInfoErr('请上传质检结果图');
+            if (!$file) return withInfoErr('请上传质检结果图');
             if ($file->isValid()) {
                 // 获取文件相关信息
                 $originalName = $file->getClientOriginalName(); // 文件原名
@@ -88,22 +88,20 @@ class QualityController extends Controller
             else:
                 $res = Purchase_quality::create($info);
                 if ($res):
-                    //将不合格零部件数量及批号存入到表part_info_unqualified
-                    for ($j = 1; $j <= count($data); $j++):
-                        for ($i = 0; $i < count($data[$j]['part_number']); $i++):
-                            $a['purchase_order_no'] = $info['purchase_order_no'];
-                            $a['part_id'] = "$j";
-                            $a['part_number'] = $data[$j]['part_number'][$i];
-                            $a['batch_number'] = $data[$j]['batch_number'][$i];
-                            $resu = Unqualified::create($a);
+                    if (!empty($data)):
+                        //将不合格零部件数量及批号存入到表part_info_unqualified
+                        for ($j = 1; $j <= count($data); $j++):
+                            for ($i = 0; $i < count($data[$j]['part_number']); $i++):
+                                $a['purchase_order_no'] = $info['purchase_order_no'];
+                                $a['part_id'] = "$j";
+                                $a['part_number'] = $data[$j]['part_number'][$i];
+                                $a['batch_number'] = $data[$j]['batch_number'][$i];
+                                $resu = Unqualified::create($a);
+                            endfor;
                         endfor;
-                    endfor;
-                        if ($resu):
-                            return redirect('ad/quality')->with('message','添加成功');
-                        else:
-                            return withInfoErr('结果上传失败');
-                        endif;
-                    else:
+                    endif;
+                    return redirect('ad/quality')->with('message', '添加成功');
+                else:
                     return withInfoErr('质检结果上传失败');
                 endif;
             endif;

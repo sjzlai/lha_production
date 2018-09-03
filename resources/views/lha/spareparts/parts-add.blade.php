@@ -34,7 +34,7 @@
                         <th><i class="require">*</i>吹嘴：</th>
                         <td style="display: block;" >
                             库房:
-                            <select name="1[store_room][]" id="one" onchange="info(this.value,'two')">
+                            <select name="1[store_room][]" id="one" onchange="info(this.value,'two',this)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                     <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -58,7 +58,7 @@
                         <th><i class="require">*</i>笛管：</th>
                         <td style="display: block;" >
                             库房:
-                            <select name="2[store_room][]" id="one" onchange="info(this.value,'dgtwo')">
+                            <select name="2[store_room][]" id="one" onchange="info(this.value,'dgtwo',this)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                     <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -79,7 +79,7 @@
                         <th><i class="require">*</i>哨片：</th>
                         <td style="display: block;" >
                             库房:
-                            <select name="3[store_room][]" id="one" onchange="info(this.value,'sptwo')">
+                            <select name="3[store_room][]" id="one" onchange="info(this.value,'sptwo',this)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                     <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -100,7 +100,7 @@
                         <th><i class="require">*</i>垫片：</th>
                         <td style="display: block;" >
                             库房:
-                            <select name="4[store_room][]" id="one" onchange="info(this.value,'dptwo')">
+                            <select name="4[store_room][]" id="one" onchange="info(this.value,'dptwo',this)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                     <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -121,7 +121,7 @@
                         <th><i class="require">*</i>肺笛袋：</th>
                         <td style="display: block;" >
                             库房:
-                            <select name="5[store_room][]" id="one" onchange="info(this.value,'fdtwo')">
+                            <select name="5[store_room][]" id="one" onchange="info(this.value,'fdtwo',this)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                     <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -142,7 +142,7 @@
                         <th><i class="require">*</i>哨片袋：</th>
                         <td style="display: block;" >
                             库房:
-                            <select name="6[store_room][]" id="one" onchange="info(this.value,'spdtwo')">
+                            <select name="6[store_room][]" id="one" onchange="info(this.value,'spdtwo',this)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                     <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -163,7 +163,7 @@
                         <th><i class="require">*</i>皮筋：</th>
                         <td style="display: block;" >
                             库房:
-                            <select name="7[store_room][]" id="one" onchange="info(this.value,'pjtwo')">
+                            <select name="7[store_room][]" id="one" onchange="info(this.value,'pjtwo',this)">
                                 <option value="">请选择库房</option>
                                 @foreach($room as $ro)
                                     <option value="{{$ro->id}}" >{{$ro->store_name}}</option>
@@ -204,7 +204,7 @@
         var addRemove = function (params, ele,number) {
             if (params == 'add') {
                     $(ele).parent().parent().append( '<td style="display: block;" >\n' +
-                        '库房: <select name="'+number+'[store_room][]"  onchange=info(this.value,"'+number+'two")>' +
+                        '库房: <select name="'+number+'[store_room][]"  onchange=info(this.value,"'+number+'two",this)>' +
                         ' <option value="" select="select">请选择库房</option>' +
                         '@foreach($room as $ro)<option value="{{$ro->id}}" >{{$ro->store_name}}</option>@endforeach</select>\n' +
                         '货架: <select name="'+number+'[shelve][]" id="'+number+'two"><option value="">请选择货架</option></select>\n'+
@@ -222,19 +222,21 @@
         };
 
         //选择库房查询货架
-        function info(id,twoid) {
-            console.log(id)
+        function info(id,twoid,obj) {
+            //console.log(id)
+            var objs =$(obj).parent().children().next();
+            //console.log();
             $.get("{{url('ad/spare/shelve/info')}}",{
                 'id':id,
                 '_token':'{{csrf_token()}}'
             },function (data) {
                 //console.log(data)
-                $('#'+twoid).children('[value!=""]').remove();
+                objs.children('[value!=""]').remove();
                 var info =data.data;
                // console.log(info)
                 info.forEach(function (item,index) {
                     if (item)
-                    $('#'+twoid).append(`<option  value=${info[index].id}>  ${info[index].shelf_name} </option>`);
+                    objs.append(`<option  value=${info[index].id}>${info[index].shelf_name}</option>`);
                 })
             });
         }

@@ -66,7 +66,7 @@ class SparePartsController extends Controller
      */
     public function shelveinfo(Request $request)
     {
-        $id = $request->except('_token');
+        $id = $request->except('_token','random');
         $shelve = GoodsShelve::RoomShelveList($id);
         return jsonReturn('1', '货架列表', $shelve);
     }

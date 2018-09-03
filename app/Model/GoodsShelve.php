@@ -52,10 +52,12 @@ class GoodsShelve extends Model
      */
     public static function goodsList($goodsShelve)
     {
-        return self::from('shelf_has_part')
+        return self::from('shelf_has_part as shp')
         ->where('shelf_id',$goodsShelve)
-        ->orderBy('created_at','desc')
-        ->paginate(5);
+        ->leftJoin('part_info as pi','shp.part_id','=','pi.id')
+            ->Where('shp.part_number','<>',0)
+        ->orderBy('shp.created_at','desc')
+        ->paginate(15);
     }
 
     /**

@@ -48,7 +48,7 @@ class GoodsShelveController extends Controller
         $data['storageroom_id'] = $request->input('id');
         $res = $this->goodsShelve->insert($data);
         if (!$res) return withInfoErr('添加失败');
-        return redirect("/ad/goodsList/".$data['storageroom_id'])->withInfoMsg('添加成功');
+        return redirect("/ad/goodsShelve/".$data['storageroom_id'])->withInfoMsg('添加成功');
     }
 
     /**
@@ -117,6 +117,7 @@ class GoodsShelveController extends Controller
     public function goodsList($goodsShelveId)
     {
         $goodsLists = $this->goodsShelve->goodsList($goodsShelveId);//货物信息
+        //dd($goodsLists);
         $goodsShelveName = $this->goodsShelve->find($goodsShelveId);//货架名称
         return view('lha.goodsShelve.goodsShelve-goods-list',['goodsLists'=>$goodsLists,'goodsShelveName'=>$goodsShelveName]);
     }

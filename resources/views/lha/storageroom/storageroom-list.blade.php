@@ -62,7 +62,7 @@
                     <td>
                         <a id="one" href="/ad/goodsShelve/{{$storageroom->id}}">货架列表</a>
                         <a href="/ad/storageRoom/{{$storageroom->id}}/edit">修改</a>
-                        <a href="#" id="del">删除</a>
+                        {{--<a href="#" id="del">删除</a>--}}
                     </td>
                 </tr>
             @endforeach

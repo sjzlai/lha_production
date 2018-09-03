@@ -3,7 +3,7 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="/ad/storageRoom">库房管理</a> &raquo; <a href="/ad/storageRoom">库管列表</a> &raquo;  <a href="#">货架列表</a>  &raquo;  <a href="#">货物列表</a>
+    <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="/ad/storageRoom">库房管理</a> &raquo; <a href="/ad/storageRoom">库管列表</a> &raquo;  <a href="/ad/goodsShelve/{{$goodsShelveName->id}}">货架列表</a>  &raquo;  <a href="#">货物列表</a>
 </div>
 
 <!--面包屑导航 结束-->
@@ -59,12 +59,22 @@
                     <td class="tc" id="did">{{$goodsList->id}}</td>
                     <td>
                         {{--{{$goodsList->part_name}}--}}
-                        @if($goodsList->part_name == 1)
+                        @if($goodsList->part_id == 0)
                             成品
-                        @elseif($goodsList->part_name == 2)
+                        @elseif($goodsList->part_id ==1)
+                            吹嘴
+                        @elseif($goodsList->part_id == 2)
                             笛管
-                        @elseif($goodsList->part_name == 3)
+                        @elseif($goodsList->part_id == 3)
                             哨片
+                        @elseif($goodsList->part_id == 4)
+                            垫片
+                        @elseif($goodsList->part_id == 5)
+                            肺笛袋
+                        @elseif($goodsList->part_id == 6)
+                            哨片袋
+                        @elseif($goodsList->part_id == 7)
+                            皮筋
                         @endif
                     </td>
                     <td>{{$goodsList->part_number}}</td>
