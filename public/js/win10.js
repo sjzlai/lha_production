@@ -843,7 +843,7 @@ window.Win10 = {
     exit:function () {
         layer.confirm(Win10.lang('确认要退出登录吗?','Are you sure you want to close this page?'), {icon: 3, title:Win10.lang('提示','Prompt')}, function(index){
             document.body.onbeforeunload = function(){};
-            window.location.href="loginOut";
+            window.location.href="ad/loginOut";
             window.close();
             layer.close(index);
             /*layer.alert(Win10.lang('即将退出登录','Ops...There seems to be a little problem.'), {

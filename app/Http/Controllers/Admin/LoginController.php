@@ -62,7 +62,7 @@ class LoginController extends Controller
     public function outLogin()
     {
         Session::forget('admin');
-        return Redirect::to('ad/login');
+        return Redirect::to('/');
     }
 
 }

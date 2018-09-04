@@ -9,17 +9,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-
-});
+});*/
 //不判断登陆的路由组
-Route::group(['middleware'=>['web'],'namespace'=>'Admin','prefix'=>
-    'ad'],function(){
-    Route::get('login', 'LoginController@login');       //后台登录
-    Route::get('imgCode', 'LoginController@imgCode');   //验证码
-    Route::get('loginOut','LoginController@outLogin');  //退出登录
-    Route::post('check', 'LoginController@check');       //后台登陆操作
+Route::group(['middleware'=>['web'],'namespace'=>'Admin'],function(){
+    Route::get('/', 'LoginController@login');       //后台登录
+    Route::get('ad/imgCode', 'LoginController@imgCode');   //验证码
+    Route::get('ad/loginOut','LoginController@outLogin');  //退出登录
+    Route::post('ad/check', 'LoginController@check');       //后台登陆操作
 });
 //不验证权限的通用路由
 Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
