@@ -195,6 +195,7 @@ class SparePartsController extends Controller
         //查询数据库中该数据,并操作减库存
         $date = ShelfHasPart::fistInfo($data['id']);
         $date->part_number = intval($date->part_number) - intval($data['part_number']);
+        if ($date->part_number < 0)return withInfoErr('库存不足,请重新输入出库数量');
         $result = $date->save();
        // $result = ShelfHasPart::where('part_id','=',$data['part_id'])->update($date);
         if ($result):
