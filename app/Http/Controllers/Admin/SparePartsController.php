@@ -179,8 +179,9 @@ class SparePartsController extends Controller
      */
     public function outToInfo($part_id,$part_number)
     {
+        $part_info = ShelfHasPart::where('part_id','=',$part_id)->first();
         $part = PartInfo::where('id','=',$part_id)->first();
-        return view('lha.spareparts.part-out-info',['part'=>$part,'part_number'=>$part_number]);
+        return view('lha.spareparts.part-out-info',['part'=>$part,'part_info'=>$part_info,'part_number'=>$part_number]);
     }
     /**
      * Notes: 零部件出库提交
@@ -190,10 +191,12 @@ class SparePartsController extends Controller
     public function outAdd(Request $request)
     {
         $data = $request->except('_token');
+        //dd($data);
         //查询数据库中该数据,并操作减库存
-        $date = ShelfHasPart::fistInfo($data['part_id']);
+        $date = ShelfHasPart::fistInfo($data['id']);
         $date->part_number = intval($date->part_number) - intval($data['part_number']);
         $result = $date->save();
+       // $result = ShelfHasPart::where('part_id','=',$data['part_id'])->update($date);
         if ($result):
             return redirect('ad/spare/out');
         else:

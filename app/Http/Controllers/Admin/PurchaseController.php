@@ -74,9 +74,10 @@ class PurchaseController extends Controller
         $data['delivery_time'] = $request->input('delivery_time');
         $data['status'] = 0;
         $data['warehousing'] = 0;
+        if (empty($data['order_number']))return withInfoErr('订单号未输入!请输入');
         //先查询订单号是否存在
         $order_no = Purchase::select('part_purchase.order_number')->where('order_number', '=', $data['order_number'])->get();
-        if (!$order_no->isEmpty()):
+        if (!$order_no->isEmpty() && $data['order_number'] !=''):
             return withInfoErr('订单号已存在!请重新输入');
         else:
             //part_info 将采购信息存表
@@ -110,6 +111,7 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
+
         $data = Purchase::EditOrder($id);
         return view('lha.purchase.edit', ['data' => $data]);
     }
