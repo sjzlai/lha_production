@@ -59,12 +59,14 @@ class StorageRoom extends Model
     /**
      * @name:查询所有存放成品的货架仓库信息
      * @author: weikai
-     * @date: 2018/7/17 9:49
+     * @date: 2018/9/69:49
      */
-    public static function productLinkShelf()
+    public static function productLinkShelf($orderId)
     {
         return self::from('shelf_has_part as shp')
             ->where('shp.part_name','1')
+            ->where('shp.id','=',$orderId)
+            ->where('shp.part_number','>','0')
             ->whereNotNull('shp.part_number')
             ->select('shp.*','si.shelf_name','sri.store_name','shp.shelf_id')
             ->leftJoin('shelf_info as si','si.id','shp.shelf_id')

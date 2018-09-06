@@ -44,13 +44,11 @@
                         <th class="tc" width="5%"><input type="checkbox" name="" ></th>
                         {{--<th class="tc">排序</th>--}}
                         <th class="tc">ID</th>
-                        <th>订单号</th>
-                        <th>采购申请成品数量</th>
-                        <th>收货地址</th>
-                        <th>收货人姓名</th>
-                        <th>收货人电话</th>
-                        <th>收货日期</th>
-                        <th>备注信息</th>
+                        <th>商品的名称</th>
+                        <th>库房</th>
+                        <th>货架</th>
+                        <th>采购申请成品的数量</th>
+
                         <th>创建时间</th>
                         <th>更新时间</th>
                         {{--<th>已出库数量</th>--}}
@@ -63,19 +61,17 @@
                             {{--<input type="text" name="ord[]" value="0">--}}
                             {{--</td>--}}
                             <td class="tc" id="did">{{$orderEn->id}}</td>
-                            <td>{{$orderEn->order_no}}</td>
-                            <td>{{$orderEn->goods_number}}</td>
-                            <td>{{$orderEn->address}}</td>
-                            <td>{{$orderEn->consignee_name}}</td>
-                            <td>{{$orderEn->phone}}</td>
-                            <td>{{$orderEn->harvest_date}}</td>
-                            <td>{{$orderEn->remark}}</td>
+                            <td>肺笛</td>
+
+                            <td>{{$orderEn->store_name}}</td>
+                            <td>{{$orderEn->shelf_name}}</td>
+                            <td>{{$orderEn->part_number}}</td>
                             <td>{{$orderEn->created_at}}</td>
                             <td>{{$orderEn->updated_at}}</td>
                             {{--<td><a class="num" href="javascript:void(0)">点击查看</a></td>--}}
                             <td>
-                                <a href="/ad/productOutStorageView/{{$orderEn->order_no}}">出库</a>
-                                <a href="/ad/productOutStorageRecord/{{$orderEn->order_no}}">出库记录查看</a>
+                                <a href="/ad/productOutStorageView/{{$orderEn->id}}">出库</a>
+                                {{--<a href="/ad/productOutStorageRecord/{{$orderEn->order_no}}">出库记录查看</a>--}}
                             </td>
                         </tr>
                     @endforeach

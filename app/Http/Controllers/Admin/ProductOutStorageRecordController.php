@@ -34,7 +34,8 @@ class ProductOutStorageRecordController extends Controller
      */
     public function orderList()
     {
-        $ordersEn = $this->posrModel->orderList(1,5);//已处理订单
+        $ordersEn = $this->posrModel->orderList(5);//已处理订单
+//        dd($ordersEn);
         if ($ordersEn->isEmpty())      return view('lha.productWarehousing.black');
         //查询订单
         return view('lha.productQutStorage.order-list',['ordersEn'=>$ordersEn]);
@@ -47,15 +48,11 @@ class ProductOutStorageRecordController extends Controller
      */
     public function productOutStorageView($orderId)
     {
-        $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
-        $storageRooms = StorageRoom::productLinkShelf();//查询所有成品所在的全部货架
-        $consignees = DB::table('harvest_info')->get();//收获信息
+//        $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
+        $storageRooms = StorageRoom::productLinkShelf($orderId);//查询orderId成品所在的货架
         return view('lha.productQutStorage.productOutStorage',[
             'orderId'=>$orderId,
-            'factoryNO'=>$factoryNo,
             'storageRooms'=>$storageRooms,
-            'consignees'=>$consignees
-
         ]);
     }
 
@@ -67,15 +64,10 @@ class ProductOutStorageRecordController extends Controller
     public function productOutStorage(Request $request)
     {
         $datas = $request->except('_token');
-        if (count($datas)<7) return withInfoErr('请填写完整');
+//        if (count($datas)<7) return withInfoErr('请填写完整');
         //出库记录表写入
         $outStorageData['order_no'] =$datas['production_order_no'];
         $outStorageData['number'] =$datas['number'];
-        $outStorageData['user_id'] =session('user.id');
-        $outStorageData['consignee_id'] =$datas['consignee'];
-        $outStorageData['shipping_address'] =$datas['shipping_address'];
-        $outStorageData['logistics_num'] =$datas['kuaidi_number'];
-        $outStorageData['logistics_company'] =$datas['logistics_company'];
         $outStorageData['shelf_id'] =$datas['shelf_id'];
         $storage = ShelfInfo::find($datas['shelf_id']);
         $outStorageData['storageroom_id'] =$storage->storageroom_id;

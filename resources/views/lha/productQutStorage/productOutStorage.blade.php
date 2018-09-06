@@ -16,13 +16,13 @@
             <table class="add_tab">
                 <tbody>
                     <tr>
-                        <th><i class="require">*</i>订单号：</th>
+                        <th><i class="require">*</i>订单ID号：</th>
                         <td style="font-weight: bold">{{$orderId}}</td>
                     </tr>
-                    <tr>
-                        <th><i class="require">*</i>工厂订单号：</th>
-                        <td style="font-weight: bold">{{$factoryNO}}</td>
-                    </tr>
+                    {{--<tr>--}}
+                        {{--<th><i class="require">*</i>工厂订单号：</th>--}}
+                        {{--<td style="font-weight: bold">{{$factoryNO}}</td>--}}
+                    {{--</tr>--}}
                     <tr>
                         <th><i class="require">*</i>选择出库：</th>
                         <td style="display: block">
@@ -49,47 +49,9 @@
                     </tr>
                     <tr>
                         <th><i class="require">*</i>出库数量：</th>
-                        <td><input name="number" type="number" placeholder="请输入出库数量" style="width: 156px;height: 26px;" ></td>
+                        <td><input name="number" type="number" placeholder="请输入出库数量出库数量小于{{$storageRoom->part_number}}" style="width: 500px;height: 26px;" ></td>
                     </tr>
-                    <tr>
-                        <th><i class="require">*</i>发货地址：</th>
-                        <td><input name="shipping_address" type="text" placeholder="请输入发货地址"></td>
-                    </tr>
-                    <tr>
-                        <th><i class="require">*</i>收货人选择：</th>
-                        <td>
-                            <select class="" name="consignee"  id="">
-                                <option value="">选择收货人</option>
-                                @foreach($consignees as $consignee)
-                                    <option class="options" value="{{$consignee->id}}" style="font-weight: bold; font-size: 14px">
-                                        收货人姓名：{{$consignee->consignee_name}}&nbsp;&nbsp;
-                                        电话：{{$consignee->phone}}&nbsp;&nbsp;
-                                        地址：{{$consignee->address}}&nbsp;&nbsp;
-                                    </option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require">*</i>快递单号：</th>
-                        <td>
-                            <select class="selects" name="logistics_company"  id="">
-                                <option value="">物流公司</option>
-                                <option class="options" value="1" style="font-weight: bold; font-size: 14px">顺丰 &nbsp;&nbsp;</option>
-                                <option class="options" value="2" style="font-weight: bold; font-size: 14px">申通 &nbsp;&nbsp;</option>
-                                <option class="options" value="3" style="font-weight: bold; font-size: 14px">中通 &nbsp;&nbsp;</option>
-                                <option class="options" value="4" style="font-weight: bold; font-size: 14px">圆通 &nbsp;&nbsp;</option>
-                                <option class="options" value="5" style="font-weight: bold; font-size: 14px">EMS &nbsp;&nbsp;</option>
 
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require">*</i>物流公司：</th>
-                        <td>
-                            <input type="text" name="kuaidi_number" placeholder="请输入快递单号">
-                        </td>
-                    </tr>
                     <tr>
                         <th></th>
                         <td>
