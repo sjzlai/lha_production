@@ -81,14 +81,17 @@ class ProductWarehousingController extends Controller
         $a['part_name'] = 1;
         $a['part_number'] = $data['number'];
         $a['shelf_id'] = $data['shelf'];
+        $a['storageroom_id'] = $data['storageRoom'];
         $b['order_no'] = $data['production_order_no'];
         $b['number'] = $data['number'];
         $b['storageroom_id'] = $data['storageRoom'];
         $b['shelf_id'] = $data['shelf'];
         $b['user_id'] = session('user.id');
         $b['remark'] = $data['remark'];
-       if (count($data)<5) return withInfoErr('请填写完整');
-       $res = ProductPutStorageRecord::create($b);//入库记录表写入
+        if (count($data)<5) return withInfoErr('请填写完整');
+        $res = ProductPutStorageRecord::create($b);//入库记录表写入
+        //将库房存入货架关联表中
+        //$ress[] =ShelfHasPart::insert($b['storageroom_id']);
         //查询库房中是否已存在商品 已存在增加数量，否则新增
         $part_number = DB::table('shelf_has_part')->where('shelf_id',$data['shelf'])->where('part_name','1')->pluck('part_number')->toArray();
         $addRes = null;
@@ -100,7 +103,7 @@ class ProductWarehousingController extends Controller
             $addRes = ShelfHasPart::create($a);
         }
         if (!$res) return withInfoErr('入库失败');
-        if($numRes || $addRes) return redirect('/ad/productWarehousingOrderList');
+        if($numRes || $addRes ) return redirect('/ad/productWarehousingOrderList');
     }
 
     /**
