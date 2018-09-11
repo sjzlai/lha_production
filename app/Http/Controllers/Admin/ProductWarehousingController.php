@@ -41,7 +41,7 @@ class ProductWarehousingController extends Controller
         if ($ordersEn->isEmpty()):
             return view('lha.productWarehousing.black');
         else:
-        return view('lha.productWarehousing.order-list',['ordersEn'=>$ordersEn]);
+            return view('lha.productWarehousing.order-list',['ordersEn'=>$ordersEn]);
         endif;
     }
 
@@ -90,6 +90,11 @@ class ProductWarehousingController extends Controller
         $b['remark'] = $data['remark'];
         if (count($data)<5) return withInfoErr('请填写完整');
         $res = ProductPutStorageRecord::create($b);//入库记录表写入
+        //入库前判断已入库数量和生产成品数量对比
+        $num = ProductPutStorageRecord::where('order_no','=',$b['order_no'])->sum('number');
+        $number =PurchasingOrder::where('order_no','=',$b['order_no'])->find('number');
+        if ($num>$number) return withInfoErr('入库数量大于生产数量,无法再次入库!');
+        //dd($num);
         //将库房存入货架关联表中
         //$ress[] =ShelfHasPart::insert($b['storageroom_id']);
         //查询库房中是否已存在商品 已存在增加数量，否则新增

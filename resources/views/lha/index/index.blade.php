@@ -55,10 +55,12 @@
 
 <div id="win10">
     <div id="win10-shortcuts">
+
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/purchase/pur')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>采购申请')">
             <div class="icon">采</div>
             <div class="title">采购申请</div>
         </div>
+
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/quality')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>质检管理')">
             <div class="icon">质</div>
             <div class="title">零部件质检</div>
@@ -67,6 +69,7 @@
             <div class="icon">质</div>
             <div class="title">成品质检</div>
         </div>
+
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>零部件仓库')">
             <div class="icon"><i class="icon fa fa-fw fa-truck"></i></div>
             <div class="title">零部件入库</div>
@@ -87,11 +90,12 @@
             <div class="icon">出</div>
             <div class="title">成品出库</div>
         </div>
+
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/productionOrder')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>生产订单')">
             <div class="icon">生</div>
             <div class="title">生产订单</div>
         </div>
-
+        @can('admin')
         <div class="shortcut"  onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限角色管理')">
             <div class="icon">权</div>
             <div class="title">权限角色管理</div>
@@ -100,7 +104,7 @@
             <div class="icon">用</div>
             <div class="title">用户管理</div>
         </div>
-
+        @endcan
 
     </div>
     <div id="win10-menu" class="hidden">
