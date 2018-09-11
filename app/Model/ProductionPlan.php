@@ -48,8 +48,9 @@ class ProductionPlan extends Model
         //查询零部件信息
         $data['part'] = self::from('part_production_lists as ppl')
             ->where('ppl.order_no',$orderId)
-            ->select('ppl.part_id','ppl.part_number','pai.part_name','pai.manufacturer','pai.batch_number','pai.model')
+            ->select('ppl.part_id','ppl.part_number','pai.part_name','pai.manufacturer','pid.batch_number','pid.model')
             ->leftJoin('part_info as pai','pai.id','=','ppl.part_id')
+            ->leftJoin('part_info_detailed as pid','ppl.part_id','=','pid.part_id')
             ->get()->toArray();
         return $data;
 

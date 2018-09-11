@@ -63,6 +63,10 @@
             <div class="icon">质</div>
             <div class="title">零部件质检</div>
         </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/qualityProductionOrder')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>成品质检')">
+            <div class="icon">质</div>
+            <div class="title">成品质检</div>
+        </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/spare')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>零部件仓库')">
             <div class="icon"><i class="icon fa fa-fw fa-truck"></i></div>
             <div class="title">零部件入库</div>
@@ -71,25 +75,9 @@
             <div class="icon"><i class="icon fa fa-fw fa-bus"></i></div>
             <div class="title">零部件出库</div>
         </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限角色管理')">
-            <div class="icon">权</div>
-            <div class="title">权限角色管理</div>
-        </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/user')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>用户管理')">
-            <div class="icon">用</div>
-            <div class="title">用户管理</div>
-        </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/storageRoom')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>库房管理')">
             <div class="icon">库</div>
             <div class="title">库房管理</div>
-        </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/productionOrder')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>生产订单')">
-            <div class="icon">生</div>
-            <div class="title">生产订单</div>
-        </div>
-        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/qualityProductionOrder')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>成品质检')">
-            <div class="icon">质</div>
-            <div class="title">成品质检</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/productWarehousingOrderList')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>成品入库')">
             <div class="icon">入</div>
@@ -99,6 +87,21 @@
             <div class="icon">出</div>
             <div class="title">成品出库</div>
         </div>
+        <div class="shortcut" onclick="Win10.openUrl('{{url('ad/productionOrder')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>生产订单')">
+            <div class="icon">生</div>
+            <div class="title">生产订单</div>
+        </div>
+
+
+        <div class="shortcut"  onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限角色管理')">
+            <div class="icon">权</div>
+            <div class="title">权限角色管理</div>
+        </div>
+        <div class="shortcut"  onclick="Win10.openUrl('{{url('ad/user')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>用户管理')">
+            <div class="icon">用</div>
+            <div class="title">用户管理</div>
+        </div>
+
     </div>
     <div id="win10-menu" class="hidden">
         <div class="list win10-menu-hidden animated animated-slideOutLeft">

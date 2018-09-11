@@ -81,6 +81,7 @@ class PurchaseController extends Controller
             return withInfoErr('订单号已存在!请重新输入');
         else:
             //part_info 将采购信息存表
+            $res = '';
             foreach ($date as $value):
                 $va = array_slice($value, 1, 2);
                 if ($va['manufacturer'] == 1):
@@ -128,21 +129,23 @@ class PurchaseController extends Controller
         $order_number = $request->input('order_number');
         $da['delivery_time'] = $request->input('delivery_time');
         $da['status'] = 0;
-        foreach ($data as $v):
+        $re = DB::table('part_purchase')
+            ->where(['order_number' => $order_number])
+            ->update($da);
+        $res = '';
+        foreach ($data as $v) {
             $info = array_slice($v, 0, 1);
             $part_name = array_slice($v, 2, 1);
+            $info['updated_at'] = date('Y-m-d H:i:s');
             $res = DB::table('part_purchase_lists')
                 ->where(['part_id' => $part_name['part_id']])
                 ->update($info);
-        endforeach;
-            $re = DB::table('part_purchase')
-                ->where(['order_number' => $order_number])
-                ->update($da);
-            if ($re || $res):
-                return redirect('ad/purchase/pur')->with('message','修改成功');
-            else:
-                return withInfoErr('修改失败');
-            endif;
+        }
+        if ($res):
+            return redirect('ad/purchase/pur')->with('message', '修改成功');
+        else:
+            return withInfoErr('修改失败');
+        endif;
     }
 
     /**
