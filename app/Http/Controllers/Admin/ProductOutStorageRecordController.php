@@ -12,11 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class ProductOutStorageRecordController
- * @package App\Http\Controllers\Admin
  * @name:成品出库控制器
- * @author: weikai
- * @date: 2018/7/13 15:37
  */
 class ProductOutStorageRecordController extends Controller
 {
@@ -27,10 +23,7 @@ class ProductOutStorageRecordController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:订单列表
-     * @author: weikai
-     * @date: 2018/7/13 9:14
      */
     public function orderList()
     {
@@ -43,8 +36,6 @@ class ProductOutStorageRecordController extends Controller
 
     /**
      * @name:出库视图
-     * @author: weikai
-     * @date: 2018/7/13 9:15
      */
     public function productOutStorageView($orderId)
     {
@@ -59,8 +50,6 @@ class ProductOutStorageRecordController extends Controller
 
     /**
      * @name:出库操作
-     * @author: weikai
-     * @date: 2018/7/17 10:27
      */
     public function productOutStorage(Request $request)
     {
@@ -88,8 +77,6 @@ class ProductOutStorageRecordController extends Controller
 
     /**
      * @name:已出库数量查询
-     * @author: weikai
-     * @date: 2018/7/13 14:25
      */
     public function outStorageNumber($orderId)
     {
@@ -99,8 +86,6 @@ class ProductOutStorageRecordController extends Controller
 
     /**
      * @name:出库记录列表
-     * @author: weikai
-     * @date: 2018/7/17 12:34
      */
     public function productOutStorageRecord($orderId)
     {

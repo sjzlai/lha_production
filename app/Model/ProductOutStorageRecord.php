@@ -26,6 +26,8 @@ class ProductOutStorageRecord extends Model
             ->leftJoin('storageroom_info as s','shp.storageroom_id','=','s.id')
             ->select('shp.*','si.shelf_name','s.store_name')
             ->where('shp.part_name','=',1)
+            ->where('shp.part_number','>','0')
+            ->whereNotNull('shp.part_number')
             ->orderBy('shp.created_at','desc')
             ->paginate($page);
     }
