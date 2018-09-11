@@ -90,8 +90,8 @@ class ProductWarehousingController extends Controller
         $b['remark'] = $data['remark'];
         if (count($data)<5) return withInfoErr('请填写完整');
         $num = ProductPutStorageRecord::where('order_no','=',$b['order_no'])->sum('number');
-        $number =PurchasingOrder::where('order_no','=',$b['order_no'])->find('number');
-        if ($num > $number){ return withInfoErr('入库数量大于生产数量,无法再次入库!');}
+        $number =PurchasingOrder::select('purchasing_order.goods_number')->where('order_no','=',$b['order_no'])->first();
+        if ($num > $number->goods_number){ return withInfoErr('入库数量大于生产数量,无法再次入库!');}
         $res = ProductPutStorageRecord::create($b);//入库记录表写入
         //入库前判断已入库数量和生产成品数量对比
         //dd($num);
