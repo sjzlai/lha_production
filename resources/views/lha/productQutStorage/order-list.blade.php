@@ -62,7 +62,6 @@
                             {{--</td>--}}
                             <td class="tc" id="did">{{$orderEn->id}}</td>
                             <td>肺笛</td>
-
                             <td>{{$orderEn->store_name}}</td>
                             <td>{{$orderEn->shelf_name}}</td>
                             <td>{{$orderEn->part_number}}</td>

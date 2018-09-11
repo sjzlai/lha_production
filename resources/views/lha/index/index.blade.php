@@ -92,7 +92,6 @@
             <div class="title">生产订单</div>
         </div>
 
-
         <div class="shortcut"  onclick="Win10.openUrl('{{url('ad/role')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>权限角色管理')">
             <div class="icon">权</div>
             <div class="title">权限角色管理</div>
@@ -101,6 +100,7 @@
             <div class="icon">用</div>
             <div class="title">用户管理</div>
         </div>
+
 
     </div>
     <div id="win10-menu" class="hidden">

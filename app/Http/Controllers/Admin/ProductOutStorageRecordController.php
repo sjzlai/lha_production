@@ -50,6 +50,7 @@ class ProductOutStorageRecordController extends Controller
     {
 //        $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
         $storageRooms = StorageRoom::productLinkShelf($orderId);//查询orderId成品所在的货架
+        //dd($storageRooms);
         return view('lha.productQutStorage.productOutStorage',[
             'orderId'=>$orderId,
             'storageRooms'=>$storageRooms,

@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ProductOutStorageRecord
@@ -19,10 +20,12 @@ class ProductOutStorageRecord extends Model
 
     public static function orderList($page=5)
     {
+
         return self::from('shelf_has_part as shp')
             ->leftJoin('shelf_info as si','shp.shelf_id','=','si.id')
             ->leftJoin('storageroom_info as s','shp.storageroom_id','=','s.id')
             ->select('shp.*','si.shelf_name','s.store_name')
+            ->where('shp.part_name','=',1)
             ->orderBy('shp.created_at','desc')
             ->paginate($page);
     }
