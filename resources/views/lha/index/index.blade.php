@@ -63,11 +63,11 @@
         @endhasanyrole
         @hasanyrole('质检|admin')
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/quality')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>质检管理')">
-            <div class="icon"><i class="icon fa fa-spin fa-spinner"></i></div>
+            <div class="icon"><i class="icon fa fa-fw fa-spinner"></i></div>
             <div class="title">零部件质检</div>
         </div>
         <div class="shortcut" onclick="Win10.openUrl('{{url('ad/qualityProductionOrder')}}','<img class=\'icon\' src=\'{{asset('img/icon/doc.png')}}\'/>成品质检')">
-            <div class="icon"><i class="icon fa fa-spin fa-refresh"></i></div>
+            <div class="icon"><i class="icon fa fa-fw fa-refresh"></i></div>
             <div class="title">成品质检</div>
         </div>
         @endhasanyrole
