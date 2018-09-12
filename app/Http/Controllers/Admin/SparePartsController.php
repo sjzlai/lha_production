@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Notes:零部件仓库管理:页面展示,入库,查询
- * Class SparePartsController
- * @package App\Http\Controllers\Admin
- * Author:sjzlai
- * Date:2018/07/13 10:08
  */
 class SparePartsController extends Controller
 {
@@ -31,9 +27,6 @@ class SparePartsController extends Controller
     /**
      * Notes:列表页
      * explain: 分别查询已有入库记录和未有入库记录的订单信息
-     * Author:sjzlai
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * Date:2018/7/3 10:51
      */
     public function index()
     {
@@ -44,11 +37,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:添加入库内容页
-     * Author:sjzlai
-     * @param $order_number
-     * @param $room  查询返回所有库房
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * Date:2018/07/03 11:09
      */
     public function addparts($order_number)
     {
@@ -59,10 +47,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:依据库房ID查询其所有货架
-     * Author:sjzlai
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * Date:2018/07/04 9:58
      */
     public function shelveinfo(Request $request)
     {
@@ -73,10 +57,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:订单入库操作
-     * Author:sjzlai
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * Date:2018/07/13 10:06
      */
     public function store(Request $request)
     {
@@ -86,7 +66,6 @@ class SparePartsController extends Controller
         $info['put_storage_no'] = $request->input('put_storage_no');
         $info['shelve_id'] = $request->input('shelve');
         $info['user_id'] = $request->input('user_id');
-       // dd($data);
         $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
             for ($i = 1; $i <= count($data); $i++):
@@ -138,9 +117,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:查看单个订单入库记录
-     * Author:sjzlai
-     * @param $order_no
-     * Date:2018/07/18 10:18
      */
     public function record($order_no)
     {
@@ -151,8 +127,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:根据入库编号查看相应零部件入库数量
-     * Author:sjzlai
-     * Date:2018/08/01 15:02
      */
     public function WarehousingRecord(Request $request)
     {
@@ -163,8 +137,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:零部件列表
-     * Author:sjzlai
-     * Date:2018/08/07 10:24
      */
     public function outlist()
     {
@@ -174,8 +146,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:某一个零部件操作出库
-     * Author:sjzlai
-     * Date:2018/08/07 14:33
      */
     public function outToInfo($part_id,$part_number)
     {
@@ -185,8 +155,6 @@ class SparePartsController extends Controller
     }
     /**
      * Notes: 零部件出库提交
-     * Author:sjzlai
-     * Date:2018/08/07 16:49
      */
     public function outAdd(Request $request)
     {
@@ -207,8 +175,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes: 多个零部件操作出库视图
-     * Author:sjzlai
-     * Date:2018/08/07 14:46
      */
       public function outToAll($data)
       {
@@ -227,9 +193,6 @@ class SparePartsController extends Controller
 
     /**
      * Notes:多个零部件出库操作提交
-     * Author:sjzlai
-     * @param Request $request
-     * Date:2018/08/21 11:31
      */
       public function outMany(Request $request)
       {

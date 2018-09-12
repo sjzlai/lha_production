@@ -12,17 +12,12 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * Notes:零部件质检
- * Class QualityController
- * @package App\Http\Controllers\Admin
- * Author:sjzlai
- * Date:2018/07/17 11:07
  */
 class QualityController extends Controller
 {
     //零部件质检
     /**
      * Notes:质检列表页
-     * Author:sjzlai
      */
     public function index()
     {
@@ -32,10 +27,6 @@ class QualityController extends Controller
 
     /**
      * Notes:关键词搜索
-     * Author:sjzlai
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * Date:2018/07/06 10:04
      */
     public function search(Request $request)
     {
@@ -46,7 +37,6 @@ class QualityController extends Controller
 
     /**
      * Notes:质检详情页面
-     * Author:sjzlai
      */
     public function show($order_number)
     {
@@ -55,7 +45,6 @@ class QualityController extends Controller
 
     /**
      * Notes:质检提交
-     * Author:sjzlai
      */
     public function store(Request $request)
     {
@@ -110,7 +99,6 @@ class QualityController extends Controller
 
     /**
      * Notes:查看质检结果
-     * Author:sjzlai
      */
     public function img($order_number)
     {

@@ -15,10 +15,7 @@ class StorageRoomController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:所有库房
-     * @author: weikai
-     * @date: 2018/6/26 14:43
      */
     public function index()
     {
@@ -27,11 +24,7 @@ class StorageRoomController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:模糊搜索
-     * @author: weikai
-     * @date: 2018/6/26 14:43
      */
     public function fuzzySearch(Request $request)
     {
@@ -41,8 +34,6 @@ class StorageRoomController extends Controller
 
     /**
      * @name:添加库房视图
-     * @author: weikai
-     * @date: 2018/6/26 14:44
      */
     public function create()
     {
@@ -50,10 +41,7 @@ class StorageRoomController extends Controller
     }
 
     /**
-     * @param Request $request
      * @name:执行添加操作
-     * @author: weikai
-     * @date: 2018/6/26 14:46
      */
     public function store(Request $request)
     {
@@ -67,9 +55,6 @@ class StorageRoomController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -77,10 +62,7 @@ class StorageRoomController extends Controller
     }
 
     /**
-     * @param $id
      * @name:修改页面视图
-     * @author: weikai
-     * @date: 2018/6/26 15:01
      */
     public function edit($id)
     {
@@ -89,11 +71,7 @@ class StorageRoomController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $id
      * @name:执行修改操作
-     * @author: weikai
-     * @date: 2018/6/26 15:07
      */
     public function update(Request $request, $id)
     {
@@ -108,10 +86,7 @@ class StorageRoomController extends Controller
     }
 
     /**
-     * @param $id
      * @name:删除库房
-     * @author: weikai
-     * @date: 2018/6/26 15:17
      */
     public function destroy($id)
     {

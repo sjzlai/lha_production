@@ -134,12 +134,12 @@ class PurchaseController extends Controller
             ->update($da);
         $res = '';
         foreach ($data as $v) {
+            $updated_at = date('Y-m-d H:i:s');
             $info = array_slice($v, 0, 1);
             $part_name = array_slice($v, 2, 1);
-            $info['updated_at'] = date('Y-m-d H:i:s');
             $res = DB::table('part_purchase_lists')
                 ->where(['part_id' => $part_name['part_id']])
-                ->update($info);
+                ->update(compact('info','up'));
         }
         if ($res):
             return redirect('ad/purchase/pur')->with('message', '修改成功');

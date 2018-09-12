@@ -14,11 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class ProductWarehousingController
- * @package App\Http\Controllers\Admin
  * @name:产品入库控制器
- * @author: weikai
- * @date: 2018/7/13 8:51
  */
 class ProductWarehousingController extends Controller
 {
@@ -29,10 +25,7 @@ class ProductWarehousingController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:订单列表
-     * @author: weikai
-     * @date: 2018/7/13 9:14
      */
     public function orderList()
     {
@@ -47,8 +40,6 @@ class ProductWarehousingController extends Controller
 
     /**
      * @name:入库视图
-     * @author: weikai
-     * @date: 2018/7/13 9:15
      */
     public function productWarehousingView($orderId)
     {
@@ -58,10 +49,7 @@ class ProductWarehousingController extends Controller
     }
 
     /**
-     * @param $storageRoomId
      * @name: 通过库房id 查询所有货架
-     * @author: weikai
-     * @date: 2018/7/13 10:25
      */
     public function shelfInfo($storageRoomId)
     {
@@ -72,8 +60,6 @@ class ProductWarehousingController extends Controller
 
     /**
      * @name:入库操作
-     * @author: weikai
-     * @date: 2018/7/13 12:40
      */
     public function productWarehousing(Request $request)
     {
@@ -89,16 +75,13 @@ class ProductWarehousingController extends Controller
         $b['user_id'] = session('user.id');
         $b['remark'] = $data['remark'];
         if (count($data)<5) return withInfoErr('请填写完整');
+        if ($b['storageroom_id'] == '' || $b['shelf_id'] == '') return withInfoErr('请正确选择库房与货架');
         $num = ProductPutStorageRecord::where('order_no','=',$b['order_no'])->sum('number');
         $number =PurchasingOrder::select('purchasing_order.goods_number')->where('order_no','=',$b['order_no'])->first();
-
         if ($num > $number->goods_number || $b['number']+$num > $number->goods_number){ return withInfoErr('入库数量大于生产数量,无法再次入库!');}
-
         $res = ProductPutStorageRecord::create($b);//入库记录表写入
         //入库前判断已入库数量和生产成品数量对比
-        //dd($num);
         //将库房存入货架关联表中
-        //$ress[] =ShelfHasPart::insert($b['storageroom_id']);
         //查询库房中是否已存在商品 已存在增加数量，否则新增
         $part_number = DB::table('shelf_has_part')->where('shelf_id',$data['shelf'])->where('part_name','1')->pluck('part_number')->toArray();
         $addRes = null;
@@ -115,8 +98,6 @@ class ProductWarehousingController extends Controller
 
     /**
      * @name:已入库数量查询
-     * @author: weikai
-     * @date: 2018/7/13 14:25
      */
     public function warehousingNumber($orderId)
     {
@@ -126,8 +107,6 @@ class ProductWarehousingController extends Controller
 
     /**
      * @name:入库记录查看
-     * @author: weikai
-     * @date: 2018/7/13 14:53
      */
     public function productWarehousingRecord($orderId)
     {

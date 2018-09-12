@@ -10,18 +10,12 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 /**
- * Class UserController
- * @package App\Http\Controllers\Admin
  * @name:用户管理
- * @author: weikai
- * @date: 2018/6/25 10:23
  */
 class UserController extends Controller
 {
     /**
      * @name:用户列表
-     * @author: weikai
-     * @date: 2018/6/25 10:23
      */
     public function index()
     {
@@ -31,8 +25,6 @@ class UserController extends Controller
 
     /**
      * @name:模糊搜索
-     * @author: weikai
-     * @date: 2018/6/25 10:43
      */
     public function fuzzySearch(Request $request)
     {
@@ -44,8 +36,6 @@ class UserController extends Controller
 
     /**
      * @name:新增用户视图
-     * @author: weikai
-     * @date: 2018/6/25 10:49
      */
     public function create()
     {
@@ -53,10 +43,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
      * @name:新增用户储存
-     * @author: weikai
-     * @date: 2018/6/25 10:59
      */
     public function store(Request $request)
     {
@@ -69,10 +56,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -80,10 +64,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
      * @name:返回编辑视图
-     * @author: weikai
-     * @date: 2018/6/25 11:15
      */
     public function edit($id)
     {
@@ -92,11 +73,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $id
      * @name:执行修改
-     * @author: weikai
-     * @date: 2018/6/25 11:24
      */
     public function update(Request $request, $id)
     {
@@ -109,10 +86,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
      * @name:删除用户
-     * @author: weikai
-     * @date: 2018/6/25 13:52
      */
     public function destroy($id)
     {
@@ -124,8 +98,6 @@ class UserController extends Controller
 
     /**
      * @name:用户角色列表
-     * @author: weikai
-     * @date: 2018/6/25 14:00
      */
     public function userRole($id)
     {
@@ -135,11 +107,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:为用户分配角色视图
-     * @author: weikai
-     * @date: 2018/6/25 16:27
      */
     public function addRole($id)
     {
@@ -147,11 +115,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
      * @name:为用户分配角色
-     * @author: weikai
-     * @date: 2018/6/25 16:27
      */
     public function allotRole(Request $request)
     {
@@ -167,10 +131,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
      * @name:撤销此角色
-     * @author: weikai
-     * @date: 2018/6/25 16:29
      */
     public function removeRole($id,$roleName)
     {
@@ -180,24 +141,18 @@ class UserController extends Controller
     }
 
     /**
-     * @name:
-     * @author: weikai
-     * @date: 2018/6/26 10:12
+     * @name:获取所有已定义的角色
      */
     public function roleListInAddView($id)
     {
         $user  = User::userinfo($id);
-        $role = $user->getRoleNames()->toArray();//获取所有已定以的角色集合
+        $role = $user->getRoleNames()->toArray();//获取所有已定义的角色集合
         $roles =Roles::whereNotIn('name',$role)->orderBy('created_at','desc')->paginate($page=5);
         return view('lha.user.role-list-in-add',['userid'=>$id,'roles'=>$roles]);
     }
 
     /**
-     * @param $roleId
-     * @param $id
      * @name:从角色列表中为用户添加角色
-     * @author: weikai
-     * @date: 2018/6/26 10:23
      */
     public function roleListInAdd($roleId,$id)
     {
