@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
  * Class ProductOutStorageRecord
  * @package App\Model
  * @name:成品出库模型
- * @author: weikai
+ * @author: 
  * @date: 2018/9/6 15:40
  */
 class ProductOutStorageRecord extends Model
@@ -34,7 +34,7 @@ class ProductOutStorageRecord extends Model
 
     /**
      * @name:出库记录列表
-     * @author: weikai
+     * @author: 
      * @date: 2018/9/6 15:00
      */
     public static function recordList($orderId,$page=5)

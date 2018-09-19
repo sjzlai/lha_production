@@ -15,7 +15,7 @@ class ProductionPlan extends Model
      * @param int $page
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      * @name:生产计划列表
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/11 11:46
      */
     public static function productionPlanList($orderId,$page=5)
@@ -32,7 +32,7 @@ class ProductionPlan extends Model
      * @param $orderId
      * @return Model|null|static
      * @name:生产计划详情
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/11 12:00
      */
     public static function productionPlanInfo($orderId)

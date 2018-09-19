@@ -62,9 +62,9 @@ class SparePartsController extends Controller
     {
         $data = $request->except('_token', 'purchase_order_no', 'put_storage_no', 'user_id');
         $info['purchase_order_no'] = $request->input('purchase_order_no');
-        $info['storageroom_id'] = $request->input('store_room');
+        //$info['storageroom_id'] = $request->input('store_room');
         $info['put_storage_no'] = $request->input('put_storage_no');
-        $info['shelve_id'] = $request->input('shelve');
+        //$info['shelve_id'] = $request->input('shelve');
         $info['user_id'] = $request->input('user_id');
         $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
@@ -154,24 +154,31 @@ class SparePartsController extends Controller
         return view('lha.spareparts.part-out-info',['part'=>$part,'part_info'=>$part_info,'part_number'=>$part_number]);
     }
     /**
-     * Notes: 零部件出库提交
+     * Notes: 单一零部件出库提交
      */
     public function outAdd(Request $request)
     {
         $data = $request->except('_token');
-        //dd($data);
         //查询数据库中该数据,并操作减库存
         $date = ShelfHasPart::fistInfo($data['id']);
         $date->part_number = intval($date->part_number) - intval($data['part_number']);
         if ($date->part_number < 0)return withInfoErr('库存不足,请重新输入出库数量');
         $result = $date->save();
-       // $result = ShelfHasPart::where('part_id','=',$data['part_id'])->update($date);
         if ($result):
-            return redirect('ad/spare/out');
+            //出库成功后需将其做记录存入出库记录表中
+            $out['outdate'] = date();
+            $out['user_id'] =session('user.id');
+            $out['part_number'] = $data['part_number'];
+            $out['storageroom_id'] = $date->storageroom_id;
+            $out['shelf_id']    = $date->shelf_id;
+
+            return redirect()->to('ad/spare/out')->with(['message'=>'出库成功,并已做等级']);
         else:
             return withInfoErr('出库失败');
         endif;
     }
+
+
 
     /**
      * Notes: 多个零部件操作出库视图

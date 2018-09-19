@@ -10,14 +10,14 @@ use Excel;
  * Class ExcelController
  * @package App\Http\Controllers\Admin
  * @name:Excel控制器
- * @author: weikai
+ * @author: sjzlai
  * @date: 2018/7/11 15:01
  */
 class ExcelController extends Controller
 {
     /**
      * @name:excel导出
-     * @author: weikai
+     * @author:
      * @date: 2018/7/11 15:01
      */
     public function export($title,$cellData)

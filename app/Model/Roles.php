@@ -14,7 +14,7 @@ class Roles extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      * @name: 查询所有角色
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/22 10:10
      */
     public static function roleAll($page=15)
@@ -24,7 +24,7 @@ class Roles extends Model
 
     /**
      * @name:角色名字是否重复
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/22 11:08
      */
     public static function roleNameIsRepeat($roleName)

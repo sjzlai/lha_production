@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class ShelfHasPart
  * @package App\Model
  * @name:货架产品关联
- * @author: weikai
+ * @author: 
  * @date: 2018/7/17 11:28
  */
 class ShelfHasPart extends Model

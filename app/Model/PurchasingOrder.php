@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class PurchasingOrder
  * @package App\Model
  * @name:生产订单模型
- * @author: weikai
+ * @author: 
  * @date: 2018/6/29 9:50
  */
 class PurchasingOrder extends Model
@@ -21,7 +21,7 @@ class PurchasingOrder extends Model
      * @param int $status 默认 1 已处理订单  2未处理订单
      * @param int $page
      * @name:生产订单查看
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/29 9:57
      */
     public static function orderList( $status=1,$page = 5)
@@ -42,7 +42,7 @@ class PurchasingOrder extends Model
 
     /**
      * @name:产品标识码生产 查询地址缩写
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/12 11:22
      */
     public static function codeMake($orderId)
@@ -56,7 +56,7 @@ class PurchasingOrder extends Model
     /**
      * @param $orderId
      * @name:成品批号查询
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/12 11:35
      */
     public static function productBatchNumber($orderId)

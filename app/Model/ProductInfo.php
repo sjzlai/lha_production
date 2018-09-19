@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class ProductInfo
  * @package App\Model
  * @name:成品信息表
- * @author: weikai
+ * @author: 
  * @date: 2018/7/11 9:33\
  */
 class ProductInfo extends Model
