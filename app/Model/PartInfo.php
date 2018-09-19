@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class PartInfo
  * @package App\Model
  * @name:零部件信息模型
- * @author: weikai
+ * @author: 
  * @date: 2018/6/26 16:16
  */
 class PartInfo extends Model
@@ -19,7 +19,7 @@ class PartInfo extends Model
 
     /**
      * @name:模糊搜索
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/10 10:01
      */
     public static function fuzzySearch($value,$key = 'part_name')

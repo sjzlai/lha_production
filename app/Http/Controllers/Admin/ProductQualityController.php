@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
  * Class ProductQualityController
  * @package App\Http\Controllers\Admin
  * @name:成品质检控制器
- * @author: weikai
+ * @author: 
  * @date: 2018/7/9 10:24
  */
 class ProductQualityController extends Controller
@@ -28,7 +28,7 @@ class ProductQualityController extends Controller
 
     /**
      * @name:为生产订单添加质检视图
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/9 10:26
      */
     public function qualityAddView($orderId)
@@ -40,7 +40,7 @@ class ProductQualityController extends Controller
     /**
      * @param Request $request
      * @name:为生产订单添加质检
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/9 11:27
      */
     public function qualityAdd(Request $request)
@@ -71,7 +71,7 @@ class ProductQualityController extends Controller
 
     /**
      * @name:生产订单
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/9 10:33
      */
     public function orderList()

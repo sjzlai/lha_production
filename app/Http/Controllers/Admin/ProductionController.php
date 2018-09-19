@@ -61,7 +61,7 @@ class ProductionController extends Controller
      * @param $orderId
      * @return \Illuminate\Http\RedirectResponse
      * @name:生产订单处理
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/29 10:49
      */
     public function productionHandle($orderId)
@@ -77,7 +77,7 @@ class ProductionController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:模糊搜索订单
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/29 11:05
      */
     public function fuzzySearch(Request $request)
@@ -93,7 +93,7 @@ class ProductionController extends Controller
 
     /**
      * @name:生产计划添加视图
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/29 14:48
      */
     public function productionPlanAddView($orderId)
@@ -110,7 +110,6 @@ class ProductionController extends Controller
 //        $partInfos = PartInfo::all();
         return view('lha.production.production-add',[
             'orderId'=>$orderId,
-//            'orderId'=>$orderId,
             'partInfosCZ'=>$partInfosCZ,
             'partInfosDG'=>$partInfosDG,
             'partInfosSP'=>$partInfosSP,
@@ -125,14 +124,13 @@ class ProductionController extends Controller
     /**
      * @param Request $request
      * @name:生产计划添加
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/29 15:15
      */
     public function productionPlan(Request $request)
     {
 
         $datas = $request->except('_token','order_no','output','remark','production_plan_date','product_name','product_batch_number','product_spec','factory_no');
-//        if (count($data)<8) return withInfoErr('请填写完整');
         $data = array();
         $data['order_no'] = $request->input('order_no');//生产订单号
         $data['output'] = $request->input('output');//生产量
@@ -154,15 +152,6 @@ class ProductionController extends Controller
         $this->ppModel->remark =$data['remark'];//备注写入
         $this->ppModel->user_id =session('user.id');//用户id写入
         $ppRes = $this->ppModel->save();
-
-        //零部件清单表写入
-//        for ($i = 0; $i < count($data['part_id']); $i++) {
-//            $pplData['order_no'] = $data['order_no'];
-//            $pplData['part_id'] = $data['part_id'][$i];
-//            $pplData['part_number'] = $data['part_number'][$i];
-//            $pplRes =  $this->pplModel->create($pplData);
-//        }
-//        dd($datas);
         //零部件清单表写入
         for ($i=1; $i <= count($datas); $i++):
             for ($j = 0; $j < count($datas[$i]['part_number']); $j++):
@@ -198,7 +187,7 @@ class ProductionController extends Controller
 
     /**
      * @name:产品标识码生产
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/12 11:21
      */
     public function codeMake($orderId,$product_batch_number)
@@ -229,7 +218,7 @@ class ProductionController extends Controller
      * @param $orderId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:生产计划详情
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/29 16:26
      */
     public function productionPlanInfo($orderId)
@@ -243,7 +232,7 @@ class ProductionController extends Controller
     /**
      * @param $orderId
      * @name:成品信息excel导出
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/11 15:38
      */
     public function productExcelDown($orderId)
@@ -260,7 +249,7 @@ class ProductionController extends Controller
     /**
      * @param $orderId
      * @name:零部件清单Excel导出
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/11 16:41
      */
     public function partExcelDown($orderId)
@@ -277,7 +266,7 @@ class ProductionController extends Controller
 
     /**
      * @name:生产记录登记视图
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/10 9:03
      */
     public function productionRecordView($orderId)
@@ -287,7 +276,7 @@ class ProductionController extends Controller
 
     /**
      * @name:生产记录登记
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/10 9:35
      */
     public function productionMakeRecord(Request $request)
@@ -298,18 +287,14 @@ class ProductionController extends Controller
         $data['product_date'] = date('Y-m-d h:i:s',strtotime($data['product_date']));
         $prRes = $this->prModel->create($data);
         if (!$prRes) return withInfoErr('添加失败');
-//        $request->session()->all();
-//        return redirect()->route("/ad/productionRecordList",[$data['order_no']=>1])->with(['message'=>'添加成功']);
         return redirect("/ad/productionRecordList/".$data['order_no'])->with(['message'=>'添加成功']);
-       // return redirect()->route('ad/productionRecordList',['orderId'=>$data['order_no']])->with(['message'=>'添加成功']);
-
     }
 
     /**
      * @param $orderId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:生产记录列表
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/12 14:27
      */
     public function productionRecordList($orderId)
@@ -322,9 +307,7 @@ class ProductionController extends Controller
     {
         $str = 'asdaf12345678901235';
         $code = floatval(sprintf('%u', crc32($str)));
-
         $sstr = '';
-
         while($code){
             $mod = fmod($code, 62);
             if($mod>9 && $mod<=35){

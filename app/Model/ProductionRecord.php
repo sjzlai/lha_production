@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class ProductionRecord
  * @package App\Model
  * @name:生产记录表
- * @author: weikai
+ * @author: 
  * @date: 2018/7/11 9:15
  */
 class ProductionRecord extends Model
@@ -20,7 +20,7 @@ class ProductionRecord extends Model
     /**
      * @param $orderId
      * @name:生产计划列表
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/12 10:18
      */
     public static function recordList($orderId,$page=5)
