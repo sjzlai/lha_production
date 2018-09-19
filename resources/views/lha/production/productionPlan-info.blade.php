@@ -108,6 +108,7 @@
             @endforeach
             </ul>
             <ul>
+                {{--<p>{{$productionPlanInfo['product']}}</p>--}}
                 <li style="padding-left: 150px"><input type="button" id="url" value="打印"> <input type="button" onclick="window.location.href = '/ad/productExcelDown/{{$productionPlanInfo['product']['order_no']}}'" value="导出成品记录Excel"> <input type="button" onclick="window.location.href = '/ad/partExcelDown/{{$productionPlanInfo['product']['order_no']}}'" value="导出零部件清单Excel"></li>
             </ul>
 
