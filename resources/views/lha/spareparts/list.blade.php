@@ -27,7 +27,7 @@
         <div class="result_wrap">
             <ul class="tab_title">
                 <li>未入库</li>
-                <li class="">有入库记录</li>
+                <li class="">已入库</li>
             </ul>
             {{--未处理入库操作--}}
             <div class="tab_content">

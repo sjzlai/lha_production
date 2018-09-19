@@ -23,7 +23,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i>库房：</th>
+                    <th><i class="require">*</i>质检结果：</th>
                     <td>
                         <input type="file" class="lg" name="picture">
                     </td>
