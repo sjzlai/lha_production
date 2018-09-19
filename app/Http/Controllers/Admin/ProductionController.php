@@ -54,7 +54,6 @@ class ProductionController extends Controller
           if ($sum_number==$arr[$i]) { $ordersEns[$i]->finish_status ="已完成";}
           else{ $ordersEns[$i]->finish_status="未完成";}
         }
-        dd($ordersEns);
         return view('lha.production.production-order-list',['ordersUn'=>$ordersUn,'ordersEn'=>$ordersEns]);
     }
 
