@@ -46,6 +46,7 @@
                         <th class="tc">ID</th>
                         <th>订单号</th>
                         <th>采购申请成品数量</th>
+                        <th>未出库的数量</th>
                         <th>收货地址</th>
                         <th>收货人姓名</th>
                         <th>收货人电话</th>
@@ -65,6 +66,7 @@
                             <td class="tc" id="did">{{$orderEn->id}}</td>
                             <td>{{$orderEn->order_no}}</td>
                             <td>{{$orderEn->goods_number}}</td>
+                            <td></td>
                             <td>{{$orderEn->address}}</td>
                             <td>{{$orderEn->consignee_name}}</td>
                             <td>{{$orderEn->phone}}</td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Model\OrdereNoLinkFactoryNo;
 use App\Model\ProductOutStorageRecord;
+use App\Model\PurchasingOrder;
 use App\Model\ShelfHasPart;
 use App\Model\ShelfInfo;
 use App\Model\StorageRoom;
@@ -28,9 +29,11 @@ class ProductOutStorageRecordController extends Controller
     public function orderList()
     {
         $ordersEn = $this->posrModel->orderList(1,5);//已处理订单
+
 //        dd($ordersEn);
         if ($ordersEn->isEmpty())      return view('lha.productWarehousing.black');
         //查询订单
+//        dd($ordersEn);
         return view('lha.productQutStorage.order-list',['ordersEn'=>$ordersEn]);
     }
 
@@ -48,13 +51,20 @@ class ProductOutStorageRecordController extends Controller
 //        ]);
         $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
         $storageRooms = StorageRoom::productLinkShelf();//查询所有成品所在的全部货架
+        //出库的数量查询
+        $sum_number=PurchasingOrder::where('order_no',$orderId)->select(['goods_number'])->get();
+        foreach ($sum_number as $good_number){
+            $su_nmuber=$good_number['goods_number'];
+        }
+        $number=ProductOutStorageRecord::where('order_no',$orderId)->sum('number');
+        $number_weichu=intval($su_nmuber)-intval($number);
         $consignees = DB::table('harvest_info')->get();//收获信息
         return view('lha.productQutStorage.productOutStorage',[
             'orderId'=>$orderId,
             'factoryNO'=>$factoryNo,
             'storageRooms'=>$storageRooms,
-            'consignees'=>$consignees
-
+            'consignees'=>$consignees,
+            'numbers'=>$number_weichu
         ]);
     }
 
