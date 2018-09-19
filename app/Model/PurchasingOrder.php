@@ -31,6 +31,7 @@ class PurchasingOrder extends Model
             ->select('po.*','hi.address','hi.consignee_name','hi.phone')
             ->where('po.status',$status)
             ->orderBy('po.created_at','desc')
+//            ->toArray()
             ->paginate($page);
 
     }

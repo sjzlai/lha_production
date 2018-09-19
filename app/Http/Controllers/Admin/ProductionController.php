@@ -44,8 +44,22 @@ class ProductionController extends Controller
     public function orderList()
     {
         $ordersUn = $this->model->orderList(2);//未处理订单
+<<<<<<< HEAD
         $ordersEn = $this->model->orderList(1,1);//已处理订单
         return view('lha.production.production-order-list',['ordersUn'=>$ordersUn,'ordersEn'=>$ordersEn]);
+=======
+        $ordersEns = $this->model->orderList(1,1);//已处理订单
+        foreach ($ordersEns as $ordersEn){
+            $a[]=$ordersEn['order_no'];
+            $arr[]=$ordersEn['goods_number'];
+        }
+        for($i=0;$i<count($a);$i++){
+          $sum_number=intval(ProductionRecord::where('order_no','=',$a[$i])->sum('number'));
+          if ($sum_number==$arr[$i]) { $ordersEns[$i]->finish_status ="已完成";}
+          else{ $ordersEns[$i]->finish_status="未完成";}
+        }
+        return view('lha.production.production-order-list',['ordersUn'=>$ordersUn,'ordersEn'=>$ordersEns]);
+>>>>>>> 5a6ce13ef3ef8c948af4d9e62a7a02c72ef8b154
     }
 
     /**
@@ -214,7 +228,9 @@ class ProductionController extends Controller
      */
     public function productionPlanInfo($orderId)
     {
+//        dd($orderId);
         $data = ProductionPlan::productionPlanInfo($orderId);
+//      dd($data);
         return view('lha.production.productionPlan-info',['productionPlanInfo'=>$data]);
     }
 
