@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class ShelfInfo
  * @package App\Model
  * @name:货架模型
- * @author: weikai
+ * @author: 
  * @date: 2018/7/13 10:08
  */
 class ShelfInfo extends Model
@@ -21,7 +21,7 @@ class ShelfInfo extends Model
      * @param $storageRoomId
      * @return \Illuminate\Support\Collection
      * @name:通过库房id查找所有货架
-     * @author: weikai
+     * @author: 
      * @date: 2018/7/13 10:21
      */
     public static function shelfInfo($storageRoomId)

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
  * Class GoodsShelveController
  * @package App\Http\Controllers\Admin
  * @name:货架资源控制器
- * @author: weikai
+ * @author: 
  * @date: 2018/6/26 15:51
  */
 class GoodsShelveController extends Controller
@@ -22,23 +22,10 @@ class GoodsShelveController extends Controller
         $this->goodsShelve = $goodsShelve;
     }
 
-
-    public function index()
-    {
-
-    }
-
-
-    public function create()
-    {
-
-
-    }
-
     /**
      * @param Request $request
      * @name:执行货架添加
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 15:31
      */
     public function store(Request $request)
@@ -55,7 +42,7 @@ class GoodsShelveController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @name:库房内货架列表
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 15:13
      */
     public function show($id)
@@ -68,7 +55,7 @@ class GoodsShelveController extends Controller
     /**
      * @param $id
      * @name:返回修改视图
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 15:44
      */
     public function edit($id)
@@ -81,7 +68,7 @@ class GoodsShelveController extends Controller
      * @param Request $request
      * @param $id
      * @name:执行修改操作
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 15:50
      */
     public function update(Request $request, $id)
@@ -97,7 +84,7 @@ class GoodsShelveController extends Controller
     /**
      * @param $id
      * @name:删除货架
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 16:26
      */
     public function destroy($id)
@@ -111,7 +98,7 @@ class GoodsShelveController extends Controller
 
     /**
      * @name:货架内货物列表
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 9:43
      */
     public function goodsList($goodsShelveId)
@@ -126,7 +113,7 @@ class GoodsShelveController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:模糊搜索物品
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 15:13
      */
     public function goodsFuzzySearch(Request $request)
@@ -142,7 +129,7 @@ class GoodsShelveController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:货架模糊搜索
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/28 9:28
      */
 
@@ -159,7 +146,7 @@ class GoodsShelveController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @name:返回添加货架的视图
-     * @author: weikai
+     * @author: 
      * @date: 2018/6/27 15:27
      */
     public function goodsShelveAdd($id)

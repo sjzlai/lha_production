@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class ProductionQualityTest
  * @package App\Model
  * @name:成品质检表模型
- * @author: weikai
+ * @author: 
  * @date: 2018/7/9 11:30
  */
 class ProductionQualityTest extends Model
