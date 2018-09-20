@@ -10,7 +10,7 @@
     <!--快捷导航 开始-->
     <div class="result_content">
         <div class="short_wrap">
-            <button id="b1" class="">出库所有零部件</button>
+            <button id="b1" class="">出库所选零部件</button>
         </div>
     </div>
     <script>
@@ -28,6 +28,7 @@
         });
     </script>
     <!--快捷导航 结束-->
+
     <!--搜索结果页面 列表 开始-->
     <form action="#" method="post">
         <div class="result_wrap">

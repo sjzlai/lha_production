@@ -194,7 +194,6 @@ class SparePartsController extends Controller
                   $res[$key]=$re[$k];
               endforeach;
           endforeach;
-          //dd($res);
           return view('lha.spareparts.part-out-many',['data'=>$res]);
       }
 
@@ -222,6 +221,8 @@ class SparePartsController extends Controller
                 endif;
           endfor;
           if ($res):
+              //将出库记录存入记录表中
+              
                 return redirect()->to('ad/spare/out')->with(['message'=>'出库成功']);
               else:
                 return withInfoErr('出库失败,请重新操作');
