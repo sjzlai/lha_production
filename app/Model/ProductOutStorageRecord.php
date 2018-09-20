@@ -18,17 +18,23 @@ class ProductOutStorageRecord extends Model
     public $timestamps = true;
     protected $guarded = [];
 
-    public static function orderList($page=5)
+    public static function orderList($status=1,$page=5)
     {
 
-        return self::from('shelf_has_part as shp')
-            ->leftJoin('shelf_info as si','shp.shelf_id','=','si.id')
-            ->leftJoin('storageroom_info as s','shp.storageroom_id','=','s.id')
-            ->select('shp.*','si.shelf_name','s.store_name')
-            ->where('shp.part_name','=',1)
-            ->where('shp.part_number','>','0')
-            ->whereNotNull('shp.part_number')
-            ->orderBy('shp.created_at','desc')
+//        return self::from('shelf_has_part as shp')
+//            ->leftJoin('shelf_info as si','shp.shelf_id','=','si.id')
+//            ->leftJoin('storageroom_info as s','shp.storageroom_id','=','s.id')
+//            ->select('shp.*','si.shelf_name','s.store_name')
+//            ->where('shp.part_name','=',1)
+//            ->where('shp.part_number','>','0')
+//            ->whereNotNull('shp.part_number')
+//            ->orderBy('shp.created_at','desc')
+//            ->paginate($page);
+        return self::from('purchasing_order as po')
+            ->leftJoin('harvest_info as hi','po.harvest_info_id','hi.id')
+            ->select('po.*','hi.address','hi.consignee_name','hi.phone')
+            ->where('po.status',$status)
+            ->orderBy('po.created_at','desc')
             ->paginate($page);
     }
 

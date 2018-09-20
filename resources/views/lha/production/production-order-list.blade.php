@@ -58,6 +58,7 @@
                         <th>创建时间</th>
                         <th>更新时间</th>
                         <th>处理状态</th>
+                        <th>生产完成的状态</th>
                         <th>操作</th>
                     </tr>
                     @foreach($ordersEn as $orderEn)
@@ -77,6 +78,7 @@
                             <td>{{$orderEn->created_at}}</td>
                             <td>{{$orderEn->updated_at}}</td>
                             <td>{{$orderEn->status==1 ? '已处理': '未处理'}}</td>
+                            <td>{{$orderEn->finish_status}}</td>
                             <td>
                                 <a href="/ad/productionPlanAddView/{{$orderEn->order_no}}">为此订单添加生产计划</a>
                                 <a href="/ad/productionPlanInfo/{{$orderEn->order_no}}">生产计划详情</a>

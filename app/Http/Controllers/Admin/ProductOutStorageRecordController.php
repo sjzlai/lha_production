@@ -27,7 +27,7 @@ class ProductOutStorageRecordController extends Controller
      */
     public function orderList()
     {
-        $ordersEn = $this->posrModel->orderList(5);//已处理订单
+        $ordersEn = $this->posrModel->orderList(1,5);//已处理订单
 //        dd($ordersEn);
         if ($ordersEn->isEmpty())      return view('lha.productWarehousing.black');
         //查询订单
@@ -39,12 +39,22 @@ class ProductOutStorageRecordController extends Controller
      */
     public function productOutStorageView($orderId)
     {
-//        $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
-        $storageRooms = StorageRoom::productLinkShelf($orderId);//查询orderId成品所在的货架
-        //dd($storageRooms);
+////        $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
+//        $storageRooms = StorageRoom::productLinkShelf($orderId);//查询orderId成品所在的货架
+//        //dd($storageRooms);
+//        return view('lha.productQutStorage.productOutStorage',[
+//            'orderId'=>$orderId,
+//            'storageRooms'=>$storageRooms,
+//        ]);
+        $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
+        $storageRooms = StorageRoom::productLinkShelf();//查询所有成品所在的全部货架
+        $consignees = DB::table('harvest_info')->get();//收获信息
         return view('lha.productQutStorage.productOutStorage',[
             'orderId'=>$orderId,
+            'factoryNO'=>$factoryNo,
             'storageRooms'=>$storageRooms,
+            'consignees'=>$consignees
+
         ]);
     }
 
