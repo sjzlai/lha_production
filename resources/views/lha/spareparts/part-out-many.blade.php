@@ -13,6 +13,12 @@
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
+                <tr>
+                <th><i class="require">*</i>出库单号</th>
+                    <td>
+                        <input type="text" name="spare_number" placeholder="请输入出库单号">
+                    </td>
+                </tr>
                 @foreach($data as $value)
                 <tr>
                     <th><i class="require">*</i>{{$value['part_name']}}：</th>

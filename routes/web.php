@@ -65,6 +65,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|adm
     Route::get('spare/outAll/{data}','SparePartsController@outToAll');                             //多个零部件出库跳转控制器
     Route::post('spare/outadd','SparePartsController@outAdd');                              //单个零部件出库提交
     Route::post('spare/outMany','SparePartsController@outMany');                             //多个零部件出库展示视图
+    Route::get('spare/outnum','SparePartsController@outNum');
 });
 
 //权限角色为库管才能访问的路由
