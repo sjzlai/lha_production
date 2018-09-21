@@ -159,20 +159,22 @@ class SparePartsController extends Controller
     public function outAdd(Request $request)
     {
         $data = $request->except('_token');
+        $spare_num = $request->input('spare_number');
         //查询数据库中该数据,并操作减库存
         $date = ShelfHasPart::fistInfo($data['id']);
         $date->part_number = intval($date->part_number) - intval($data['part_number']);
         if ($date->part_number < 0)return withInfoErr('库存不足,请重新输入出库数量');
+        if (empty($spare_num))return withInfoErr('请输入出库单号');
         $result = $date->save();
         if ($result):
             //出库成功后需将其做记录存入出库记录表中
-            $out['outdate'] = date();
+            $out['outdate'] = time();
             $out['user_id'] =session('user.id');
-            $out['part_number'] = $data['part_number'];
-            $out['storageroom_id'] = $date->storageroom_id;
-            $out['shelf_id']    = $date->shelf_id;
-
-            return redirect()->to('ad/spare/out')->with(['message'=>'出库成功,并已做等级']);
+            $out['out_storage_no'] = $spare_num;
+            $out['shelf_has_part_id'] = $data['id'];
+            $out['spare_number'] = $data['part_number'];
+            DB::table('part_out_storage_record')->insert($out);
+            return redirect()->to('ad/spare/out')->with(['message'=>'出库成功,并已做记录']);
         else:
             return withInfoErr('出库失败');
         endif;
@@ -202,7 +204,9 @@ class SparePartsController extends Controller
      */
       public function outMany(Request $request)
       {
-          $data = $request->except('_token');
+          $data = $request->except('_token','spare_number');
+          $spare_num = $request->input('spare_number');
+          if (empty($spare_num))return withInfoErr('请输入出库单号');
           //查询验证出库数量  开始
               for ($i=0;$i<count($data['id']);$i++):
                   $info[] = ShelfHasPart::PartRecordMany($data['id'][$i]);
@@ -218,15 +222,39 @@ class SparePartsController extends Controller
                 elseif ($data['id'][$i] == $info[$i]['id'] && $data['part_number'][$i]<=$info[$i]['part_number']):
                     $number[] = $info[$i]['part_number'] - $data['part_number'][$i];
                     $res = ShelfHasPart::where('id','=',$data['id'][$i])->update(['part_number'=>$number[$i]]);
+                    //将出库记录存入记录表中
+                    $data['spare_number'][$i]= $spare_num;
+                    $time = time();
+                    $r = DB::table('part_out_storage_record')->insert(
+                        ['out_storage_no'=>$data['spare_number'][$i],
+                            'shelf_has_part_id'=>$data['id'][$i],
+                            'spare_number'=>$data['part_number'][$i],
+                            'user_id'=>session('user.id'),
+                            'outdate'=>$time
+                        ]
+                    );
                 endif;
           endfor;
           if ($res):
-              //将出库记录存入记录表中
-              
+
                 return redirect()->to('ad/spare/out')->with(['message'=>'出库成功']);
               else:
                 return withInfoErr('出库失败,请重新操作');
           endif;
 
+      }
+
+    /**
+     * Notes:查看所有出库单号列表
+     * Author:sjzlai
+     * Date:2018/09/21 9:45
+     */
+      public function outNum()
+      {
+          $data = DB::table('part_out_storage_record')
+              ->distinct('out_storage_no')
+              ->get();
+         // dd($data);
+          return view('lha.spareparts.out-num-list',['data'=>$data]);
       }
 }

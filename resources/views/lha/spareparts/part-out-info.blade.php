@@ -13,6 +13,12 @@
             <table class="add_tab">
                 <tbody>
                 <tr>
+                    <th><i class="require">*</i>出库单号</th>
+                    <td>
+                        <input type="text" name="spare_number" placeholder="请输入出库单号">
+                    </td>
+                </tr>
+                <tr>
                     <th><i class="require">*</i>{{$part->part_name}}：</th>
                     <td>
                         <input type="hidden" name="id" value="{{$part_info->id}}">
