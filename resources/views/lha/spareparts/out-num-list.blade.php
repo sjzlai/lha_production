@@ -29,7 +29,6 @@
                         <a href="{{url('ad/spare/outdetaild/'.$value->out_storage_no)}}">查看订单详细</a>
                     </td>
                 </tr>
-
         @endforeach
     </table>
 @endsection
