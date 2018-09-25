@@ -252,7 +252,7 @@ class SparePartsController extends Controller
       public function outNum()
       {
           $data = DB::table('part_out_storage_record')
-              ->distinct('out_storage_no')
+              ->groupBy('out_storage_no')
               ->get();
          // dd($data);
           return view('lha.spareparts.out-num-list',['data'=>$data]);
