@@ -10,7 +10,8 @@
             window.location.href="/ad/spare/outnum"
         })
     </script>
-    <table class="list_tab">
+    <div id="print">
+    <table class="list_tab" >
         <tr>
             {{--<th class="tc" width="5%"></th>--}}
             {{--<th class="tc">排序</th>--}}
@@ -33,4 +34,13 @@
             </tr>
         @endforeach
     </table>
+    </div>
+    <ul>
+        <li style="padding-left: 150px"><input type="button" id="url" value="打印"></li>
+    </ul>
+    <script>
+        $('#url').click(function () {
+            window.print();
+        });
+    </script>
 @endsection
