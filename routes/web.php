@@ -66,6 +66,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|adm
     Route::post('spare/outadd','SparePartsController@outAdd');                              //单个零部件出库提交
     Route::post('spare/outMany','SparePartsController@outMany');                             //多个零部件出库展示视图
     Route::get('spare/outnum','SparePartsController@outNum');
+    Route::get('spare/outdetaild/{OutStorageNo}','SparePartsController@outDetailed');
 });
 
 //权限角色为库管才能访问的路由
