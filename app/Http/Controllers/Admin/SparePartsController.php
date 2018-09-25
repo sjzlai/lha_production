@@ -174,7 +174,7 @@ class SparePartsController extends Controller
             $out['out_storage_no'] = $spare_num;
             $out['shelf_has_part_id'] = $data['id'];
             $out['spare_number'] = $data['part_number'];
-            DB::table('part_out_storage_record')->insert($out);
+            PartOutStorageRecord::create($out);
             return redirect()->to('ad/spare/out')->with(['message'=>'出库成功,并已做记录']);
         else:
             return withInfoErr('出库失败');
@@ -266,7 +266,8 @@ class SparePartsController extends Controller
       public function outDetailed($OutStorageNo)
       {
             $data = PartOutStorageRecord::
-                join('shelf_has_part as shp','shp.id','=','part_out_storage_record.shelf_has_part_id')
+                select('shp.*','pi.*','si.*','shelf_info.*','part_out_storage_record.updated_at as postr_updated_at','part_out_storage_record.*')
+                ->join('shelf_has_part as shp','shp.id','=','part_out_storage_record.shelf_has_part_id')
                 ->join('part_info as pi','pi.id','=','shp.part_id')
                 ->join('storageroom_info as si','si.id','=','shp.storageroom_id')
                 ->join('shelf_info','shelf_info.id','=','shp.shelf_id')

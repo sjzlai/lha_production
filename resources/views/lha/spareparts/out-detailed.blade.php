@@ -30,7 +30,7 @@
                 <td>{{$value->out_storage_no}}</td>
                 <td>{{$value->store_name}}</td>
                 <td>{{$value->shelf_name}}</td>
-                <td>{{$value->updated_at}}</td>
+                <td>{{$value->postr_updated_at}}</td>
             </tr>
         @endforeach
     </table>
