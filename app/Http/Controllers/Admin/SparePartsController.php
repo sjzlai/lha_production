@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Model\GoodsShelve;
 use App\Model\PartInfo;
 use App\Model\PartInfoDetailed;
+use App\Model\PartOutStorageRecord;
 use App\Model\PartPutStorageRecord;
 use App\Model\Purchase;
 use App\Model\Purchase_quality;
@@ -252,9 +253,25 @@ class SparePartsController extends Controller
       public function outNum()
       {
           $data = DB::table('part_out_storage_record')
-              ->distinct('out_storage_no')
+              ->groupBy('out_storage_no')
               ->get();
-         // dd($data);
           return view('lha.spareparts.out-num-list',['data'=>$data]);
+      }
+
+    /**
+     * Notes:出库单号详细内容
+     * Author:sjzlai
+     * Date:2018/09/25 10:19
+     */
+      public function outDetailed($OutStorageNo)
+      {
+            $data = PartOutStorageRecord::
+                join('shelf_has_part as shp','shp.id','=','part_out_storage_record.shelf_has_part_id')
+                ->join('part_info as pi','pi.id','=','shp.part_id')
+                ->join('storageroom_info as si','si.id','=','shp.storageroom_id')
+                ->join('shelf_info','shelf_info.id','=','shp.shelf_id')
+                ->where('out_storage_no','=',$OutStorageNo)->get();
+            //dd($data);
+            return view('lha.spareparts.out-detailed',['data'=>$data]);
       }
 }
