@@ -114,4 +114,74 @@ class ProductWarehousingController extends Controller
         if ($records->isEmpty()) return withInfoErr('没有入库记录');
         return view('lha.productWarehousing.record-list',['records'=>$records]);
     }
+
+    /**
+     * Notes:入库记录修改视图
+     * Author:sjzlai
+     * @param $id
+     * Date:2018/09/27 15:45
+     */
+    public function productWarehousingRecordEdit($id)
+    {
+        $data = ProductPutStorageRecord::
+            select('product_put_storage_record.*','product_put_storage_record.id as ppsr_id','shelf.*','shelf.id as shelf_id','room.*','room.id as room_id')
+        ->join('storageroom_info as room','room.id','=','product_put_storage_record.storageroom_id')
+        ->join('shelf_info as shelf','shelf.id','=','product_put_storage_record.shelf_id')
+        ->where('product_put_storage_record.id','=',$id)->get();
+        //dd($data);
+        $storageRooms = StorageRoom::all();//所有库房
+        $shelf = ShelfInfo::where('storageroom_id','=',$data[0]->storageroom_id)->get();
+       // dd($shelf);
+        $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$id)->pluck('factory_no')->first();//工厂订单号
+        return view('lha.productWarehousing.record-edit',['data'=>$data,'storageRooms'=>$storageRooms,'shelf'=>$shelf]);
+    }
+
+    /**
+     * Notes:入库记录修改提交
+     * Author:sjzlai
+     * @param Request $request
+     * Date:2018/09/28 16:28
+     */
+    public function productWarehousingRecordStore(Request $request)
+    {
+        $data = $request->except('_token');
+        $id = $request->input('id');
+        $old = ProductPutStorageRecord::where('id','=',$id)->get();
+        $dataNew = [
+            'order_no'=>$data['production_order_no'],
+            'number' =>$data['number'],
+            'storageroom_id'=>$data['storageRoom'],
+            'shelf_id'=>$data['shelf'],
+            'remark' =>$data['remark']
+        ];
+        $num = $dataNew['number']-$old[0]->number;
+        //对比入库数量与订单数量
+        $nums = ProductPutStorageRecord::where('order_no','=',$dataNew['order_no'])->sum('number');
+        $number =PurchasingOrder::select('purchasing_order.goods_number')->where('order_no','=',$dataNew['order_no'])->first();
+//        dd($nums - $old[0]->number + $dataNew['number']);
+        if ($nums - $old[0]->number + $dataNew['number'] >$number->goods_number){ return withInfoErr('入库数量大于生产数量,无法再次入库!');}
+        if ($old[0]->storageroom_id == $data['storageRoom']  && $old[0]->shelf_id ==$data['shelf']){ //如果库房和货架未改变,则只改变库存数量
+            //更新库房货架数量
+           $res = ShelfHasPart::where(['storageroom_id'=>$dataNew['storageroom_id'],'shelf_id'=>$dataNew['shelf_id']])->increment('part_number',$num);
+           //更新入库记录
+            $r = ProductPutStorageRecord::where('id','=',$data['id'])->update($dataNew);
+        }else{
+            //减少原始库房货架数量
+            $res = ShelfHasPart::where(['storageroom_id'=>$old[0]->storageroom_id,'shelf_id'=>$old[0]->shelf_id])->decrement('part_number',$old[0]->number);
+            $new =[
+                'part_name' =>1,
+                'part_number'=>$dataNew['number'],
+                'shelf_id'  =>$dataNew['shelf_id'],
+                'storageroom_id'=>$dataNew['storageroom_id'],
+            ];
+            $res =ShelfHasPart::insert($new);
+            //更新入库记录
+            $r = ProductPutStorageRecord::where('id','=',$data['id'])->update($dataNew);
+        }
+        if ($res){
+            return redirect()->to('/ad/productWarehousingRecord/'.$dataNew['order_no'])->with('error','修改完成');
+        }else{
+            return redirect()->to('/ad/productWarehousingRecord/'.$id)->with('error','修改失败');
+        }
+    }
 }

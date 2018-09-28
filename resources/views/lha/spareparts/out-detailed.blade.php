@@ -37,6 +37,7 @@
     </div>
     <ul>
         <li style="padding-left: 150px"><input type="button" id="url" value="打印"></li>
+
     </ul>
     <script>
         $('#url').click(function () {

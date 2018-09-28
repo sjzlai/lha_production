@@ -57,7 +57,6 @@
         </form>
     </div>
     <script>
-
         $(".selects").change(function () {
             // $(".n").remove()
             var options=$(this).children("option:selected").val();
@@ -71,7 +70,6 @@
                     var html = '   <option class="n" value='+data.data[i].id+ '>'+data.data[i].shelf_name+'</option>';
                     $(".shelf").append(html)
                 }
-
             }
            })
         });
