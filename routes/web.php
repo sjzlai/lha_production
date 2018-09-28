@@ -65,8 +65,10 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|adm
     Route::get('spare/outAll/{data}','SparePartsController@outToAll');                             //多个零部件出库跳转控制器
     Route::post('spare/outadd','SparePartsController@outAdd');                              //单个零部件出库提交
     Route::post('spare/outMany','SparePartsController@outMany');                             //多个零部件出库展示视图
-    Route::get('spare/outnum','SparePartsController@outNum');
-    Route::get('spare/outdetaild/{OutStorageNo}','SparePartsController@outDetailed');
+    Route::get('spare/outnum','SparePartsController@outNum');                               //出库单列表
+    Route::get('spare/outdetaild/{OutStorageNo}','SparePartsController@outDetailed');       //出库单详情
+    Route::get('spare/outedit/{OutStorageNo}','SparePartsController@outEdit');              //出库单修改
+    Route::post('spare/outStore','SparePartsController@outStore');                          //出库单提交
 });
 
 //权限角色为库管才能访问的路由
@@ -112,6 +114,8 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|adm
     Route::get('shelfInfo/{storageRoomId}','ProductWarehousingController@shelfInfo');//展示货架信息
     Route::get('warehousingNumber/{orderId}','ProductWarehousingController@warehousingNumber');//已入库数量查询
     Route::get('productWarehousingRecord/{orderId}','ProductWarehousingController@productWarehousingRecord');//入库记录查看
+    Route::get('productWarehousingRecordEdit/{id}','ProductWarehousingController@productWarehousingRecordEdit'); //入库记录修改
+    Route::post('productWarehousingRecordStore','ProductWarehousingController@productWarehousingRecordStore'); //入库记录修改提交
 
 });
 //成品出库 角色才能访问的路由

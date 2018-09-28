@@ -53,6 +53,7 @@
                         <th>备注信息</th>
                         <th>创建时间</th>
                         <th>更新时间</th>
+                        <th>操作</th>
                     </tr>
                     @foreach($records as $record)
                         <tr >
@@ -70,7 +71,7 @@
                             <td>{{$record->remark}}</td>
                             <td>{{$record->created_at}}</td>
                             <td>{{$record->updated_at}}</td>
-
+                            <td><a href="{{url('ad/productWarehousingRecordEdit/'.$record->id)}}">修改</a></td>
                         </tr>
                     @endforeach
                 </table>

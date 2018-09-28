@@ -30,13 +30,14 @@
                 <td>{{$value->out_storage_no}}</td>
                 <td>{{$value->store_name}}</td>
                 <td>{{$value->shelf_name}}</td>
-                <td>{{$value->updated_at}}</td>
+                <td>{{$value->postr_updated_at}}</td>
             </tr>
         @endforeach
     </table>
     </div>
     <ul>
         <li style="padding-left: 150px"><input type="button" id="url" value="打印"></li>
+
     </ul>
     <script>
         $('#url').click(function () {

@@ -27,6 +27,7 @@
                     <td>
                         {{--<a href="{{url('ad/spare/outInfo/'.$value->part_id.'/'.$value->part_number)}}">出库</a>--}}
                         <a href="{{url('ad/spare/outdetaild/'.$value->out_storage_no)}}">查看订单详细</a>
+                        <a href="{{url('/ad/spare/outedit/'.$value->out_storage_no)}}">修改</a>
                     </td>
                 </tr>
         @endforeach
