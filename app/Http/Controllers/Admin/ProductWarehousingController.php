@@ -162,7 +162,11 @@ class ProductWarehousingController extends Controller
         if ($nums - $old[0]->number + $dataNew['number'] >$number->goods_number){ return withInfoErr('入库数量大于生产数量,无法再次入库!');}
         if ($old[0]->storageroom_id == $data['storageRoom']  && $old[0]->shelf_id ==$data['shelf']){ //如果库房和货架未改变,则只改变库存数量
             //更新库房货架数量
-           $res = ShelfHasPart::where(['storageroom_id'=>$dataNew['storageroom_id'],'shelf_id'=>$dataNew['shelf_id']])->increment('part_number',$num);
+            if ($num >0) {
+                $res = ShelfHasPart::where(['storageroom_id' => $dataNew['storageroom_id'], 'shelf_id' => $dataNew['shelf_id']])->increment('part_number', $num);
+            }else{
+                $res = ShelfHasPart::where(['storageroom_id' => $dataNew['storageroom_id'], 'shelf_id' => $dataNew['shelf_id']])->decrement('part_number', $num);
+            }
            //更新入库记录
             $r = ProductPutStorageRecord::where('id','=',$data['id'])->update($dataNew);
         }else{
