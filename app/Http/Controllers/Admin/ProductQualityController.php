@@ -80,4 +80,20 @@ class ProductQualityController extends Controller
         if ($ordersEn->isEmpty())         return view('lha.productWarehousing.black');
         return view('lha.productQuality.production-order-list',['ordersEn'=>$ordersEn]);
     }
+
+    /**
+     * Notes: 模糊搜索订单质检
+     * Author:sjzlai
+     * @param Request $request
+     */
+    public function fuzzySearch(Request $request)
+    {
+        //如果搜索值为空 重定向到双订单页面
+        if(empty($request->input('keyword')))
+            return  redirect('/ad/qualityProductionOrder');
+        $key = 'order_no';
+        $keyword = $request->input('keyword');
+        $orderAll  = PurchasingOrder::orderFuzzySearch($key,$keyword);
+        return view('lha.productQuality.production-order-list',['ordersEn'=>$orderAll]);
+    }
 }

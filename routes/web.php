@@ -104,6 +104,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|adm
     Route::get('qualityProductionOrder','ProductQualityController@orderList');//生产订单查看
     Route::get('qualityAddView/{orderId}','ProductQualityController@qualityAddView');//质检添加
     Route::post('qualityAdd','ProductQualityController@qualityAdd');//质检添加
+    Route::post('qualityFuzzySearch','ProductQualityController@fuzzySearch'); //质检搜索
 });
 
 //成品入库 角色才能访问的路由
