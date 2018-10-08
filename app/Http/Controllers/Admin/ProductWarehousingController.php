@@ -29,7 +29,6 @@ class ProductWarehousingController extends Controller
      */
     public function orderList()
     {
-        echo rand(10000000000000000,99999999999999999);
         $ordersEn = $this->ppsrModel->orderList(1,5);//已处理订单
         //查询订单已入库数量
         if ($ordersEn->isEmpty()):
