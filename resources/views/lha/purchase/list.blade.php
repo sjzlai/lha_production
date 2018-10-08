@@ -42,7 +42,7 @@
                     @foreach($data as $v)
                         <tr>
                             <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
-                            <td class="tc">{{$v->order_number}}</td>
+                            <td class="tc" id="did">{{$v->order_number}}</td>
                             <td>{{$v->name}}</td>
                             <td>{{$v->created_at}}</td>
                             <td style="color:#fea502">{{$v->delivery_time}}</td>
@@ -54,7 +54,7 @@
                             <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
                             <td>
                                 <a href="{{asset('ad/purchase/edit/'.$v->order_number)}}">修改</a>
-                                <a href="{{asset('ad/purchase/delete/'.$v->order_number)}}">删除</a>
+                                <a href="#" id="del">删除</a>
                                 <a  id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
                             </td>
                         </tr>
@@ -93,5 +93,33 @@
                });
            })
         }
+
+
+        var url = 'delete/';
+        var did = $('#did').html();
+        var token = "{{csrf_token()}}";
+
+        $('#del').click(function () {
+            //询问框
+            layer.confirm('您确认要删除此用户吗？', {
+                btn: ['确认', '算了'] //按钮
+            }, function () {
+                $.ajax({
+                    url :url+did,
+                    type:"GET",
+                    dataType:"json",
+                    data:{"_token":token},
+                    success:function (data) {
+                        layer.msg(data.message);
+                        window.location.reload();
+                    },
+                    error:function (data) {
+                        layer.msg(data.message);
+                    }
+                })
+            }, function () {
+            });
+        });
+
     </script>
 @endsection
