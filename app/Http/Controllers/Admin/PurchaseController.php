@@ -164,9 +164,9 @@ class PurchaseController extends Controller
             foreach ($ru as $v)
                 $re = PartInfo::where(['id' => $v->part_id])->update(['status' => 1]);
             if ($re):
-                return redirect()->to('ad/purchase/pur')->with('error','删除成功');
+                return jsonReturn('1','删除成功');
             else:
-                return withInfoErr('删除失败');
+                return jsonReturn('0','删除失败');
             endif;
         endif;
     }
