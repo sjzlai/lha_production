@@ -29,7 +29,7 @@
         <div class="result_content">
             <div class="short_wrap">
                 <a href="/ad/user/create"><i class="fa fa-plus"></i>新增用户</a>
-                <a href="" id="delAll"><i class="fa fa-recycle"></i>批量删除</a>
+                {{--<a href="" id="delAll"><i class="fa fa-recycle"></i>批量删除</a>--}}
             </div>
         </div>
         <!--快捷导航 结束-->
