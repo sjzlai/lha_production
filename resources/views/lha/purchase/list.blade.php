@@ -95,13 +95,13 @@
         }
 
 
-        var url = 'delete/';
+        var url = 'ad/purchase/delete/';
         var did = $('#did').html();
         var token = "{{csrf_token()}}";
 
         $('#del').click(function () {
             //询问框
-            layer.confirm('您确认要删除此用户吗？', {
+            layer.confirm('您确认要删除此订单吗？', {
                 btn: ['确认', '算了'] //按钮
             }, function () {
                 $.ajax({

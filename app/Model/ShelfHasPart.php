@@ -58,6 +58,6 @@ class ShelfHasPart extends Model
      */
     public static function fistInfo($id)
     {
-        return self::where('part_id','=',$id)->first();
+        return self::where('id','=',$id)->first();
     }
 }

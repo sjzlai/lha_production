@@ -156,6 +156,7 @@ class PurchaseController extends Controller
      */
     public function delete($no)
     {
+        dd($no);
         $date = Purchase::where(['order_number' => $no])->update(['status' => 1]);
         if ($date):
             $result = Purchase_lists::where(['purchase_order_no' => $no])->update(['status' => 1]);
