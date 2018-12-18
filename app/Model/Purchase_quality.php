@@ -30,7 +30,6 @@ class Purchase_quality extends Model
         ->paginate($page);
     }
 
-
     /**
      * Notes:质检列表页搜索
      * Author:sjzlai

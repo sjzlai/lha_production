@@ -65,9 +65,11 @@ class ProductWarehousingController extends Controller
     {
        $data = $request->except('_token');
         $a['part_name'] = 1;
+        $a['part_id'] = 0;
         $a['part_number'] = $data['number'];
         $a['shelf_id'] = $data['shelf'];
         $a['storageroom_id'] = $data['storageRoom'];
+        $a['order_no']  =$data['production_order_no'];
         $b['order_no'] = $data['production_order_no'];
         $b['number'] = $data['number'];
         $b['storageroom_id'] = $data['storageRoom'];

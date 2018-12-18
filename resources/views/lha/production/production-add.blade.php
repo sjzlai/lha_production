@@ -24,7 +24,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require">*</i>生产量：</th>
+                        <th><i class="require">*</i>每日生产量：</th>
                         <td><input type="number" class="lg" name="output" style="width: 220px;"></td>
                     </tr>
                     <tr>

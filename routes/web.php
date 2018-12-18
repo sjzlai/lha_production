@@ -12,6 +12,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login'],'prefix'=>
     Route::get('index', 'IndexController@index');                        //首页
     Route::get('welcome', 'IndexController@welcome');                    //首页
     Route::get('test', 'IndexController@test');                          //测试
+    Route::any('purchase/info', 'PurchaseController@info');                         //查看订单中零件详情
 });
 
 //权限角色为admin才能访问的路由组
@@ -35,14 +36,14 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:采购|adm
     Route::get('purchase/pur', 'PurchaseController@PurList');                        //采购列表
     Route::any('purchase/purAdd', 'PurchaseController@PurAdd');                        //采购申请表页
     Route::any('purchase/purtoadd', 'PurchaseController@PurToAdd');                        //采购申请表页
-    Route::any('purchase/info', 'PurchaseController@info');                         //查看订单中零件详情
+
     Route::get('purchase/edit/{id}','PurchaseController@edit');                          //修改采购页面
     Route::post('purchase/update','PurchaseController@store');                          //提交修改采购页面
     Route::get('purchase/delete/{no}','PurchaseController@delete');                     //删除采购订单
    Route::post('purchase/search','PurchaseController@search');    // 模糊搜索采购订单
 });
-//权限角色为零部件质检的才能访问的路由
-Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|admin'],'prefix'=>'ad'],function () {
+//权限角色为零部件质检|库管的才能访问的路由
+Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|库管|admin'],'prefix'=>'ad'],function () {
     Route::get('quality','QualityController@index');                                        //质检列表
     Route::get('quality/show/{order_number}','QualityController@show');                     //质检详情
     Route::post('quality/store','QualityController@store');                                 //提交
@@ -100,11 +101,12 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:生产|adm
 });
 
 //成品质检 角色才能访问的路由
-Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|admin'],'prefix'=>'ad'],function (){
+Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|库管|admin'],'prefix'=>'ad'],function (){
     Route::get('qualityProductionOrder','ProductQualityController@orderList');//生产订单查看
     Route::get('qualityAddView/{orderId}','ProductQualityController@qualityAddView');//质检添加
     Route::post('qualityAdd','ProductQualityController@qualityAdd');//质检添加
     Route::post('qualityFuzzySearch','ProductQualityController@fuzzySearch'); //质检搜索
+    Route::get('qualityimg/{order_number}','ProductQualityController@img'); //质检结果查看
 });
 
 //成品入库 角色才能访问的路由

@@ -44,7 +44,7 @@ class ProductionPlan extends Model
             ->leftJoin('order_no_link_factory_no as olf','olf.order_no','=','pp.order_no')
 //            ->leftJoin('part_info as pai','pai.id','=','ppl.part_id')
             ->leftJoin('product_info as pi','pi.order_no','=','pp.order_no')
-            ->first()->toArray();
+            ->first();
         //查询零部件信息
         $data['part'] = self::from('part_production_lists as ppl')
             ->where('ppl.order_no',$orderId)

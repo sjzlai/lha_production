@@ -69,7 +69,7 @@ class PurchaseController extends Controller
     {
         //1.先将肺笛信息存入part_info表中
         $date = $request->except(['_token', 'order_number', 'user_id', 'product', 'delivery_time']);
-        $data['order_number'] = $request->input('order_number');
+        $data['order_number'] = intval($request->input('order_number'));
         $data['user_id'] = $request->input('user_id');
         $data['delivery_time'] = $request->input('delivery_time');
         $data['status'] = 0;
@@ -156,7 +156,6 @@ class PurchaseController extends Controller
      */
     public function delete($no)
     {
-        dd($no);
         $date = Purchase::where(['order_number' => $no])->update(['status' => 1]);
         if ($date):
             $result = Purchase_lists::where(['purchase_order_no' => $no])->update(['status' => 1]);

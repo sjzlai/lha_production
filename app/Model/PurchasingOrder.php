@@ -35,6 +35,21 @@ class PurchasingOrder extends Model
             ->paginate($page);
 
     }
+
+    public static function orderListno( $status=1,$page = 5)
+    {
+        return self::from('purchasing_order as po')
+            ->leftJoin('harvest_info as hi','po.harvest_info_id','hi.id')
+            ->leftJoin('production_quality_test as pqt','pqt.production_order_no','po.order_no')
+            ->select('po.*','hi.address','hi.consignee_name','hi.phone','pqt.*','pqt.status as statuss')
+            ->where('po.status',$status)
+            ->orderBy('po.created_at','desc')
+//            ->toArray()
+            ->paginate($page);
+
+    }
+
+
     public static function orderFuzzySearch($key,$keyword,$page=5)
     {
 

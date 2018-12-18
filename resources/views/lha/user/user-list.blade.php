@@ -66,7 +66,10 @@
                     <td>
                         <a href="/ad/user/userRole/{{$user->id}}">用户角色列表</a>
                         <a href="/ad/user/{{$user->id}}/edit">修改</a>
+                        @if($user->id ==1)
+                            @else
                         <a href="#" id="del">删除</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

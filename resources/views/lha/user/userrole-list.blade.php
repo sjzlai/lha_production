@@ -28,7 +28,7 @@
         <!--快捷导航 开始-->
         <div class="result_content">
             <div class="short_wrap">
-                <a href="/ad/addRole/{{$userid}}" ><i class="fa fa-plus"></i>给此用户新增角色</a>
+                <!--<a href="/ad/addRole/{{$userid}}" ><i class="fa fa-plus"></i>给此用户新增角色</a>-->
                 <a href="/ad/roleListInAddView/{{$userid}}" ><i class="fa fa-plus"></i>给此用户分配已有角色</a>
                 {{--<a href="" id="delAll"><i class="fa fa-recycle"></i>批量删除</a>--}}
             </div>

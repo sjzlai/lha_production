@@ -61,23 +61,27 @@ class ProductQualityController extends Controller
         $filedir = "public/upload/productQuality/"; //定义图片上传路径
         $file->move($filedir, $filename);
         $datas['img_path'] = $filedir . $filename;
+        $datas['user_id'] = session('user.id');
+        $datas['status'] = 1;
         $res = ProductionQualityTest::create($datas);
         if (!$res) return withInfoErr('添加失败');
-//        return  redirect("/ad/qualityProductionOrder")->withInfoErr('添加成功');
-        return  withInfoErr('添加成功');
+       return  redirect("/ad/qualityProductionOrder")->withInfoErr('添加成功');
+//        return  withInfoErr('添加成功');
 
 
     }
 
     /**
-     * @name:生产订单
+     * @name:订单质检视图
      * @author: 
      * @date: 2018/7/9 10:33
      */
     public function orderList()
     {
-        $ordersEn = $this->productOrder->orderList(1,5);//已处理订单
-        if ($ordersEn->isEmpty())         return view('lha.productWarehousing.black');
+        $ordersEn = $this->productOrder->orderListno(1,5);//已处理订单
+        //查询已处理订单中已做质检的
+        //dd($ordersEn);
+        if ($ordersEn->isEmpty())    return view('lha.productWarehousing.black');
         return view('lha.productQuality.production-order-list',['ordersEn'=>$ordersEn]);
     }
 
@@ -95,5 +99,14 @@ class ProductQualityController extends Controller
         $keyword = $request->input('keyword');
         $orderAll  = PurchasingOrder::orderFuzzySearch($key,$keyword);
         return view('lha.productQuality.production-order-list',['ordersEn'=>$orderAll]);
+    }
+
+    /**
+     * Notes:查看质检结果
+     */
+    public function img($order_number)
+    {
+        $img = ProductionQualityTest::where(['production_order_no' => $order_number])->get();
+        return view('lha.quality.img', ['img' => $img]);
     }
 }

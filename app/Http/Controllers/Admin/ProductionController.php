@@ -44,7 +44,8 @@ class ProductionController extends Controller
     public function orderList()
     {
         $ordersUn = $this->model->orderList(2);//未处理订单
-        $ordersEns = $this->model->orderList(1,1);//已处理订单
+        $ordersEns = $this->model->orderList(1,10);//已处理订单
+        //dd($ordersUn);
             $a =array();
             foreach ($ordersEns as $ordersEn) {
                 $a[] = $ordersEn['order_no'];

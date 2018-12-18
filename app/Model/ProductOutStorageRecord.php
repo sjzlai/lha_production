@@ -32,6 +32,7 @@ class ProductOutStorageRecord extends Model
 //            ->paginate($page);
         return self::from('purchasing_order as po')
             ->leftJoin('harvest_info as hi','po.harvest_info_id','hi.id')
+
             ->select('po.*','hi.address','hi.consignee_name','hi.phone')
             ->where('po.status',$status)
             ->orderBy('po.created_at','desc')

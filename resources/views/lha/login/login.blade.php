@@ -100,7 +100,7 @@
         <div class="win10-login-box-square">
             <img src="{{asset('img/avatar.jpg')}}" class="content"/>
         </div>
-        <p style="font-size: 24px;color: white;text-align: center">游客</p>
+        <p style="font-size: 24px;color: white;text-align: center">郎恒安生产体系平台登陆</p>
         <form target="_self" method="post" action="{{url('ad/check')}}">
             <!--用户名-->
             {{csrf_field()}}

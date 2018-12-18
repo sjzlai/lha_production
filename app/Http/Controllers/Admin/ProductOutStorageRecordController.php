@@ -33,6 +33,7 @@ class ProductOutStorageRecordController extends Controller
 //        dd($ordersEn);
         if ($ordersEn->isEmpty())      return view('lha.productWarehousing.black');
         //查询订单
+
 //        dd($ordersEn);
         return view('lha.productQutStorage.order-list',['ordersEn'=>$ordersEn]);
     }
@@ -42,16 +43,23 @@ class ProductOutStorageRecordController extends Controller
      */
     public function productOutStorageView($orderId)
     {
+
+        //查询所有库房判断此订单是否已全部完成,未完成时,不可做出库操作
+        $sum_number=PurchasingOrder::where('order_no',$orderId)->select(['goods_number'])->get();
+        $order_sum = ShelfHasPart::where('order_no',$orderId)->sum('part_number');
+        //dd($sum_number);
+        if ($sum_number[0]->goods_number - $order_sum != 0) return redirect('ad/ProductOutStorageRecordOrderList')->with(['message'=>'订单未完成,完成后才可做出库']);
         $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
         $storageRooms = StorageRoom::productLinkShelf();//查询所有成品所在的全部货架
         //出库的数量查询
-        $sum_number=PurchasingOrder::where('order_no',$orderId)->select(['goods_number'])->get();
+
         foreach ($sum_number as $good_number){
             $su_nmuber=$good_number['goods_number'];
         }
         $number=ProductOutStorageRecord::where('order_no',$orderId)->sum('number');
         $number_weichu=intval($su_nmuber)-intval($number);
         $consignees = DB::table('harvest_info')->get();//收获信息
+
         return view('lha.productQutStorage.productOutStorage',[
             'orderId'=>$orderId,
             'factoryNO'=>$factoryNo,
@@ -66,13 +74,16 @@ class ProductOutStorageRecordController extends Controller
      */
     public function productOutStorage(Request $request)
     {
+
         $datas = $request->except('_token');
 //        if (count($datas)<7) return withInfoErr('请填写完整');
         //出库记录表写入
         $outStorageData['order_no'] =$datas['production_order_no'];
         if($datas['number']>0){
-        $outStorageData['number'] =$datas['number'];}
-        else{ return redirect("ad/productOutStorageView/" .$datas['production_order_no'])->with(['message'=>'数量小于0不能再提交']);}
+        $outStorageData['number'] =$datas['number'];
+        }else{
+            return redirect("ad/productOutStorageView/" .$datas['production_order_no'])->with(['message'=>'数量小于0不能再提交']);
+        }
         $outStorageData['shelf_id'] =$datas['shelf_id'];
         $storage = ShelfInfo::find($datas['shelf_id']);
         $outStorageData['storageroom_id'] =$storage->storageroom_id;
@@ -85,6 +96,7 @@ class ProductOutStorageRecordController extends Controller
             ->first();
 //       dd($shpData);
        $shpData->part_number = intval($shpData->part_number) - intval($datas['number']);
+        if ($shpData->part_number < 0 )return redirect("ad/ProductOutStorageRecordOrderList" )->with(['message'=>'数量小于0不能再操作出库']);
        $shpRes = $shpData->save();
        if (!$shpRes || !$oprRes) return withInfoErr('入库失败');
        return redirect('ad/ProductOutStorageRecordOrderList');

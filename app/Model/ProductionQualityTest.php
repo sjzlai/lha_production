@@ -17,4 +17,13 @@ class ProductionQualityTest extends Model
     protected $primaryKey = 'id'; //主键
     public $timestamps = 'true'; //自动维护时间
     protected $guarded = []; //批量添加字段黑名单
+
+
+    public static function orderList($order_no,$page=10)
+    {
+        return self::from('production_quality_test as pqt')
+            ->join('purchasing_order as po' ,'po.order_no','pqt.production_order_no')
+            ->where('pqt.production_order_no',$order_no)
+            ->paginate($page);
+    }
 }

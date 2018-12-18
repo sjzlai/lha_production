@@ -34,7 +34,8 @@
                         <label for=""><input type="radio" checked="checked" name="status" value="1"
                                              onchange="qualified(this)">全部合格</label>
                         <label for=""><input type="radio" name="status" value="2"
-                                             onchange="unqualified(this)">部分不合格</label>
+                                             onchange="unqualified(this)">不合格商品信息</label>
+
                     </td>
                 </tr>
 

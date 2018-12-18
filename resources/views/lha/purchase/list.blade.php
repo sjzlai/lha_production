@@ -95,7 +95,7 @@
         }
 
 
-        var url = 'ad/purchase/delete/';
+        var url = 'delete/';
         var did = $('#did').html();
         var token = "{{csrf_token()}}";
 
@@ -108,7 +108,7 @@
                     url :url+did,
                     type:"GET",
                     dataType:"json",
-                    data:{"_token":token},
+                    //data:{"_token":token},
                     success:function (data) {
                         layer.msg(data.message);
                         window.location.reload();

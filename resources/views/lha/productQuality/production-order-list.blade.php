@@ -36,7 +36,7 @@
     </div>
 
 
-        {{--已处理订单--}}
+<!--        --已处理订单---->
         <div class="tab_content">
             <div class="result_content">
                 <table class="list_tab">
@@ -74,7 +74,11 @@
                             <td>{{$orderEn->updated_at}}</td>
                             <td>{{$orderEn->status==1 ? '已处理': '未处理'}}</td>
                             <td>
-                                <a href="/ad/qualityAddView/{{$orderEn->order_no}}">为此订单质检</a>
+                                @if($orderEn->status==1 ||$orderEn->status==2)
+                                    <a href="{{url('ad/qualityimg/'.$orderEn->order_no)}}" style="color: green" >查看质检结果</a>
+                                @else
+                                    <a href="/ad/qualityAddView/{{$orderEn->order_no}}">为此订单质检</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -88,7 +92,7 @@
 
             </div>
         </div>
-        {{--已处理订单结束--}}
+<!--         已处理订单结束-->
 
         </div>
 

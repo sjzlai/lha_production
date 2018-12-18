@@ -6,8 +6,10 @@ use App\Model\GoodsShelve;
 use App\Model\PartInfo;
 use App\Model\PartInfoDetailed;
 use App\Model\PartOutStorageRecord;
+use App\Model\PartProductionLists;
 use App\Model\PartPutStorageRecord;
 use App\Model\Purchase;
+use App\Model\Purchase_lists;
 use App\Model\Purchase_quality;
 use App\Model\ShelfHasPart;
 use App\Model\ShelfInfo;
@@ -33,6 +35,12 @@ class SparePartsController extends Controller
     {
         $orderEn = Purchase_quality::QualityOk(1);
         $orderUn = Purchase_quality::QualityOk(0);
+      /*  $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=','1000010')
+            ->select('part_info_detailed.*')
+            ->groupBy('part_id')
+            ->selectRaw('sum(part_number) as partnumbercount')
+            ->get();
+        dd($purchase_order_no);*/
         return view('lha.spareparts.list', ['orderEn' => $orderEn, 'orderUn' => $orderUn]);
     }
 
@@ -63,12 +71,24 @@ class SparePartsController extends Controller
     {
         $data = $request->except('_token', 'purchase_order_no', 'put_storage_no', 'user_id');
         $info['purchase_order_no'] = $request->input('purchase_order_no');
-        //$info['storageroom_id'] = $request->input('store_room');
         $info['put_storage_no'] = $request->input('put_storage_no');
-        //$info['shelve_id'] = $request->input('shelve');
+        //添加判断看是否已有入库编号
+        $put_storage_no =PartInfoDetailed::where('put_storage_no','=', $info['put_storage_no'])->pluck('put_storage_no')->toArray();
+        //dd($put_storage_no);
+        if (!empty($put_storage_no)){return withInfoErr('入库编号已存在,请重新填写');}
         $info['user_id'] = $request->input('user_id');
+
+        //入库前先判断各个零部件的数量是否对应
+        $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=','1000010')
+            ->select('part_info_detailed.*')
+            ->groupBy('part_id')
+            ->selectRaw('sum(part_number) as partnumbercount')
+            ->get();
+        $oldpurchase = Purchase_lists::where('purchase_order_no','=',$info['purchase_order_no'])->get();
         $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
+
+            $sum = '';
             for ($i = 1; $i <= count($data); $i++):
                 for ($j = 0; $j < count($data[$i]['part_number']); $j++):
                     //将零部件详细信息:数量,批号,型号存入表part_info_detailed
@@ -79,10 +99,22 @@ class SparePartsController extends Controller
                     $a['status'] = 1;
                     $a['purchase_order_no'] = $info['purchase_order_no'];
                     $a['put_storage_no'] = $info['put_storage_no'];
+                    if (count($data[$i]['part_number'][$j] <=1)){$sum = $data[$i]['part_number'][$j];
+                    } else{
+                        $sum +=$data[$i]['part_number'][$j];
+                    }
+                    if ($purchase_order_no){
+                        foreach ($purchase_order_no as $psn){
+                            if ($oldpurchase[$j]->part_number < $psn->partnumbercount + $sum){
+                                return withInfoErr('请核对各个剩余零部件数量,再进行入库');
+                            }
+                        }
+                    }
                     if (!$a['put_storage_no']) {
                         return withInfoErr('请填写入库编号');
                         exit();
                     }
+                    if ($a['part_number'] == '' && $a['batch_number'] && $a['model'])return withInfoErr('请将所有零部件信息填写完整,已无需入库的填写0');
                     if ($a['part_number']):
                         $re = PartInfoDetailed::create($a);//将零部件信息填入表part_info_detailed表中
                     else:
@@ -133,6 +165,7 @@ class SparePartsController extends Controller
     {
         $put_storage_no = $request->except('_token');
         $data = PartInfoDetailed::SpareWarehousingRecord($put_storage_no);
+       // dd($data);
         return jsonReturn(1, '返回结果', $data);
     }
 
