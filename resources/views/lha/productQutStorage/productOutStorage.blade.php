@@ -51,7 +51,10 @@
                         <th><i class="require">*</i>出库数量：</th>
                         <td><input name="number" type="number" placeholder="请输入出库数量且数量小于{{$numbers}}" style="width: 500px;height: 26px;" ></td>
                     </tr>
-
+                    <tr>
+                        <th><i class="require">*</i>快递单号:</th>
+                        <td><input type="text" name="logistics_company" placeholder="请输入快递单号!若等订单所有货物发货,请操作一次即可!"style="width: 500px;height: 26px;"></td>
+                    </tr>
                     <tr>
                         <th></th>
                         <td>

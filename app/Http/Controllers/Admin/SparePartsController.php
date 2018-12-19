@@ -114,7 +114,8 @@ class SparePartsController extends Controller
                         return withInfoErr('请填写入库编号');
                         exit();
                     }
-                    if ($a['part_number'] == '' && $a['batch_number'] && $a['model'])return withInfoErr('请将所有零部件信息填写完整,已无需入库的填写0');
+                    if ($a['part_number'] == '' && $a['batch_number']=='' && $a['model'] == '')
+                    {return withInfoErr('请将所有零部件信息填写完整,已无需入库的请将其他信息全部填写: 0');}
                     if ($a['part_number']):
                         $re = PartInfoDetailed::create($a);//将零部件信息填入表part_info_detailed表中
                     else:

@@ -42,8 +42,8 @@
                         <th class="tc">入库编号</th>
                         <th>采购订单号</th>
                         <th>入库时间</th>
-                        <th>库房</th>
-                        <th>货架</th>
+                        {{--<th>库房</th>--}}
+                        {{--<th>货架</th>--}}
                         <th>入库详情查看</th>
                     </tr>
                     @foreach($data as $v)
@@ -51,8 +51,8 @@
                             <td class="tc">{{$v->put_storage_no}}</td>
                             <td>{{$v->purchase_order_no}}</td>
                             <td>{{$v->created_at}}</td>
-                            <td style="color:red">{{$v->storageroom_id}}</td>
-                            <td>{{$v->shelve_id}}</td>
+                            {{--<td style="color:red">{{$v->storageroom_id}}</td>--}}
+                            {{--<td>{{$v->shelve_id}}</td>--}}
                             <td>
                                 <a  id="product_id" onclick="info({{$v->put_storage_no}})">查看零件</a>
                             </td>

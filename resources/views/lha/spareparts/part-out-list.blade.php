@@ -17,6 +17,7 @@
     <script>
         $("#b1").click(function(){
             var number ='';
+            
             $.each($('input:checkbox:checked'),function(k){
                 //arr.push($(this).val());
                 if(k== 0){
@@ -25,10 +26,15 @@
                     number += ','+$(this).val();
                 }
             });
-            window.location.href= "/ad/spare/outAll/"+number;
+            if(number === ''){
+                alert("请至少勾选一项");
+            }else{
+                window.location.href = "/ad/spare/outAll/" + number;
+            }
+
         });
         $('#b2').click(function () {
-            window.location.href="/ad/spare/outnum"
+            window.location.href="/ad/spare/outnum";
         })
     </script>
     <!--快捷导航 结束-->

@@ -25,7 +25,7 @@
                     </tr>
                     <tr>
                         <th><i class="require">*</i>每日生产量：</th>
-                        <td><input type="number" class="lg" name="output" style="width: 220px;"></td>
+                        <td><input type="number" class="lg" name="output" style="width: 220px;height: 25px;"></td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>该生产量预计完工时间</th>
@@ -46,7 +46,7 @@
                                     <option value="{{$partInfoCZ->id}}">零部件名称：{{$partInfoCZ->part_name}} 生产商：{{$partInfoCZ->manufacturer}} 生产批号：{{$partInfoCZ->batch_number}} 型号：{{$partInfoCZ->model}}</option>
                                 @endforeach
                             </select>
-                            数量<input type="number" name="1[part_number][]" style="width: 40px">
+                            &nbsp;&nbsp;&nbsp;数量<input type="number" name="1[part_number][]" style="width: 80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,1)" value="+">
                             <input type="button" onclick="addRemove('remove', this,1)"  value="-">
                         </td>
@@ -58,7 +58,7 @@
                                     <option value="{{$partInfoDG->id}}">零部件名称：{{$partInfoDG->part_name}} 生产商：{{$partInfoDG->manufacturer}} 生产批号：{{$partInfoDG->batch_number}} 型号：{{$partInfoDG->model}}</option>
                                 @endforeach
                             </select>
-                            数量<input type="number" name="2[part_number][]" style="width: 40px">
+                            &nbsp;&nbsp;&nbsp;数量<input type="number" name="2[part_number][]" style="width: 80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,2)" value="+">
                             <input type="button" onclick="addRemove('remove', this,2)"  value="-">
                         </td>
@@ -70,7 +70,7 @@
                                     <option value="{{$partInfoSP->id}}">零部件名称：{{$partInfoSP->part_name}} 生产商：{{$partInfoSP->manufacturer}} 生产批号：{{$partInfoSP->batch_number}} 型号：{{$partInfoSP->model}}</option>
                                 @endforeach
                             </select>
-                            数量<input type="number" name="3[part_number][]" style="width: 40px">
+                            &nbsp;&nbsp;&nbsp;数量<input type="number" name="3[part_number][]" style="width:80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,3)" value="+">
                             <input type="button" onclick="addRemove('remove', this,3)"  value="-">
                         </td>
@@ -81,7 +81,7 @@
                                 @foreach($partInfosDP as $partInfoDP)
                                     <option value="{{$partInfoDP->id}}">零部件名称：{{$partInfoDP->part_name}} 生产商：{{$partInfoDP->manufacturer}} 生产批号：{{$partInfoDP->batch_number}} 型号：{{$partInfoDP->model}}</option>
                                 @endforeach
-                            </select>数量<input type="number" name="4[part_number][]" style="width: 40px">
+                            </select>&nbsp;&nbsp;&nbsp;数量<input type="number" name="4[part_number][]" style="width: 80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,4)" value="+">
                             <input type="button" onclick="addRemove('remove', this,4)"  value="-">
                         </td>
@@ -92,7 +92,7 @@
                                 @foreach($partInfosFDD as $partInfoFDD)
                                     <option value="{{$partInfoFDD->id}}">零部件名称：{{$partInfoFDD->part_name}} 生产商：{{$partInfoFDD->manufacturer}} 生产批号：{{$partInfoFDD->batch_number}} 型号：{{$partInfoFDD->model}}</option>
                                 @endforeach
-                            </select>数量<input type="number" name="5[part_number][]" style="width: 40px">
+                            </select>&nbsp;&nbsp;&nbsp;数量<input type="number" name="5[part_number][]" style="width:80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,5)" value="+">
                             <input type="button" onclick="addRemove('remove', this,5)"  value="-">
                         </td>
@@ -103,7 +103,7 @@
                                 @foreach($partInfosSPD as $partInfoSPD)
                                     <option value="{{$partInfoSPD->id}}">零部件名称：{{$partInfoSPD->part_name}} 生产商：{{$partInfoSPD->manufacturer}} 生产批号：{{$partInfoSPD->batch_number}} 型号：{{$partInfoSPD->model}}</option>
                                 @endforeach
-                            </select>数量<input type="number" name="6[part_number][]" style="width: 40px">
+                            </select>&nbsp;&nbsp;&nbsp;数量<input type="number" name="6[part_number][]" style="width:80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,6)" value="+">
                             <input type="button" onclick="addRemove('remove', this,6)"  value="-">
                         </td>
@@ -114,7 +114,8 @@
                                 @foreach($partInfosPJ as $partInfoPJ)
                                     <option value="{{$partInfoPJ->id}}">零部件名称：{{$partInfoPJ->part_name}} 生产商：{{$partInfoPJ->manufacturer}} 生产批号：{{$partInfoPJ->batch_number}} 型号：{{$partInfoPJ->model}}</option>
                                 @endforeach
-                            </select>数量<input type="number" name="7[part_number][]" style="width: 40px">
+                            </select>
+                            &nbsp;&nbsp;&nbsp;数量<input type="number" name="7[part_number][]" style="width: 80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,7)" value="+">
                             <input type="button" onclick="addRemove('remove', this,7)"  value="-">
                         </td>

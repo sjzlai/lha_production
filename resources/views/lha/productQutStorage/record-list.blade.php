@@ -41,7 +41,7 @@
             <div class="result_content">
                 <table class="list_tab">
                     <tr>
-                        <th class="tc" width="5%"><input type="checkbox" name="" ></th>
+                        {{--<th class="tc" width="5%"><input type="checkbox" name="" ></th>--}}
                         {{--<th class="tc">排序</th>--}}
                         <th class="tc">ID</th>
                         <th>订单号</th>
@@ -50,7 +50,7 @@
                         <th>出库货架名</th>
                         <th>操作人姓名</th>
                         <th>操作人手机号</th>
-                        <th>快递方式</th>
+                        {{--<th>快递方式</th>--}}
                         <th>快递公司</th>
                         <th>收货人姓名</th>
                         <th>收货人地址</th>
@@ -61,7 +61,7 @@
                     </tr>
                     @foreach($recordlists as $recordlist)
                         <tr >
-                            <td class="tc" id="aa"><input type="checkbox" name="id[]"  ></td>
+                            {{--<td class="tc" id="aa"><input type="checkbox" name="id[]"  ></td>--}}
                             {{--<td class="tc">--}}
                             {{--<input type="text" name="ord[]" value="0">--}}
                             {{--</td>--}}
@@ -73,19 +73,19 @@
                             <td>{{$recordlist->name}}</td>
                             <td>{{$recordlist->phone}}</td>
                             <td>
-                                @if($recordlist->logistics_mode ==1) 快递
+                               {{-- @if($recordlist->logistics_mode ==1) 快递
                             @elseif($recordlist->logistics_mode ==2) 自提
-                                @endif
+                                @endif--}}
+                                {{$recordlist->logistics_company}}
                             </td>
-
-                            <td>
-                            @if($recordlist->logistics_company==1) 顺丰
+                            {{--<td>--}}
+                            {{--@if($recordlist->logistics_company==1) 顺丰
                             @elseif($recordlist->logistics_company==2) 申通>
                             @elseif($recordlist->logistics_company==3) 中通
                             @elseif($recordlist->logistics_company==4) 圆通
                             @elseif($recordlist->logistics_company==5) EMS
-                                @endif
-                            </td>
+                                @endif--}}
+                            {{--</td>--}}
                             <td>{{$recordlist->consignee_name}}</td>
                             <td>{{$recordlist->hi_address}}</td>
                             <td>{{$recordlist->hi_phone}}</td>

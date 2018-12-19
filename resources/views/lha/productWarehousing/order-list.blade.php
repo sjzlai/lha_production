@@ -54,6 +54,7 @@
                         <th>操作</th>
                     </tr>
                     @foreach($ordersEn as $orderEn)
+
                         <tr >
                             <td class="tc" id="aa"><input type="checkbox" name="id[]"  ></td>
                             {{--<td class="tc">--}}
@@ -75,6 +76,7 @@
                                 <a href="/ad/productWarehousingRecord/{{$orderEn->order_no}}">入库记录查看</a>
                             </td>
                         </tr>
+
                     @endforeach
                 </table>
 

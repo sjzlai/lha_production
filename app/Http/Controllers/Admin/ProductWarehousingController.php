@@ -43,9 +43,26 @@ class ProductWarehousingController extends Controller
      */
     public function productWarehousingView($orderId)
     {
+        //查询所有库房判断此订单是否已全部入库,已入,不可做入库操作
+        $sum_number=PurchasingOrder::where('order_no',$orderId)->select(['goods_number'])->get(); //订单数量
+        $order_sum = ShelfHasPart::where('order_no',$orderId)->sum('part_number');            //仓库数量
+        $orderout_sum = ProductPutStorageRecord::where('order_no',$orderId)->sum('number');  //入库记录
+//        var_dump(intval($sum_number[0]->goods_number));
+////        var_dump(intval($order_sum));
+//        var_dump(intval($orderout_sum));
+//        dd(intval($sum_number[0]->goods_number - (intval($orderout_sum))));
+
+//        if (intval($sum_number[0]->goods_number - intval($orderout_sum)) != 0 )
+//        {
+//            return redirect('ad/productWarehousingOrderList')->with(['message'=>'订单未完成,完成后才可做入库']);
+//        }else
+            if (intval($orderout_sum) >= $sum_number[0]->goods_number ){
+            return redirect('ad/productWarehousingOrderList')->with(['message'=>'订单已完成入库!!!']);
+        }
+        $sum_order = $sum_number[0]->goods_number - intval($orderout_sum);
         $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
         $storageRooms = StorageRoom::all();//所有库房
-        return view('lha.productWarehousing.productWarehousing',['orderId'=>$orderId,'factoryNO'=>$factoryNo,'storageRooms'=>$storageRooms]);
+        return view('lha.productWarehousing.productWarehousing',['orderId'=>$orderId,'factoryNO'=>$factoryNo,'storageRooms'=>$storageRooms,'sum_order'=>$sum_order]);
     }
 
     /**
@@ -63,6 +80,7 @@ class ProductWarehousingController extends Controller
      */
     public function productWarehousing(Request $request)
     {
+
        $data = $request->except('_token');
         $a['part_name'] = 1;
         $a['part_id'] = 0;

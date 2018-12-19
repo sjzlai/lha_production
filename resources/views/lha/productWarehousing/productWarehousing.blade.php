@@ -39,7 +39,7 @@
                     </tr>
                     <tr>
                         <th><i class="require">*</i>入库数量：</th>
-                        <td><input name="number" type="number" placeholder="请输入入库数量"></td>
+                        <td><input name="number" type="number" placeholder="请输入入库数量,最大为:{{$sum_order}}" style="width:250px;height: 25px;"></td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>备注</th>

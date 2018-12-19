@@ -246,7 +246,9 @@ class ProductionController extends Controller
         $a = [];
         $title = array('工厂订单号','成品名称','成品标识码','成品批号','成品规格','记录人姓名','记录人手机号','生产计划ID','生产订单号','预计完工日期','生产数量','备注信息','用户id','创建时间','修改时间');
         array_unshift($a,$title);
+        //dd($data);
         $b=array_values($data['product']);
+        //dd($b);
         array_push($a,$b);
         $this->excel->export('成品记录',$a);
     }
