@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <th><i class="require">*</i>出库数量：</th>
-                        <td><input name="number" type="number" placeholder="请输入出库数量且数量小于{{$numbers}}" style="width: 500px;height: 26px;" ></td>
+                        <td><input name="number" type="number" placeholder="请输入出库数量且数量小于等于{{$numbers}}" style="width: 500px;height: 26px;" ></td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>快递单号:</th>

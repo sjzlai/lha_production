@@ -98,8 +98,11 @@ class ProductOutStorageRecordController extends Controller
         }
 
         $outStorageData['logistics_company'] =$datas['logistics_company'];
+        $orderNum=session()->get('order.order_number');
         $arr['logistics_company']=$datas['logistics_company'];
-        $harvestInfoId = DB::connection('mysql_center')->table('order_info')->insert($arr);
+        $arr['order_status']=1;
+        $orderInfoBool = DB::connection('mysql_fu')->table('order_info')->where('order_num',$orderNum)->update($arr);
+        //dd($orderInfoBool);
 
         $outStorageData['shelf_id'] =$datas['shelf_id'];
         $storage = ShelfInfo::find($datas['shelf_id']);

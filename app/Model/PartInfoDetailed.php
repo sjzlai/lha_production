@@ -19,7 +19,8 @@ class PartInfoDetailed extends Model
     public static function SpareWarehousingRecord($put_storage_no)
     {
         return self::from('part_info_detailed as pid')
-            ->join('part_info as pi' , 'pid.part_id','=','pi.id')
-            ->where(['put_storage_no'=>$put_storage_no])->get();
+            ->leftjoin('part_info as pi' , 'pid.part_id','=','pi.id')
+            ->where('pid.put_storage_no','=',$put_storage_no['id'])
+            ->get();
     }
 }

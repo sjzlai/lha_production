@@ -54,7 +54,7 @@
                             {{--<td style="color:red">{{$v->storageroom_id}}</td>--}}
                             {{--<td>{{$v->shelve_id}}</td>--}}
                             <td>
-                                <a  id="product_id" onclick="info({{$v->put_storage_no}})">查看零件</a>
+                                <a  class="product_id" onclick="info({{$v->put_storage_no}})">查看零件</a>
                             </td>
                             <input type="hidden" name="order_number" id="order_number" value="">
                         </tr>
@@ -78,6 +78,7 @@
                 '_token':'{{csrf_token()}}'
             },function (data) {
                 var da =data.data;
+                console.log(data.data);
                 var tr = '';
                 da.forEach(function (value) {
                     tr += '<tr xmlns="http://www.w3.org/1999/html"><td>' + value.part_name + '</td><td>'+value.part_number+'</td><td>'+value.batch_number+'</td><td>'+value.model+'</td></tr>';

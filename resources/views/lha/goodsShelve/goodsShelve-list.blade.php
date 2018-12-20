@@ -84,7 +84,7 @@
     $('.one').click(function () {
         //询问框
     var did = $(this).attr('name');
-    alert(did);
+   // alert(did);
         layer.confirm('您确认要删除此货架吗？', {
             btn: ['确认', '算了'] //按钮
         }, function () {

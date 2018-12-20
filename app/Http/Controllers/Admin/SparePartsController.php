@@ -86,9 +86,7 @@ class SparePartsController extends Controller
             ->get();
 
         $oldpurchase = Purchase_lists::where('purchase_order_no','=',$info['purchase_order_no'])->get();
-        $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
-        if ($result):
-
+        if ($data):
             $sum = '';
             for ($i = 1; $i <= count($data); $i++):
                 for ($j = 0; $j < count($data[$i]['part_number']); $j++):
@@ -106,15 +104,11 @@ class SparePartsController extends Controller
                     } else{
                         $sum +=$data[$i]['part_number'][$j];
                     }
-                    //echo '<pre>';
-                    //var_dump($data['1']['part_number']['0']);
-//                    var_dump($sum);
-//                    var_dump($oldpurchase[0]->part_number);
-//                    dd($purchase_order_no[0]->partnumbercount);
                     if ($purchase_order_no){
                         foreach ($purchase_order_no as $psn){
                             if ($oldpurchase[$j]->part_number < $psn->partnumbercount + $sum){
                                 return withInfoErr('请核对各个剩余零部件数量,再进行入库');
+                                exit();
                             }
                         }
                     }
@@ -129,6 +123,7 @@ class SparePartsController extends Controller
                     else:
                         continue;
                     endif;
+                    $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
                     if ($re):
                         //将入库信息填入shelf_has_part表中:查询某货架中是否有此配件,有则增加数量,无则增加货架及配件信息
                         $shelf_info['shelf_id'] = $data[$i]['shelve'][$j];
@@ -174,7 +169,8 @@ class SparePartsController extends Controller
     {
         $put_storage_no = $request->except('_token');
         $data = PartInfoDetailed::SpareWarehousingRecord($put_storage_no);
-       // dd($data);
+//        var_dump($put_storage_no);
+//        dd($data);
         return jsonReturn(1, '返回结果', $data);
     }
 
