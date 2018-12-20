@@ -79,11 +79,12 @@ class SparePartsController extends Controller
         $info['user_id'] = $request->input('user_id');
 
         //入库前先判断各个零部件的数量是否对应
-        $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=','1000010')
+        $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=',$info['purchase_order_no'])
             ->select('part_info_detailed.*')
             ->groupBy('part_id')
             ->selectRaw('sum(part_number) as partnumbercount')
             ->get();
+
         $oldpurchase = Purchase_lists::where('purchase_order_no','=',$info['purchase_order_no'])->get();
         $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
         if ($result):
@@ -99,10 +100,17 @@ class SparePartsController extends Controller
                     $a['status'] = 1;
                     $a['purchase_order_no'] = $info['purchase_order_no'];
                     $a['put_storage_no'] = $info['put_storage_no'];
-                    if (count($data[$i]['part_number'][$j] <=1)){$sum = $data[$i]['part_number'][$j];
+                    if (count($data[$i]['part_number'][$j] <=1))
+                    {
+                        $sum = $data[$i]['part_number'][$j];
                     } else{
                         $sum +=$data[$i]['part_number'][$j];
                     }
+                    //echo '<pre>';
+                    //var_dump($data['1']['part_number']['0']);
+//                    var_dump($sum);
+//                    var_dump($oldpurchase[0]->part_number);
+//                    dd($purchase_order_no[0]->partnumbercount);
                     if ($purchase_order_no){
                         foreach ($purchase_order_no as $psn){
                             if ($oldpurchase[$j]->part_number < $psn->partnumbercount + $sum){

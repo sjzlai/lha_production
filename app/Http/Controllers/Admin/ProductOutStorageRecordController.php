@@ -42,6 +42,8 @@ class ProductOutStorageRecordController extends Controller
      */
     public function productOutStorageView($orderId)
     {
+        //将订单号存入session
+        \Session::put('order.order_number',$orderId);
         //$orderId = '08482714';
         //查询所有库房判断此订单是否已全部完成,未完成时,不可做出库操作
         $sum_number=PurchasingOrder::where('order_no',$orderId)->select(['goods_number'])->get(); //订单数量
@@ -60,6 +62,7 @@ class ProductOutStorageRecordController extends Controller
         }
 
         $factoryNo =  OrdereNoLinkFactoryNo::where('order_no',$orderId)->pluck('factory_no')->first();//工厂订单号
+//        dd($factoryNo);
         $storageRooms = StorageRoom::productLinkShelf($orderId);//查询所有成品所在的全部货架
         //出库的数量查询
         foreach ($sum_number as $good_number){
@@ -93,10 +96,17 @@ class ProductOutStorageRecordController extends Controller
         }else{
             return redirect("ad/productOutStorageView/" .$datas['production_order_no'])->with(['message'=>'数量小于0不能再提交']);
         }
+
+        $outStorageData['logistics_company'] =$datas['logistics_company'];
+        $arr['logistics_company']=$datas['logistics_company'];
+        $harvestInfoId = DB::connection('mysql_center')->table('order_info')->insert($arr);
+
         $outStorageData['shelf_id'] =$datas['shelf_id'];
         $storage = ShelfInfo::find($datas['shelf_id']);
         $outStorageData['storageroom_id'] =$storage->storageroom_id;
+//        dd($outStorageData);
         $oprRes = ProductOutStorageRecord::create($outStorageData);
+
         //货架表数量减少
         $model = new ShelfHasPart();
        $shpData = $model

@@ -4,7 +4,7 @@
     <!--面包屑导航 开始-->
     <div class="crumb_warp">
         <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="/ad/production">零部件列表</a> &raquo;
+        <i class="fa fa-home"></i> <a href="/ad/index">首页</a> &raquo;  <a href="{{url('/ad/spare/out')}}">零部件列表</a> &raquo;
     </div>
     <!--面包屑导航 结束-->
     <!--快捷导航 开始-->

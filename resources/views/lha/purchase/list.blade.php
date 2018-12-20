@@ -54,7 +54,7 @@
                             <input type="hidden" name="order_number" id="order_number" value="{{$v->order_number}}">
                             <td>
                                 <a href="{{asset('ad/purchase/edit/'.$v->order_number)}}">修改</a>
-                                <a href="#" id="del">删除</a>
+                                <a href="#" class="del">删除</a>
                                 <a  id="product_id" onclick="info({{$v->order_number}})">查看零件</a>
                             </td>
                         </tr>
@@ -99,7 +99,7 @@
         var did = $('#did').html();
         var token = "{{csrf_token()}}";
 
-        $('#del').click(function () {
+        $('.del').click(function () {
             //询问框
             layer.confirm('您确认要删除此订单吗？', {
                 btn: ['确认', '算了'] //按钮
