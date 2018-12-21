@@ -37,8 +37,8 @@
 
     <div class="result_wrap">
         <ul class="tab_title">
-            <li>已处理订单</li>
-            <li>未处理订单</li>
+            <a href="{{url('ad/productionOrder')}}"><li class="active">已处理订单</li></a>
+            <a href="{{url('ad/productionOrders')}}"><li>未处理订单</li></a>
         </ul>
         {{--已处理订单--}}
         <div class="tab_content">
@@ -87,76 +87,15 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="page_nav list_tab">
+                        {{$ordersEn->links()}}
+                    </div>
                 </table>
-
-
-                <div class="page_nav">
-                    {{$ordersEn->links()}}
-                </div>
-
 
             </div>
         </div>
         {{--已处理订单结束--}}
-
-        {{--未处理订单--}}
-        <div class="tab_content">
-                <div class="result_content">
-                    <table class="list_tab">
-                        <tr>
-                            <th class="tc" width="5%"><input type="checkbox" name="" ></th>
-                            {{--<th class="tc">排序</th>--}}
-                            <th class="tc">ID</th>
-                            <th>订单号</th>
-                            <th>采购申请成品数量</th>
-                            <th>收货地址</th>
-                            <th>收货人姓名</th>
-                            <th>收货人电话</th>
-                            <th>收货日期</th>
-                            <th>备注信息</th>
-                            <th>创建时间</th>
-                            <th>更新时间</th>
-                            <th>处理状态</th>
-                            <th>操作</th>
-                        </tr>
-                        @foreach($ordersUn as $orderUn)
-                            <tr >
-                                <td class="tc" id="aa"><input type="checkbox" name="id[]"  ></td>
-                                {{--<td class="tc">--}}
-                                {{--<input type="text" name="ord[]" value="0">--}}
-                                {{--</td>--}}
-                                <td class="tc" id="did">{{$orderUn->id}}</td>
-                                <td>{{$orderUn->order_no}}</td>
-                                <td>{{$orderUn->goods_number}}</td>
-                                <td>{{$orderUn->address}}</td>
-                                <td>{{$orderUn->consignee_name}}</td>
-                                <td>{{$orderUn->phone}}</td>
-                                <td>{{$orderUn->harvest_date}}</td>
-                                <td>{{$orderUn->remark}}</td>
-                                <td>{{$orderUn->created_at}}</td>
-                                <td>{{$orderUn->updated_at}}</td>
-                                <td>{{$orderUn->status==2 ? '未处理': '已处理'}}</td>
-                                <td>
-                                    <a id="one" href="/ad/productionHandle/{{$orderUn->id}}">处理此订单</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
-
-
-                    <div class="page_nav">
-                        {{$ordersUn->links()}}
-                    </div>
-
-
-                </div>
-        </div>
-        {{--未处理订单结束--}}
-
-
     </div>
-
-
 
 </form>
 <!--搜索结果页面 列表 结束-->

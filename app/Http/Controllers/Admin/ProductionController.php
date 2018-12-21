@@ -44,7 +44,7 @@ class ProductionController extends Controller
     public function orderList()
     {
         $ordersUn = $this->model->orderList(2);//未处理订单
-        $ordersEns = $this->model->orderList(1,10);//已处理订单
+        $ordersEns = $this->model->orderList(1,20);//已处理订单
         //dd($ordersUn);
             $a =array();
             foreach ($ordersEns as $ordersEn) {
@@ -59,7 +59,31 @@ class ProductionController extends Controller
                     $ordersEns[$i]['finish_status'] = "未完成";
                 }
             }
-            return view('lha.production.production-order-list', ['ordersUn' => $ordersUn, 'ordersEn' => $ordersEns]);
+           // return view('lha.production.production-order-lists', ['ordersUn' => $ordersUn]);
+            return view('lha.production.production-order-list', [ 'ordersEn' => $ordersEns]);
+    }
+
+    //生产订单查看
+    public function orderLists()
+    {
+        $ordersUn = $this->model->orderList(2);//未处理订单
+        $ordersEns = $this->model->orderList(1,20);//已处理订单
+        //dd($ordersUn);
+        $a =array();
+        foreach ($ordersEns as $ordersEn) {
+            $a[] = $ordersEn['order_no'];
+            $arr[] = $ordersEn['goods_number'];
+        }
+        for ($i = 0; $i < count($a); $i++) {
+            $sum_number = intval(ProductionRecord::where('order_no', '=', $a[$i])->sum('number'));
+            if ($sum_number == $arr[$i]) {
+                $ordersEns[$i]['finish_status'] = "已完成";
+            } else {
+                $ordersEns[$i]['finish_status'] = "未完成";
+            }
+        }
+         return view('lha.production.production-order-lists', ['ordersUn' => $ordersUn]);
+        //return view('lha.production.production-order-list', [ 'ordersEn' => $ordersEns]);
     }
 
     /**

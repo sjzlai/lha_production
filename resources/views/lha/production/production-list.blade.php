@@ -37,8 +37,8 @@
 
     <div class="result_wrap">
         {{--已处理订单--}}
-            <div class="result_content">
-                <table class="list_tab">
+            <div class="result_content active">
+                <table class="list_tab ">
                     <tr>
                         <th class="tc" width="5%"><input type="checkbox" name="" ></th>
                         {{--<th class="tc">排序</th>--}}
@@ -81,11 +81,14 @@
                             </td>
                         </tr>
                     @endforeach
+                    <tr>
+                    {{--<div class="page_nav result_content">--}}
+                        {{$orders->links()}}
+                    {{--</div>--}}
+                    </tr>
                 </table>
 
-                <div class="page_nav">
-                    {{$orders->links()}}
-                </div>
+
 
             </div>
         {{--已处理订单结束--}}

@@ -83,7 +83,6 @@
                     @endforeach
                 </table>
 
-
                 <div class="page_nav">
                     {{$ordersEn->links()}}
                 </div>

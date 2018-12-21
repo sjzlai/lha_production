@@ -101,6 +101,7 @@ class ProductOutStorageRecordController extends Controller
         $orderNum=session()->get('order.order_number');
         $arr['logistics_company']=$datas['logistics_company'];
         $arr['order_status']=1;
+        $arr['order_status']=1;
         $orderInfoBool = DB::connection('mysql_fu')->table('order_info')->where('order_num',$orderNum)->update($arr);
         //dd($orderInfoBool);
 

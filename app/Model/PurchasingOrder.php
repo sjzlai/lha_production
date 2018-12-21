@@ -24,7 +24,7 @@ class PurchasingOrder extends Model
      * @author: 
      * @date: 2018/6/29 9:57
      */
-    public static function orderList( $status=1,$page = 5)
+    public static function orderList( $status=1,$page=10)
     {
         return self::from('purchasing_order as po')
             ->leftJoin('harvest_info as hi','po.harvest_info_id','hi.id')

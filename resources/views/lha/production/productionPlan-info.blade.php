@@ -71,7 +71,7 @@
                     <label>预计完工日期</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['production_plan_date']}}</span>
                 </li>
                 <li>
-                    <label>生产数量</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['output']}}</span>
+                    <label>每日生产数量</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['output']}}</span>
                 </li>
                 <li>
                     <label>备注信息</label><span  style="font-weight:bold ">{{$productionPlanInfo['product']['remark']}}</span>
