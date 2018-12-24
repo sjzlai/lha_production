@@ -82,15 +82,15 @@ class PurchaseController extends Controller
         else:
             //part_info 将采购信息存表
             $res = '';
-            foreach ($date as $value):
+            foreach ($date as $key=>$value):
                 $va = array_slice($value, 1, 2);
                 if ($va['manufacturer'] == 1):
                     $va['manufacturer'] = '美国医学声学公司';
                 endif;
                 $va['status'] = 0;
-                $re = PartInfo::create($va);
+                //$re = PartInfo::create($va);
                 $v = array_slice($value, 0, 1);
-                $v['part_id'] = $re->id;
+                $v['part_id'] = $key;
                 $v['purchase_order_no'] = $data['order_number'];
                 $v['status'] = 0;
                 $res = Purchase_lists::create($v);

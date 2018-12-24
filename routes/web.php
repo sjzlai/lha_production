@@ -55,6 +55,7 @@ Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:质检|库
 Route::group(['namespace'=>'Admin','middleware'=>['web','login','role:库管|admin'],'prefix'=>'ad'],function (){
     //零部件仓库    入库
     Route::get('spare','SparePartsController@index');                                       //零部件仓库列表
+    Route::get('spares','SparePartsController@indexs');                                       //零部件仓库列表
     Route::get('spare/add/{order_number}','SparePartsController@addparts');                 //零部件入库页
     Route::get('spare/shelve/info','SparePartsController@shelveinfo');                      //货架信息
     Route::post('spare/addSpare','SparePartsController@store');                             //提交入库信息

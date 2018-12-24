@@ -33,7 +33,7 @@ class SparePartsController extends Controller
      */
     public function index()
     {
-        $orderEn = Purchase_quality::QualityOk(1);
+        //$orderEn = Purchase_quality::QualityOk(1);
         $orderUn = Purchase_quality::QualityOk(0);
       /*  $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=','1000010')
             ->select('part_info_detailed.*')
@@ -41,7 +41,20 @@ class SparePartsController extends Controller
             ->selectRaw('sum(part_number) as partnumbercount')
             ->get();
         dd($purchase_order_no);*/
-        return view('lha.spareparts.list', ['orderEn' => $orderEn, 'orderUn' => $orderUn]);
+        return view('lha.spareparts.list', ['orderUn' => $orderUn]);
+    }
+
+    public function indexs()
+    {
+        $orderEn = Purchase_quality::QualityOk(1);
+       // $orderUn = Purchase_quality::QualityOk(0);
+        /*  $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=','1000010')
+              ->select('part_info_detailed.*')
+              ->groupBy('part_id')
+              ->selectRaw('sum(part_number) as partnumbercount')
+              ->get();
+          dd($purchase_order_no);*/
+        return view('lha.spareparts.lists', ['orderEn' => $orderEn]);
     }
 
     /**
@@ -49,9 +62,33 @@ class SparePartsController extends Controller
      */
     public function addparts($order_number)
     {
+
+        //入库前先判断各个零部件的数量是否对应
+        $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=',$order_number)
+            ->select('part_info_detailed.*')
+            ->groupBy('part_id')
+            ->selectRaw('sum(part_number) as partnumbercount')
+            ->get()->toArray();
+        $oldpurchase = Purchase_lists::where('purchase_order_no','=',$order_number)->get()->toArray();
+        //dd($purchase_order_no);
+/*        if (!empty($purchase_order_no)){
+            //判断已入库数量跟未入库数量的核对
+
+            for ($i = 0; $i<count($purchase_order_no);$i++) {
+                if (intval($purchase_order_no[$i]['partnumbercount']) < $oldpurchase[$i]['part_number'] ) {
+                    $info = Purchase::where(['order_number' => $order_number])->get();
+                    $room = StorageRoom::roomAll();
+                    return view('lha.spareparts.parts-add', ['info' => $info, 'room' => $room]);
+                } else {
+                    //return withInfoErr('此订单已完成入库!请操作其他订单!');
+                }
+
+            }
+        }*/
         $info = Purchase::where(['order_number' => $order_number])->get();
         $room = StorageRoom::roomAll();
         return view('lha.spareparts.parts-add', ['info' => $info, 'room' => $room]);
+
     }
 
     /**
@@ -81,30 +118,26 @@ class SparePartsController extends Controller
         }
         $info['user_id'] = $request->input('user_id');
 
-        //入库前先判断各个零部件的数量是否对应
-        $purchase_order_no = PartInfoDetailed::where('purchase_order_no','=',$info['purchase_order_no'])
-            ->select('part_info_detailed.*')
-            ->groupBy('part_id')
-            ->selectRaw('sum(part_number) as partnumbercount')
-            ->get()->toArray();
-        $oldpurchase = Purchase_lists::where('purchase_order_no','=',$info['purchase_order_no'])->get()->toArray();
-       /* if ($purchase_order_no){
-                       dd($purchase_order_no);
-                foreach ($purchase_order_no as $psn){
-                    if ($oldpurchase[0]->part_number < $psn->partnumbercount){
-                        return withInfoErr('请核对各个剩余零部件数量,再进行入库');
-                        exit();
-                    }
-                }
-            }*/
-       if (!empty($purchase_order_no)){
-            exit('123');
-       }
        //dd($oldpurchase);
         if ($data):
             $sum = '';
-            for ($i = 1; $i <= count($data); $i++):
-                for ($j = 0; $j < count($data[$i]['part_number']); $j++):
+            //判断该订单已入库数量+现入库数量与 采购订单数量的对比
+            //入库前先判断各个零部件的数量是否对应
+            $purchase_order_no = PartInfoDetailed::where('purchase_order_no', '=', $info['purchase_order_no'])
+                ->select('part_info_detailed.*')
+                ->groupBy('part_id')
+                ->selectRaw('sum(part_number) as partnumbercount')
+                ->get()->toArray();
+            $oldpurchase = Purchase_lists::where('purchase_order_no', '=', $info['purchase_order_no'])->get()->toArray();
+            echo '<pre>';
+//            var_dump($purchase_order_no);
+//            var_dump($oldpurchase);
+//            dd($oldpurchase);
+
+
+        //dd(count($data[1]['part_number']));
+            for ($i = 1; $i <= count($data); $i++){
+                for ($j = 0; $j < count($data[$i]['part_number']); $j++) {
                     //将零部件详细信息:数量,批号,型号存入表part_info_detailed
                     $a['part_id'] = $i;
                     $a['part_number'] = $data[$i]['part_number'][$j];
@@ -113,46 +146,60 @@ class SparePartsController extends Controller
                     $a['status'] = 1;
                     $a['purchase_order_no'] = $info['purchase_order_no'];
                     $a['put_storage_no'] = $info['put_storage_no'];
-                    if (count($data[$i]['part_number'][$j] <=1))
-                    {
+                    if (count($data[$i]['part_number'][$j] <= 1)) {
                         $sum = $data[$i]['part_number'][$j];
-                    } else{
-                        $sum +=$data[$i]['part_number'][$j];
+                    } else {
+                        $sum += $data[$i]['part_number'][$j];
                     }
-                    //判断该订单已入库数量+现入库数量与 采购订单数量的对比
+                    if ($a['part_number'] != 0 ){
+                        //var_dump($a);
+                        if (isset($purchase_order_no) && isset($oldpurchase)){
+                            for ($c=0;$c < count($purchase_order_no);$c++){
+                                //dd($oldpurchase[$c]['part_number']- $purchase_order_no[$c]['partnumbercount'] - $sum );
+                                if (($oldpurchase[$c]['part_number']- $purchase_order_no[$c]['partnumbercount'] - $sum ) < 0  &&  $oldpurchase[$c]['part_id'] == $purchase_order_no[$c]['part_id'] ) {
+                                    //  return withInfoErr('请核对各个剩余零部件数量,再进行入库');
+                                }
+                            }
+                        }
+
+                        if (!$a['put_storage_no']) {
+                            return withInfoErr('请填写入库编号');
+                            exit();
+                        }
+                        if ($a['part_number'] == '' && $a['batch_number'] == '' && $a['model'] == '') //
+                        {
+                            return withInfoErr('请将所有零部件信息填写完整,已无需入库的请将其他信息全部填写: 0');
+                            exit();
+                        }
+                        if ($a['part_number'])
+                           // dd($a);
+                        if (empty($purchase_order_no)){
+                            $re = PartInfoDetailed::create($a);//将零部件信息填入表part_info_detailed表中
+                        }else{
+                            $re = PartInfoDetailed::insert($a);
+                        }
+                        if ($re):
+                            //将入库信息填入shelf_has_part表中:查询某货架中是否有此配件,有则增加数量,无则增加货架及配件信息
+                            $shelf_info['shelf_id'] = $data[$i]['shelve'][$j];
+                            $shelf_info['storageroom_id'] = $data[$i]['store_room'][$j];
+                            $shelf_info['part_id'] = $i;
+                            $shelf_info['part_number'] = $data[$i]['part_number'][$j];
+                            $part_number = DB::table('shelf_has_part')->where('shelf_id', $shelf_info['shelf_id'])->where('part_id', $shelf_info['part_id'])->pluck('part_number')->toArray();
+                            $addRes = null;
+                            $numRes = null;
+                            if ($part_number):
+                                $numRes = ShelfHasPart::where('shelf_id', $shelf_info['shelf_id'])->where('part_id', $shelf_info['part_id'])->increment('part_number', $shelf_info['part_number']);
+                            else:
+                                $addRes = ShelfHasPart::create($shelf_info);
+                            endif;
+                        endif;
+                    }
+                }
+            }
 
 
-            if (!$a['put_storage_no']) {
-                return withInfoErr('请填写入库编号');
-                exit();
-            }
-            if ($a['part_number'] == '' && $a['batch_number']=='' && $a['model'] == '')
-            {
-                return withInfoErr('请将所有零部件信息填写完整,已无需入库的请将其他信息全部填写: 0');
-                exit();
-            }
-            if ($a['part_number'])
-                $re = PartInfoDetailed::create($a);//将零部件信息填入表part_info_detailed表中
-//            else:
-//                continue;
-//            endif;
-            if ($re):
-                //将入库信息填入shelf_has_part表中:查询某货架中是否有此配件,有则增加数量,无则增加货架及配件信息
-                $shelf_info['shelf_id'] = $data[$i]['shelve'][$j];
-                $shelf_info['storageroom_id'] = $data[$i]['store_room'][$j];
-                $shelf_info['part_id'] = $i;
-                $shelf_info['part_number'] = $data[$i]['part_number'][$j];
-                $part_number = DB::table('shelf_has_part')->where('shelf_id', $shelf_info['shelf_id'])->where('part_id', $shelf_info['part_id'])->pluck('part_number')->toArray();
-                $addRes = null;
-                $numRes = null;
-                if ($part_number):
-                    $numRes = ShelfHasPart::where('shelf_id', $shelf_info['shelf_id'])->where('part_id', $shelf_info['part_id'])->increment('part_number', $shelf_info['part_number']);
-                else:
-                    $addRes = ShelfHasPart::create($shelf_info);
-                endif;
-            endif;
-                endfor;
-            endfor;
+
+
             $result = PartPutStorageRecord::create($info);      //将存库信息存入记录表
             if ($numRes || $addRes):       //更改订单入库状态
                 $res = Purchase::UpdateStatus($info['purchase_order_no']);
