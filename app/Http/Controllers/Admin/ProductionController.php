@@ -202,13 +202,10 @@ class ProductionController extends Controller
             $piData['product_code'] = $this->codeMake($data['order_no'],$data['product_batch_number']);//产品标识码
             $piRes = $this->piModel->create($piData);
         }
-
-
         //工厂单号与生产订单号关联表写入
         $this->olfModel->order_no =  $data['order_no'];
         $this->olfModel->factory_no =  $data['factory_no'];
         $olfRes = $this->olfModel->save();
-
 
         if (!$ppRes || !$pplRes || !$piRes || !$olfRes) return withInfoErr('添加失败');
         return redirect("/ad/productionPlanInfo/".$data['order_no']);
@@ -254,7 +251,7 @@ class ProductionController extends Controller
     {
 //        dd($orderId);
         $data = ProductionPlan::productionPlanInfo($orderId);
-//      dd($data);
+      dd($data);
         return view('lha.production.productionPlan-info',['productionPlanInfo'=>$data]);
     }
 

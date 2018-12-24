@@ -37,8 +37,8 @@
 
         <div class="result_wrap">
             <ul class="tab_title">
-                <a href="{{url('ad/productionOrder')}}"> <li>已处理订单</li></a>
-                <a href="{{url('ad/productionOrders')}}"> <li class="active">未处理订单</li></a>
+                <a href="{{url('ad/productionOrders')}}"> <li class="active">新订单</li></a>
+                <a href="{{url('ad/productionOrder')}}"> <li>生产订单</li></a>
             </ul>
             {{--未处理订单--}}
             <div class="tab_content">

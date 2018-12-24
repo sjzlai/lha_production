@@ -29,7 +29,9 @@ class Purchase extends Model
     public static function searchList($keyword,$page=5)
     {
         return self::leftjoin('user', 'part_purchase.user_id', '=', 'user.id')
-        ->where('order_number','like',"%$keyword%")->paginate($page);
+        ->where('order_number','like',"%$keyword%")
+            ->where('status','=',0)
+            ->paginate($page);
     }
     /**
      * Notes:查看订单中采购零部件详情
