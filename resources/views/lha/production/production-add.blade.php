@@ -10,11 +10,12 @@
     <div class="result_wrap">
         <form action="/ad/productionPlan" method="post">
             {{csrf_field()}}
-            <input type="hidden" name="order_no" value="{{$orderId}}">
+
             <table class="add_tab">
                 <tbody>
                     <tr>
                         <th><i class="require">*</i>订单号：</th>
+                        <input type="hidden" name="order_no" value="{{$orderId}}">
                         <td>{{$orderId}}</td>
                     </tr>
                     <tr>
@@ -43,7 +44,7 @@
                         <td style="display: block">
                             <select name="1[part_id][]" id="">
                                 @foreach($partInfosCZ as $partInfoCZ)
-                                    <option value="{{$partInfoCZ->id}}">零部件名称：{{$partInfoCZ->part_name}} 生产商：{{$partInfoCZ->manufacturer}} 生产批号：{{$partInfoCZ->batch_number}} 型号：{{$partInfoCZ->model}}</option>
+                                    <option value="{{$partInfoCZ->id}}">零部件名称：{{$partInfoCZ->part_name}} 生产商：{{$partInfoCZ->manufacturer}} 生产批号：{{$partInfoCZ->batch_number}} 型号：{{$partInfoCZ->model}}数量:{{$partInfoCZ->part_number}}</option>
                                 @endforeach
                             </select>
                             &nbsp;&nbsp;&nbsp;数量<input type="number" name="1[part_number][]" style="width: 80px;height: 25px;">
@@ -55,7 +56,7 @@
                         <th><i class="require">*</i>笛管</th>
                         <td style="display: block"><select name="2[part_id][]" id="">
                                 @foreach($partInfosDG as $partInfoDG)
-                                    <option value="{{$partInfoDG->id}}">零部件名称：{{$partInfoDG->part_name}} 生产商：{{$partInfoDG->manufacturer}} 生产批号：{{$partInfoDG->batch_number}} 型号：{{$partInfoDG->model}}</option>
+                                    <option value="{{$partInfoDG->id}}">零部件名称：{{$partInfoDG->part_name}} 生产商：{{$partInfoDG->manufacturer}} 生产批号：{{$partInfoDG->batch_number}} 型号：{{$partInfoDG->model}}数量:{{$partInfoDG->part_number}}</option>
                                 @endforeach
                             </select>
                             &nbsp;&nbsp;&nbsp;数量<input type="number" name="2[part_number][]" style="width: 80px;height: 25px;">
@@ -67,7 +68,7 @@
                         <th><i class="require">*</i>哨片</th>
                         <td style="display: block"><select name="3[part_id][]" id="">
                                 @foreach($partInfosSP as $partInfoSP)
-                                    <option value="{{$partInfoSP->id}}">零部件名称：{{$partInfoSP->part_name}} 生产商：{{$partInfoSP->manufacturer}} 生产批号：{{$partInfoSP->batch_number}} 型号：{{$partInfoSP->model}}</option>
+                                    <option value="{{$partInfoSP->id}}">零部件名称：{{$partInfoSP->part_name}} 生产商：{{$partInfoSP->manufacturer}} 生产批号：{{$partInfoSP->batch_number}} 型号：{{$partInfoSP->model}}数量:{{$partInfoSP->part_number}}</option>
                                 @endforeach
                             </select>
                             &nbsp;&nbsp;&nbsp;数量<input type="number" name="3[part_number][]" style="width:80px;height: 25px;">
@@ -79,7 +80,7 @@
                         <th><i class="require">*</i>垫片</th>
                         <td style="display: block"><select name="4[part_id][]" id="">
                                 @foreach($partInfosDP as $partInfoDP)
-                                    <option value="{{$partInfoDP->id}}">零部件名称：{{$partInfoDP->part_name}} 生产商：{{$partInfoDP->manufacturer}} 生产批号：{{$partInfoDP->batch_number}} 型号：{{$partInfoDP->model}}</option>
+                                    <option value="{{$partInfoDP->id}}">零部件名称：{{$partInfoDP->part_name}} 生产商：{{$partInfoDP->manufacturer}} 生产批号：{{$partInfoDP->batch_number}} 型号：{{$partInfoDP->model}}数量:{{$partInfoDP->part_number}}</option>
                                 @endforeach
                             </select>&nbsp;&nbsp;&nbsp;数量<input type="number" name="4[part_number][]" style="width: 80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,4)" value="+">
@@ -90,7 +91,7 @@
                         <th><i class="require">*</i>肺笛袋</th>
                         <td style="display: block"><select name="5[part_id][]"  id="">
                                 @foreach($partInfosFDD as $partInfoFDD)
-                                    <option value="{{$partInfoFDD->id}}">零部件名称：{{$partInfoFDD->part_name}} 生产商：{{$partInfoFDD->manufacturer}} 生产批号：{{$partInfoFDD->batch_number}} 型号：{{$partInfoFDD->model}}</option>
+                                    <option value="{{$partInfoFDD->id}}">零部件名称：{{$partInfoFDD->part_name}} 生产商：{{$partInfoFDD->manufacturer}} 生产批号：{{$partInfoFDD->batch_number}} 型号：{{$partInfoFDD->model}}数量:{{$partInfoFDD->part_number}}</option>
                                 @endforeach
                             </select>&nbsp;&nbsp;&nbsp;数量<input type="number" name="5[part_number][]" style="width:80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,5)" value="+">
@@ -101,7 +102,7 @@
                         <th><i class="require">*</i>哨片袋</th>
                         <td style="display: block"><select name="6[part_id][]" id="">
                                 @foreach($partInfosSPD as $partInfoSPD)
-                                    <option value="{{$partInfoSPD->id}}">零部件名称：{{$partInfoSPD->part_name}} 生产商：{{$partInfoSPD->manufacturer}} 生产批号：{{$partInfoSPD->batch_number}} 型号：{{$partInfoSPD->model}}</option>
+                                    <option value="{{$partInfoSPD->id}}">零部件名称：{{$partInfoSPD->part_name}} 生产商：{{$partInfoSPD->manufacturer}} 生产批号：{{$partInfoSPD->batch_number}} 型号：{{$partInfoSPD->model}}数量:{{$partInfoSPD->part_number}}</option>
                                 @endforeach
                             </select>&nbsp;&nbsp;&nbsp;数量<input type="number" name="6[part_number][]" style="width:80px;height: 25px;">
                             <input type="button"   onclick="addRemove('add', this,6)" value="+">
@@ -112,7 +113,7 @@
                         <th><i class="require">*</i>皮筋</th>
                         <td style="display: block"><select name="7[part_id][]" id="">
                                 @foreach($partInfosPJ as $partInfoPJ)
-                                    <option value="{{$partInfoPJ->id}}">零部件名称：{{$partInfoPJ->part_name}} 生产商：{{$partInfoPJ->manufacturer}} 生产批号：{{$partInfoPJ->batch_number}} 型号：{{$partInfoPJ->model}}</option>
+                                    <option value="{{$partInfoPJ->id}}">零部件名称：{{$partInfoPJ->part_name}} 生产商：{{$partInfoPJ->manufacturer}} 生产批号：{{$partInfoPJ->batch_number}} 型号：{{$partInfoPJ->model}}数量:{{$partInfoPJ->part_number}}</option>
                                 @endforeach
                             </select>
                             &nbsp;&nbsp;&nbsp;数量<input type="number" name="7[part_number][]" style="width: 80px;height: 25px;">
@@ -132,13 +133,13 @@
                     <tr>
                         <th><i class="require">*</i>成品批号</th>
                         <td>
-                            <input type="text" name="product_batch_number"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入成品批号">
+                            <input type="text" name="product_batch_number" placeholder="请输入成品批号">
                         </td>
                     </tr>
                     <tr>
                         <th><i class="require">*</i>成品规格</th>
                         <td>
-                            <input type="text" name="product_spec"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" placeholder="请输入成品规格">
+                            <input type="text" name="product_spec" placeholder="请输入成品规格">
                         </td>
                     </tr>
 
@@ -163,12 +164,12 @@
                             '<select name="1[part_id][]" id="">\n'+
                             '@foreach($partInfosCZ as $partInfoCZ)\n'+
                             '<option value="{{$partInfoCZ->id}}">\n'+
-                            "零部件名称：{{$partInfoCZ->part_name}} 生产商：{{$partInfoCZ->manufacturer}} 生产批号：{{$partInfoCZ->batch_number}} 型号：{{$partInfoCZ->model}}\n" +
+                            "零部件名称：{{$partInfoCZ->part_name}} 生产商：{{$partInfoCZ->manufacturer}} 生产批号：{{$partInfoCZ->batch_number}} 型号：{{$partInfoCZ->model}}数量:{{$partInfoCZ->part_number}}\n" +
                             '</option>\n'+
                             '@endforeach \n'+
                             '</select>\n' +
                             '数量\n'+
-                            '<input type="number" name="1[part_number][]" style="width: 40px">\n' +
+                            '<input type="number" name="1[part_number][]" style="width: 80px;height: 25px;">\n' +
                             '                        </td>');
                         break;
                     case 2:
@@ -176,12 +177,12 @@
                             '<select name="2[part_id][]" id="">\n'+
                             '@foreach($partInfosDG as $partInfoDG)\n'+
                             '<option value="{{$partInfoDG->id}}">\n'+
-                            "零部件名称：{{$partInfoDG->part_name}} 生产商：{{$partInfoDG->manufacturer}} 生产批号：{{$partInfoDG->batch_number}} 型号：{{$partInfoDG->model}}\n" +
+                            "零部件名称：{{$partInfoDG->part_name}} 生产商：{{$partInfoDG->manufacturer}} 生产批号：{{$partInfoDG->batch_number}} 型号：{{$partInfoDG->model}}数量:{{$partInfoDG->part_number}}\n" +
                             '</option>\n'+
                             '@endforeach \n'+
                             '</select>\n' +
                             '数量\n'+
-                            '<input type="number" name="2[part_number][]" style="width: 40px">\n' +
+                            '<input type="number" name="2[part_number][]" style="width: 80px;height: 25px;">\n' +
                             '                        </td>');
                         break;
                     case 3:
@@ -189,12 +190,12 @@
                             '<select name="3[part_id][]" id="">\n'+
                             '@foreach($partInfosSP as $partInfoSP)\n'+
                             '<option value="{{$partInfoSP->id}}">\n'+
-                            "零部件名称：{{$partInfoSP->part_name}} 生产商：{{$partInfoSP->manufacturer}} 生产批号：{{$partInfoSP->batch_number}} 型号：{{$partInfoDG->model}}\n" +
+                            "零部件名称：{{$partInfoSP->part_name}} 生产商：{{$partInfoSP->manufacturer}} 生产批号：{{$partInfoSP->batch_number}} 型号：{{$partInfoDG->model}}数量:{{$partInfoDG->part_number}}\n" +
                             '</option>\n'+
                             '@endforeach \n'+
                             '</select>\n' +
                             '数量\n'+
-                            '<input type="number" name="3[part_number][]" style="width: 40px">\n' +
+                            '<input type="number" name="3[part_number][]" style="width: 80px;height: 25px;">\n' +
                             '                        </td>');
                         break;
                     case 4:
@@ -202,12 +203,12 @@
                             '<select name="4[part_id][]" id="">\n'+
                             '@foreach($partInfosDP as $partInfoDP)\n'+
                             '<option value="{{$partInfoDP->id}}">\n'+
-                            "零部件名称：{{$partInfoDP->part_name}} 生产商：{{$partInfoDP->manufacturer}} 生产批号：{{$partInfoDP->batch_number}} 型号：{{$partInfoDP->model}}\n" +
+                            "零部件名称：{{$partInfoDP->part_name}} 生产商：{{$partInfoDP->manufacturer}} 生产批号：{{$partInfoDP->batch_number}} 型号：{{$partInfoDP->model}}数量:{{$partInfoDP->part_number}}\n" +
                             '</option>\n'+
                             '@endforeach \n'+
                             '</select>\n' +
                             '数量\n'+
-                            '<input type="number" name="4[part_number][]" style="width: 40px">\n' +
+                            '<input type="number" name="4[part_number][]" style="width: 80px;height: 25px;">\n' +
                             '                        </td>');
                         break;
                     case 5:
@@ -215,12 +216,12 @@
                             '<select name="5[part_id][]" id="">\n'+
                             '@foreach($partInfosFDD as $partInfoFDD)\n'+
                             '<option value="{{$partInfoFDD->id}}">\n'+
-                            "零部件名称：{{$partInfoFDD->part_name}} 生产商：{{$partInfoFDD->manufacturer}} 生产批号：{{$partInfoFDD->batch_number}} 型号：{{$partInfoFDD->model}}\n" +
+                            "零部件名称：{{$partInfoFDD->part_name}} 生产商：{{$partInfoFDD->manufacturer}} 生产批号：{{$partInfoFDD->batch_number}} 型号：{{$partInfoFDD->model}}数量:{{$partInfoFDD->part_number}}\n" +
                             '</option>\n'+
                             '@endforeach \n'+
                             '</select>\n' +
                             '数量\n'+
-                            '<input type="number" name="5[part_number][]" style="width: 40px">\n' +
+                            '<input type="number" name="5[part_number][]" style="width: 80px;height: 25px;">\n' +
                             '                        </td>');
                         break;
                     case 6:
@@ -228,12 +229,12 @@
                             '<select name="6[part_id][]" id="">\n'+
                             '@foreach($partInfosSPD as $partInfoSPD)\n'+
                             '<option value="{{$partInfoSPD->id}}">\n'+
-                            "零部件名称：{{$partInfoSPD->part_name}} 生产商：{{$partInfoSPD->manufacturer}} 生产批号：{{$partInfoSPD->batch_number}} 型号：{{$partInfoSPD->model}}\n" +
+                            "零部件名称：{{$partInfoSPD->part_name}} 生产商：{{$partInfoSPD->manufacturer}} 生产批号：{{$partInfoSPD->batch_number}} 型号：{{$partInfoSPD->model}}数量:{{$partInfoSPD->part_number}}\n" +
                             '</option>\n'+
                             '@endforeach \n'+
                             '</select>\n' +
                             '数量\n'+
-                            '<input type="number" name="6[part_number][]" style="width: 40px">\n' +
+                            '<input type="number" name="6[part_number][]" style="width: 80px;height: 25px;">\n' +
                             '                        </td>');
                         break;
                     case 7:
@@ -241,12 +242,12 @@
                             '<select name="7[part_id][]" id="">\n'+
                             '@foreach($partInfosPJ as $partInfoPJ)\n'+
                             '<option value="{{$partInfoPJ->id}}">\n'+
-                            "零部件名称：{{$partInfoPJ->part_name}} 生产商：{{$partInfoPJ->manufacturer}} 生产批号：{{$partInfoPJ->batch_number}} 型号：{{$partInfoPJ->model}}\n" +
+                            "零部件名称：{{$partInfoPJ->part_name}} 生产商：{{$partInfoPJ->manufacturer}} 生产批号：{{$partInfoPJ->batch_number}} 型号：{{$partInfoPJ->model}}数量:{{$partInfoPJ->part_number}}\n" +
                             '</option>\n'+
                             '@endforeach \n'+
                             '</select>\n' +
                             '数量\n'+
-                            '<input type="number" name="7[part_number][]" style="width: 40px">\n' +
+                            '<input type="number" name="7[part_number][]" style="width: 80px;height: 25px;">\n' +
                             '                        </td>');
                         break;
                     default:'不存在的';break;

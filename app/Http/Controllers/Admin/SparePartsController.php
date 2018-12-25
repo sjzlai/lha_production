@@ -129,12 +129,7 @@ class SparePartsController extends Controller
                 ->selectRaw('sum(part_number) as partnumbercount')
                 ->get()->toArray();
             $oldpurchase = Purchase_lists::where('purchase_order_no', '=', $info['purchase_order_no'])->get()->toArray();
-            echo '<pre>';
-//            var_dump($purchase_order_no);
-//            var_dump($oldpurchase);
-//            dd($oldpurchase);
-
-
+//            echo '<pre>';
         //dd(count($data[1]['part_number']));
             for ($i = 1; $i <= count($data); $i++){
                 for ($j = 0; $j < count($data[$i]['part_number']); $j++) {
@@ -152,13 +147,19 @@ class SparePartsController extends Controller
                         $sum += $data[$i]['part_number'][$j];
                     }
                     if ($a['part_number'] != 0 ){
-                        //var_dump($a);
+                        //已有入库记录的
                         if (isset($purchase_order_no) && isset($oldpurchase)){
                             for ($c=0;$c < count($purchase_order_no);$c++){
                                 //dd($oldpurchase[$c]['part_number']- $purchase_order_no[$c]['partnumbercount'] - $sum );
                                 if (($oldpurchase[$c]['part_number']- $purchase_order_no[$c]['partnumbercount'] - $sum ) < 0  &&  $oldpurchase[$c]['part_id'] == $purchase_order_no[$c]['part_id'] ) {
-                                    //  return withInfoErr('请核对各个剩余零部件数量,再进行入库');
+                                      return withInfoErr('请核对各个剩余零部件数量,再进行入库');
                                 }
+                            }
+                        }
+                        //无入库记录的
+                        for ($s=0;$s<count($oldpurchase);$s++){
+                            if ($oldpurchase[$s]['part_number']-$sum < 0  &&  $oldpurchase[$c]['part_id'] == $a['part_id']){
+                                return withInfoErr('请核对各个剩余零部件数量,再进行入库');
                             }
                         }
 

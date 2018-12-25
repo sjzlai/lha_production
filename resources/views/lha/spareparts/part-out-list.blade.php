@@ -69,7 +69,7 @@
                             <td>{{$value->part_number}}</td>
                             <td>{{$value->updated_at}}</td>
                             <td>
-                                <a href="{{url('ad/spare/outInfo/'.$value->part_id.'/'.$value->part_number)}}">出库</a>
+                                <a href="{{url('/ad/spare/outAll/'.$value->id)}}">出库</a>
                             </td>
                         </tr>
                         @endif

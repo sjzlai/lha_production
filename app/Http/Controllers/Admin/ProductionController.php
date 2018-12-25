@@ -137,6 +137,7 @@ class ProductionController extends Controller
         $partInfosSPD = PartInfo::fuzzySearch('哨片袋');
         $partInfosPJ = PartInfo::fuzzySearch('皮筋');
 //        $partInfos = PartInfo::all();
+        //dd($partInfosCZ);
         return view('lha.production.production-add',[
             'orderId'=>$orderId,
             'partInfosCZ'=>$partInfosCZ,
@@ -153,7 +154,8 @@ class ProductionController extends Controller
     /**
      * @param Request $request
      * @name:生产计划添加
-     * @author: 
+     * @author:
+     *
      * @date: 2018/6/29 15:15
      */
     public function productionPlan(Request $request)
@@ -166,6 +168,8 @@ class ProductionController extends Controller
         $data['remark'] = $request->input('remark');//备注
         $data['production_plan_date'] = $request->input('production_plan_date');//预计完工日期
 
+        $res = $this->ppModel->where('order_no',$data['order_no'])->first();
+        if ($res) return withInfoErr('已有生产计划');
 //        $data['part_id'] = $request->input('part_id');//零部件id
 //        $data['part_number'] = $request->input('part_number');//零部件数量
 
@@ -173,14 +177,17 @@ class ProductionController extends Controller
         $data['product_batch_number'] = $request->input('product_batch_number');//成品批号
         $data['product_spec'] = $request->input('product_spec');//成品规格
         $data['factory_no'] = $request->input('factory_no');//工厂订单号
-
+       // dd($data);
         //生产计划表写入
         $this->ppModel->production_plan_date = date('Y-m-d H:i:s',strtotime($data['production_plan_date']));//完工时间写入
-        $this->ppModel->order_no =$data['order_no'];//订单号写入
+        $this->ppModel->order_no =$request->input('order_no');//订单号写入
         $this->ppModel->output =$data['output'];//生产量写入
         $this->ppModel->remark =$data['remark'];//备注写入
         $this->ppModel->user_id =session('user.id');//用户id写入
+       // dd($data['order_no']);
         $ppRes = $this->ppModel->save();
+
+        //dd($ppRes);
         //零部件清单表写入
         for ($i=1; $i <= count($datas); $i++):
             for ($j = 0; $j < count($datas[$i]['part_number']); $j++):
@@ -200,13 +207,14 @@ class ProductionController extends Controller
             $piData['product_spec'] = $data['product_spec'];
             $piData['order_no'] = $data['order_no'];
             $piData['product_code'] = $this->codeMake($data['order_no'],$data['product_batch_number']);//产品标识码
-            $piRes = $this->piModel->create($piData);
+            $piRes = $this->piModel->insert($piData);
         }
+
         //工厂单号与生产订单号关联表写入
         $this->olfModel->order_no =  $data['order_no'];
         $this->olfModel->factory_no =  $data['factory_no'];
         $olfRes = $this->olfModel->save();
-
+//        dd($olfRes);
         if (!$ppRes || !$pplRes || !$piRes || !$olfRes) return withInfoErr('添加失败');
         return redirect("/ad/productionPlanInfo/".$data['order_no']);
     }
@@ -249,9 +257,9 @@ class ProductionController extends Controller
      */
     public function productionPlanInfo($orderId)
     {
-//        dd($orderId);
+        //dd($orderId);
         $data = ProductionPlan::productionPlanInfo($orderId);
-      dd($data);
+        //dd($data);
         return view('lha.production.productionPlan-info',['productionPlanInfo'=>$data]);
     }
 
